@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 
 const HeroSection = () => {
   return (
@@ -25,11 +25,11 @@ const HeroSection = () => {
           {/* Shifted button downwards with extra top padding */}
           <div className="flex flex-wrap gap-3 pt-6 md:pt-10 justify-start">
             <Link 
-              to="/libro/lector"
+              to="/libro"
               className="bg-[#1A311C] text-white px-6 py-3.5 rounded-xl text-xs font-bold tracking-widest hover:bg-[#78a130] transition-all duration-300 uppercase flex items-center gap-2 shadow-xl hover:-translate-y-0.5"
             >
-              <BookOpen size={16} className="text-[#78a130]" />
-              <span>LEER EL LIBRO DIGITAL</span>
+              <ShoppingBag size={16} className="text-[#78a130]" />
+              <span>ADQUIRIR LIBRO FÍSICO</span>
             </Link>
           </div>
         </div>

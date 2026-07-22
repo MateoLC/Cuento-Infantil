@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import HTMLFlipBook from 'react-pageflip';
-import { BookOpen, Sparkles, Download, ArrowLeft, ShieldCheck, Heart, UserCheck, FileText } from 'lucide-react';
-import bookData from '../data/bookData.json';
+import { ShoppingBag, Sparkles, Download, ShieldCheck, Heart, FileText, CheckCircle2, Award, Building2, BookOpen } from 'lucide-react';
 
 const characters = [
   {
@@ -51,24 +49,16 @@ const characters = [
 
 const BookPage = () => {
   const location = useLocation();
+  const whatsappUrl = "https://wa.me/573134536499?text=Me%20interesa%20adquirir%20el%20libro%20fisico%20y%20conocer%20la%20estrategia%20educativa";
 
   // Determine active subpage tab based on URL path
   const getSubpage = () => {
-    if (location.pathname.includes('/lector')) return 'lector';
     if (location.pathname.includes('/personajes')) return 'personajes';
     if (location.pathname.includes('/descargas')) return 'descargas';
-    return 'lector'; // Default
+    return 'fisico'; // Default is Adquirir Libro Físico
   };
 
   const activeSubpage = getSubpage();
-
-  // Extract all pages from all chapters into a flat list for full book reader
-  const allBookPages = bookData.reduce((acc, chapter) => {
-    if (chapter.images && chapter.images.length > 0) {
-      return [...acc, ...chapter.images];
-    }
-    return acc;
-  }, []);
 
   return (
     <div className="min-h-screen bg-[#F5EFE6] py-8 px-4 sm:px-6 lg:px-8">
@@ -77,28 +67,28 @@ const BookPage = () => {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-8">
           <span className="text-xs font-black uppercase tracking-widest text-[#78a130] bg-[#78a130]/10 px-4 py-1.5 rounded-full inline-block mb-3">
-            El Libro Completo
+            Iniciativa Nacional de Educación Ambiental
           </span>
           <h1 className="text-3xl sm:text-5xl font-serif font-black text-[#1A311C] uppercase tracking-tight">
-            Sofía: Un Verdadero Cuento Ecológico
+            Adquiere el Libro Físico
           </h1>
           <p className="mt-2 text-sm text-[#2a322c]/80 font-sans">
-            Explora las subpáginas dedicadas al lector digital, los personajes y el material descargable.
+            Lleva el libro impreso a tu hogar, colegio o patrocina entregas a niños de toda Colombia.
           </p>
         </div>
 
         {/* Subpages Navigation Tabs */}
         <div className="flex justify-center gap-2 sm:gap-4 mb-10 border-b border-[#e5e4de] pb-4 overflow-x-auto">
           <Link
-            to="/libro/lector"
+            to="/libro"
             className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 ${
-              activeSubpage === 'lector'
+              activeSubpage === 'fisico'
                 ? 'bg-[#1A311C] text-white shadow-lg scale-105'
                 : 'bg-white/80 text-[#2a322c] hover:bg-white border border-[#e5e4de]'
             }`}
           >
-            <BookOpen size={18} className={activeSubpage === 'lector' ? 'text-[#78a130]' : 'text-gray-500'} />
-            <span>Lector Digital</span>
+            <ShoppingBag size={18} className={activeSubpage === 'fisico' ? 'text-[#78a130]' : 'text-gray-500'} />
+            <span>Libro Físico y Proyecto</span>
           </Link>
 
           <Link
@@ -122,49 +112,94 @@ const BookPage = () => {
             }`}
           >
             <Download size={18} className={activeSubpage === 'descargas' ? 'text-pink-400' : 'text-gray-500'} />
-            <span>Descargas PDF</span>
+            <span>Fichas y Descargas</span>
           </Link>
         </div>
 
-        {/* SUBPAGE 1: LECTOR DIGITAL */}
-        {activeSubpage === 'lector' && (
-          <div className="bg-white p-4 sm:p-8 rounded-3xl border border-[#e5e4de] shadow-xl text-center">
-            <div className="mb-4">
-              <h2 className="text-2xl font-bold font-serif text-[#1A311C]">Visor Interactivo en Flipbook</h2>
-              <p className="text-xs text-gray-500 font-sans mt-1">
-                Haz clic o arrastra las páginas para explorar todo el cuento en formato digital.
-              </p>
+        {/* SUBPAGE 1: LIBRO FÍSICO Y PROYECTO EDUCACIONAL */}
+        {activeSubpage === 'fisico' && (
+          <div className="space-y-8">
+            
+            {/* Main Poster Image Display */}
+            <div className="bg-white p-4 sm:p-8 rounded-3xl border border-[#e5e4de] shadow-2xl overflow-hidden">
+              <div className="relative w-full rounded-2xl overflow-hidden shadow-lg border border-gray-100 mb-8">
+                <img 
+                  src="/assets/libro-fisico.png" 
+                  alt="Sofía Un Verdadero Cuento Ecológico - Libro Físico e Iniciativa Nacional" 
+                  className="w-full h-auto block object-cover" 
+                />
+              </div>
+
+              {/* Call to Action Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#F5EFE6] p-6 sm:p-8 rounded-3xl border border-[#78a130]/30">
+                <div className="space-y-3">
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#78a130] bg-[#1A311C] text-white px-3 py-1 rounded-full">
+                    Edición Impresa de Lujo
+                  </span>
+                  <h3 className="text-2xl font-serif font-bold text-[#1A311C]">
+                    Adquiere tu Ejemplar Físico
+                  </h3>
+                  <p className="text-xs text-gray-700 font-sans leading-relaxed">
+                    Obtén el libro impreso a todo color en papel de alta calidad con las ilustraciones originales completas de las acuarelas de nuestra fauna colombiana.
+                  </p>
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3.5 rounded-2xl text-xs font-bold uppercase tracking-wider hover:bg-[#20bd5a] transition-all shadow-md hover:scale-105"
+                  >
+                    <span>Comprar Libro Físico por WhatsApp</span>
+                  </a>
+                </div>
+
+                <div className="space-y-3">
+                  <span className="text-xs font-bold uppercase tracking-widest text-white bg-[#78a130] px-3 py-1 rounded-full">
+                    Responsabilidad Social y Empresarial
+                  </span>
+                  <h3 className="text-2xl font-serif font-bold text-[#1A311C]">
+                    Patrocina la Educación de un Niño
+                  </h3>
+                  <p className="text-xs text-gray-700 font-sans leading-relaxed">
+                    Una empresa que educa deja huella para siempre. Apoya la donación y entrega de libros a escuelas e instituciones de bajos recursos en Colombia.
+                  </p>
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-[#1A311C] text-white px-6 py-3.5 rounded-2xl text-xs font-bold uppercase tracking-wider hover:bg-[#78a130] transition-all shadow-md hover:scale-105"
+                  >
+                    <Building2 size={18} className="text-[#78a130]" />
+                    <span>Patrocinar Entregas Empresariales</span>
+                  </a>
+                </div>
+              </div>
             </div>
 
-            <div className="w-full h-[650px] flex items-center justify-center bg-[#F5EFE6]/50 rounded-2xl p-4 overflow-hidden border border-gray-100">
-              {allBookPages.length > 0 ? (
-                <HTMLFlipBook
-                  width={600}
-                  height={800}
-                  size="stretch"
-                  minWidth={300}
-                  maxWidth={1200}
-                  minHeight={400}
-                  maxHeight={1400}
-                  maxShadowOpacity={0.4}
-                  showCover={true}
-                  mobileScrollSupport={true}
-                  className="flipbook-container w-full h-full shadow-2xl"
-                >
-                  {allBookPages.map((img, idx) => (
-                    <div key={idx} className="page shadow-lg bg-white flex items-center justify-center">
-                      <img 
-                        src={img} 
-                        alt={`Página del Libro ${idx + 1}`} 
-                        className="w-full h-full object-contain select-none"
-                      />
-                    </div>
-                  ))}
-                </HTMLFlipBook>
-              ) : (
-                <div className="text-gray-500">Cargando páginas del libro...</div>
-              )}
+            {/* ODS Contribution Badges */}
+            <div className="bg-white p-8 rounded-3xl border border-[#e5e4de] shadow-md space-y-4">
+              <h3 className="text-xl font-serif font-bold text-[#1A311C] text-center">
+                Contribución a los Objetivos de Desarrollo Sostenible (ODS)
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2">
+                <div className="p-4 bg-red-50 border border-red-200 rounded-2xl text-center">
+                  <span className="text-2xl font-serif font-black text-red-600 block">ODS 4</span>
+                  <span className="text-xs font-bold text-red-900 block mt-1">Educación de Calidad</span>
+                </div>
+                <div className="p-4 bg-green-50 border border-green-200 rounded-2xl text-center">
+                  <span className="text-2xl font-serif font-black text-green-700 block">ODS 13</span>
+                  <span className="text-xs font-bold text-green-900 block mt-1">Acción por el Clima</span>
+                </div>
+                <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
+                  <span className="text-2xl font-serif font-black text-emerald-700 block">ODS 15</span>
+                  <span className="text-xs font-bold text-emerald-900 block mt-1">Vida de Ecosistemas</span>
+                </div>
+                <div className="p-4 bg-blue-50 border border-blue-200 rounded-2xl text-center">
+                  <span className="text-2xl font-serif font-black text-blue-700 block">ODS 17</span>
+                  <span className="text-xs font-bold text-blue-900 block mt-1">Alianzas Ecosistémicas</span>
+                </div>
+              </div>
             </div>
+
           </div>
         )}
 
@@ -220,7 +255,7 @@ const BookPage = () => {
           </div>
         )}
 
-        {/* SUBPAGE 3: DESCARGAS PDF */}
+        {/* SUBPAGE 3: DESCARGAS Y FICHAS */}
         {activeSubpage === 'descargas' && (
           <div className="bg-white p-8 rounded-3xl border border-[#e5e4de] shadow-xl max-w-3xl mx-auto space-y-6">
             <div className="text-center space-y-2">
@@ -228,31 +263,31 @@ const BookPage = () => {
                 <FileText size={40} />
               </div>
               <h2 className="text-2xl font-bold font-serif text-[#1A311C]">
-                Libro Digital en PDF de Alta Resolución
+                Fichas Informativas y Material Educativo
               </h2>
               <p className="text-xs text-gray-600 font-sans max-w-md mx-auto">
-                Descarga el archivo completo "Libro ecología pliegos b.pdf" listo para leer en cualquier dispositivo o imprimir en formato pliegos.
+                Accede a las guías informativas del proyecto pedagógico y solicita tu edición impresa.
               </p>
             </div>
 
             <div className="bg-[#F5EFE6] p-6 rounded-2xl border border-dashed border-[#78a130] flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-red-100 text-red-600 rounded-xl font-bold text-xs uppercase">
-                  PDF (12.5 MB)
+                <div className="p-3 bg-green-100 text-green-700 rounded-xl font-bold text-xs uppercase">
+                  LIBRO FÍSICO
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-[#1A311C]">Libro Ecología Pliegos B.pdf</h4>
-                  <p className="text-[11px] text-gray-500">Versión oficial del cuento y sus 7 capítulos completas</p>
+                  <h4 className="text-sm font-bold text-[#1A311C]">Solicitud de Ejemplares Impresos</h4>
+                  <p className="text-[11px] text-gray-500">Contacta directamente para pedidos individuales o compras corporativas</p>
                 </div>
               </div>
 
               <a
-                href="/Libro ecologia pliegos b.pdf"
-                download="Libro ecologia pliegos b.pdf"
-                className="w-full sm:w-auto bg-[#1A311C] text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-[#78a130] transition-colors flex items-center justify-center gap-2 shadow-md shrink-0"
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto bg-[#25D366] text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-[#20bd5a] transition-colors flex items-center justify-center gap-2 shadow-md shrink-0"
               >
-                <Download size={16} />
-                <span>Descargar PDF</span>
+                <span>Solicitar por WhatsApp</span>
               </a>
             </div>
 
@@ -260,8 +295,8 @@ const BookPage = () => {
               <div className="p-4 bg-gray-50 rounded-2xl flex items-start gap-3">
                 <ShieldCheck size={20} className="text-[#78a130] shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-bold block text-[#1A311C]">Uso Educativo Gratuito</span>
-                  <span className="text-gray-500">Ideal para colegios, talleres ecológicos y lectura familiar.</span>
+                  <span className="font-bold block text-[#1A311C]">Edición Coleccionable</span>
+                  <span className="text-gray-500">Formato físico impreso de alta durabilidad para colegios y familias.</span>
                 </div>
               </div>
 
@@ -269,7 +304,7 @@ const BookPage = () => {
                 <Heart size={20} className="text-pink-500 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold block text-[#1A311C]">Ilustraciones Originales</span>
-                  <span className="text-gray-500">Incluye todas las acuarelas y fichas de especies colombianas.</span>
+                  <span className="text-gray-500">Incluye todas las acuarelas de las especies de fauna colombiana.</span>
                 </div>
               </div>
             </div>
