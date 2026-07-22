@@ -46,15 +46,15 @@ button { cursor: pointer; }
 .activity-switcher span { color: var(--orchid); font-size: 9px; }
 .activity-switcher a.is-active span { color: #f0b6c9; }
 
-main { min-height: calc(100vh - 72px); padding: 52px clamp(14px, 5vw, 72px) 90px; }
+main { min-height: calc(100vh - 72px); padding: 20px clamp(8px, 1.5vw, 24px) 60px; width: 100%; }
 .game-intro {
-  width: min(1120px, 100%);
-  min-height: 156px;
+  width: min(1350px, 100%);
+  min-height: 120px;
   display: grid;
   grid-template-columns: minmax(300px, 1fr) minmax(220px, .35fr);
-  gap: 42px;
+  gap: 32px;
   align-items: end;
-  margin: 0 auto 32px;
+  margin: 0 auto 24px;
   color: white;
 }
 .game-intro p { margin: 0 0 9px; color: #d9e9ad; font-size: 11px; font-weight: 850; letter-spacing: 1.1px; text-transform: uppercase; }
