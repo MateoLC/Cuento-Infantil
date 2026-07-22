@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#173b24" />
+    <title>Diviértete aprendiendo | Colorea la biodiversidad</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="colorear.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand" href="#juego" aria-label="Diviértete aprendiendo, inicio">
+        <span class="brand-mark" aria-hidden="true">DA</span>
+        <span><strong>Diviértete</strong><small>aprendiendo</small></span>
+      </a>
+      <a class="back-to-home" href="/" title="Volver a la página principal de Sofía">← Volver al Sitio</a>
+      <nav class="activity-switcher" aria-label="Actividades">
+        <a href="index.html"><span>01</span>Sopa de letras</a>
+        <a href="laberinto.html"><span>02</span>Laberinto</a>
+        <a href="crucigrama.html"><span>03</span>Crucigrama</a>
+        <a class="is-active" href="colorear.html" aria-current="page"><span>04</span>Colorear</a>
+        <a href="asociar.html"><span>05</span>Asociar</a>
+      </nav>
+    </header>
+
+    <main id="juego">
+      <header class="game-intro">
+        <div>
+          <p>Los colores del bosque</p>
+          <h1>Colorea la biodiversidad.</h1>
+        </div>
+        <div class="global-progress" aria-label="Progreso de color">
+          <span id="color-progress-label">Elige tu primer color</span>
+          <div><i id="color-progress-bar"></i></div>
+        </div>
+      </header>
+
+      <section class="coloring-scene" aria-labelledby="coloring-title">
+        <div class="coloring-canvas-wrap" id="coloring-canvas-wrap">
+          <canvas id="coloring-canvas" width="1060" height="1602" tabindex="0" aria-label="Ilustración interactiva para colorear"></canvas>
+          <div class="canvas-loading" id="canvas-loading" role="status">Preparando el dibujo...</div>
+        </div>
+
+        <aside class="coloring-tools-panel" aria-label="Herramientas para colorear">
+          <span class="panel-label">Taller de color</span>
+          <h2 id="coloring-title">Tu paleta</h2>
+
+          <div class="color-palette" id="color-palette" aria-label="Colores disponibles"></div>
+
+          <div class="tool-modes" aria-label="Modo de pintura">
+            <button class="is-active" type="button" data-tool="fill" aria-pressed="true">Rellenar</button>
+            <button type="button" data-tool="brush" aria-pressed="false">Pincel</button>
+            <button type="button" data-tool="eraser" aria-pressed="false">Borrar</button>
+          </div>
+
+          <label class="brush-control" for="brush-size">
+            <span>Grosor</span>
+            <input id="brush-size" type="range" min="8" max="54" value="24" />
+          </label>
+
+          <div class="coloring-actions">
+            <button id="color-undo" type="button">Deshacer</button>
+            <button id="color-reset" type="button">Limpiar</button>
+            <button id="color-save" type="button">Guardar</button>
+          </div>
+
+          <p id="color-feedback" role="status" aria-live="polite">Toca una zona cerrada para llenarla de color.</p>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#173b24" />
+    <title>Diviértete aprendiendo | El camino al humedal</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="laberinto.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand" href="#juego" aria-label="Diviértete aprendiendo, inicio">
+        <span class="brand-mark" aria-hidden="true">DA</span>
+        <span><strong>Diviértete</strong><small>aprendiendo</small></span>
+      </a>
+      <a class="back-to-home" href="/" title="Volver a la página principal de Sofía">← Volver al Sitio</a>
+      <nav class="activity-switcher" aria-label="Actividades">
+        <a href="index.html"><span>01</span>Sopa de letras</a>
+        <a class="is-active" href="laberinto.html" aria-current="page"><span>02</span>Laberinto</a>
+        <a href="crucigrama.html"><span>03</span>Crucigrama</a>
+        <a href="colorear.html"><span>04</span>Colorear</a>
+        <a href="asociar.html"><span>05</span>Asociar</a>
+      </nav>
+    </header>
+
+    <main id="juego">
+      <header class="game-intro maze-intro">
+        <div>
+          <p>Guardianes del agua</p>
+          <h1>El camino al humedal.</h1>
+        </div>
+        <div class="global-progress" aria-label="Progreso del laberinto">
+          <span id="maze-progress-label">Inicio de la ruta</span>
+          <div><i id="maze-progress-bar"></i></div>
+        </div>
+      </header>
+
+      <section class="maze-scene" aria-labelledby="maze-title">
+        <div class="maze-board-panel">
+          <div class="board-heading maze-heading">
+            <div>
+              <span>Cuaderno de exploración</span>
+              <h2 id="maze-title">El camino al humedal</h2>
+            </div>
+            <b><span id="maze-percent">0</span><small>%</small></b>
+          </div>
+
+          <div class="maze-canvas-wrap">
+            <canvas id="maze-canvas" width="720" height="720" tabindex="0" aria-label="Laberinto interactivo: lleva la rana hasta el humedal"></canvas>
+          </div>
+
+          <div class="game-feedback" id="maze-feedback" role="status" aria-live="polite">
+            La rana está lista para comenzar la ruta.
+          </div>
+          <div class="board-actions">
+            <button id="maze-hint" type="button">Pista</button>
+            <button id="maze-reset" type="button">Reiniciar</button>
+          </div>
+        </div>
+
+        <aside class="maze-info-panel" aria-label="Misión y controles del laberinto">
+          <span class="panel-label">Misión</span>
+          <h2>Llega al agua</h2>
+          <p>Conduce a la rana hasta el humedal sin atravesar la vegetación.</p>
+
+          <dl class="maze-stats">
+            <div><dt>Pasos</dt><dd id="step-count">0</dd></div>
+            <div><dt>Tiempo</dt><dd id="time-count">00:00</dd></div>
+            <div><dt>Mejor ruta</dt><dd id="best-count">—</dd></div>
+          </dl>
+
+          <div class="direction-pad" aria-label="Controles de movimiento">
+            <button type="button" data-direction="up" aria-label="Mover arriba">↑</button>
+            <button type="button" data-direction="left" aria-label="Mover izquierda">←</button>
+            <button type="button" data-direction="down" aria-label="Mover abajo">↓</button>
+            <button type="button" data-direction="right" aria-label="Mover derecha">→</button>
+          </div>
+        </aside>
+
+        <div class="completion" id="maze-completion" hidden>
+          <span aria-hidden="true">Ruta completada</span>
+          <h2>¡La rana llegó al humedal!</h2>
+          <p id="maze-result">Protegiste su camino hacia el agua.</p>
+          <button type="button" id="maze-again">Jugar de nuevo</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

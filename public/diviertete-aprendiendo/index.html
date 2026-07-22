@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#173b24" />
+    <title>Diviértete aprendiendo | Sopa de letras</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="game.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand" href="#juego" aria-label="Diviértete aprendiendo, inicio">
+        <span class="brand-mark" aria-hidden="true">DA</span>
+        <span><strong>Diviértete</strong><small>aprendiendo</small></span>
+      </a>
+      <a class="back-to-home" href="/" title="Volver a la página principal de Sofía">← Volver al Sitio</a>
+      <nav class="activity-switcher" aria-label="Actividades">
+        <a class="is-active" href="index.html" aria-current="page"><span>01</span>Sopa de letras</a>
+        <a href="laberinto.html"><span>02</span>Laberinto</a>
+        <a href="crucigrama.html"><span>03</span>Crucigrama</a>
+        <a href="colorear.html"><span>04</span>Colorear</a>
+        <a href="asociar.html"><span>05</span>Asociar</a>
+      </nav>
+    </header>
+
+    <main id="juego">
+      <header class="game-intro">
+        <div>
+          <p>Biodiversidad colombiana</p>
+          <h1>Palabras que protegen la vida.</h1>
+        </div>
+        <div class="global-progress" aria-label="Progreso del juego">
+          <span id="progress-count">0 de 10</span>
+          <div><i id="progress-bar"></i></div>
+        </div>
+      </header>
+
+      <section class="word-search-scene" aria-labelledby="puzzle-title">
+        <div class="board-panel">
+          <div class="board-heading">
+            <div>
+              <span>Cuaderno de exploración</span>
+              <h2 id="puzzle-title">Sopa de letras</h2>
+            </div>
+            <b><span id="found-count">0</span><small>/10</small></b>
+          </div>
+
+          <div
+            class="word-grid"
+            id="word-grid"
+            role="grid"
+            aria-label="Sopa de letras sobre biodiversidad colombiana"
+          ></div>
+
+          <div class="game-feedback" id="game-feedback" role="status" aria-live="polite">
+            Encuentra las diez palabras escondidas.
+          </div>
+          <div class="board-actions">
+            <button id="hint-button" type="button">Pista</button>
+            <button id="reset-button" type="button">Reiniciar</button>
+          </div>
+        </div>
+
+        <aside class="word-panel" aria-label="Palabras por encontrar">
+          <span class="panel-label">Rastros</span>
+          <h2>Palabras</h2>
+          <div class="word-list" id="word-list"></div>
+          <p id="word-panel-note">Selecciona una palabra para recibir una pista.</p>
+        </aside>
+
+        <div class="completion" id="completion" hidden>
+          <span aria-hidden="true">10/10</span>
+          <h2>¡Expedición completada!</h2>
+          <p>Encontraste todos los rastros de biodiversidad.</p>
+          <button type="button" id="continue-button">Ver tablero</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

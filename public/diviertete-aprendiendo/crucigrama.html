@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#173b24" />
+    <title>Diviértete aprendiendo | Crucigrama de la biodiversidad</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="crucigrama.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand" href="#juego" aria-label="Diviértete aprendiendo, inicio">
+        <span class="brand-mark" aria-hidden="true">DA</span>
+        <span><strong>Diviértete</strong><small>aprendiendo</small></span>
+      </a>
+      <a class="back-to-home" href="/" title="Volver a la página principal de Sofía">← Volver al Sitio</a>
+      <nav class="activity-switcher" aria-label="Actividades">
+        <a href="index.html"><span>01</span>Sopa de letras</a>
+        <a href="laberinto.html"><span>02</span>Laberinto</a>
+        <a class="is-active" href="crucigrama.html" aria-current="page"><span>03</span>Crucigrama</a>
+        <a href="colorear.html"><span>04</span>Colorear</a>
+        <a href="asociar.html"><span>05</span>Asociar</a>
+      </nav>
+    </header>
+
+    <main id="juego">
+      <header class="game-intro">
+        <div>
+          <p>Palabras del territorio</p>
+          <h1>Conecta las pistas de la naturaleza.</h1>
+        </div>
+        <div class="global-progress" aria-label="Progreso del crucigrama">
+          <span id="crossword-progress-label">0 de 10 palabras</span>
+          <div><i id="crossword-progress-bar"></i></div>
+        </div>
+      </header>
+
+      <section class="crossword-scene" aria-labelledby="crossword-title">
+        <div class="crossword-board-panel">
+          <div class="board-heading crossword-heading">
+            <div>
+              <span>Cuaderno de exploración</span>
+              <h2 id="crossword-title">Crucigrama natural</h2>
+            </div>
+            <b><span id="crossword-found">0</span><small>/10</small></b>
+          </div>
+
+          <div class="crossword-grid" id="crossword-grid" aria-label="Crucigrama sobre biodiversidad colombiana"></div>
+
+          <div class="game-feedback" id="crossword-feedback" role="status" aria-live="polite">
+            Selecciona una pista y completa las casillas.
+          </div>
+          <div class="board-actions crossword-actions">
+            <button id="crossword-check" type="button">Revisar</button>
+            <button id="crossword-hint" type="button">Pista</button>
+            <button id="crossword-reset" type="button">Reiniciar</button>
+          </div>
+        </div>
+
+        <aside class="crossword-clues-panel" aria-label="Pistas del crucigrama">
+          <span class="panel-label">Bitácora</span>
+          <h2>Pistas</h2>
+          <div class="clue-groups" id="crossword-clues"></div>
+          <p>Elige una pista para ubicarte en el tablero.</p>
+        </aside>
+
+        <div class="completion" id="crossword-completion" hidden>
+          <span aria-hidden="true">Crucigrama completo</span>
+          <h2>¡Todas las pistas conectan!</h2>
+          <p>Reconociste diez palabras que ayudan a comprender nuestro territorio.</p>
+          <button type="button" id="crossword-again">Jugar de nuevo</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#173b24" />
+    <title>Diviértete aprendiendo | Asocia y descubre</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="asociar.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand" href="#juego" aria-label="Diviértete aprendiendo, inicio">
+        <span class="brand-mark" aria-hidden="true">DA</span>
+        <span><strong>Diviértete</strong><small>aprendiendo</small></span>
+      </a>
+      <a class="back-to-home" href="/" title="Volver a la página principal de Sofía">← Volver al Sitio</a>
+      <nav class="activity-switcher" aria-label="Actividades">
+        <a href="index.html"><span>01</span>Sopa de letras</a>
+        <a href="laberinto.html"><span>02</span>Laberinto</a>
+        <a href="crucigrama.html"><span>03</span>Crucigrama</a>
+        <a href="colorear.html"><span>04</span>Colorear</a>
+        <a class="is-active" href="asociar.html" aria-current="page"><span>05</span>Asociar</a>
+      </nav>
+    </header>
+
+    <main id="juego">
+      <header class="game-intro">
+        <div>
+          <p>Conexiones de la vida</p>
+          <h1>Asocia y descubre.</h1>
+        </div>
+        <div class="global-progress" aria-label="Progreso de asociaciones">
+          <span id="match-progress-label">0 de 7 conexiones</span>
+          <div><i id="match-progress-bar"></i></div>
+        </div>
+      </header>
+
+      <section class="matching-scene" aria-labelledby="matching-title">
+        <div class="matching-board-panel">
+          <div class="matching-column">
+            <span class="panel-label">Capítulos</span>
+            <h2 id="matching-title">¿Quién es quién?</h2>
+            <div class="matching-list" id="source-list" aria-label="Grupos de la naturaleza"></div>
+          </div>
+
+          <div class="matching-column matching-column-targets">
+            <span class="panel-label">Características</span>
+            <h2>Encuentra su pareja</h2>
+            <div class="matching-list" id="target-list" aria-label="Características para asociar"></div>
+          </div>
+        </div>
+
+        <aside class="matching-info-panel" aria-label="Progreso y controles de asociaciones">
+          <span class="panel-label">Bitácora</span>
+          <h2>Conexiones</h2>
+          <p>Elige un capítulo y después toca la característica que le corresponde.</p>
+
+          <dl class="matching-stats">
+            <div><dt>Aciertos</dt><dd id="match-count">0</dd></div>
+            <div><dt>Intentos</dt><dd id="attempt-count">0</dd></div>
+          </dl>
+
+          <div class="matching-actions">
+            <button id="match-hint" type="button">Pista</button>
+            <button id="match-reset" type="button">Reiniciar</button>
+          </div>
+
+          <p id="match-feedback" role="status" aria-live="polite">Selecciona una tarjeta de la columna izquierda.</p>
+        </aside>
+
+        <div class="completion" id="match-completion" hidden>
+          <span aria-hidden="true">7 conexiones</span>
+          <h2>¡Todo en la naturaleza está conectado!</h2>
+          <p id="match-result">Completaste el recorrido por los capítulos.</p>
+          <button type="button" id="match-again">Jugar de nuevo</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
