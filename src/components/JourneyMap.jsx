@@ -1,9 +1,9 @@
 import React from 'react';
 
-// Hotspots para la imagen vertical, ajustados para cubrir cada ilustración y su botón "VER MÁS"
+// Hotspots para la imagen vertical, ajustados para cubrir cada ilustración
+// Removido el botón sobre la ilustración principal de Sofía (top: 27.5%, left: 71%)
 const hotspots = [
   { id: 'anfibios', left: '18%', top: '22%', width: '10%', height: '3.5%' },
-  { id: 'serpientes', left: '71%', top: '27.5%', width: '10%', height: '3.5%' },
   { id: 'reptiles', left: '18%', top: '43%', width: '10%', height: '3.5%' },
   { id: 'aves', left: '71%', top: '53%', width: '10%', height: '3.5%' },
   { id: 'mamiferos', left: '18%', top: '67%', width: '10%', height: '3.5%' },
@@ -28,7 +28,7 @@ const JourneyMap = ({ onSelectChapter }) => {
           }}
           aria-label={`Ver Capítulo ${index + 1}`}
         >
-          {/* Efecto de borde al pasar el cursor (opcional) */}
+          {/* Efecto de borde al pasar el cursor */}
           <div className="absolute inset-[-4px] border-2 border-white/0 group-hover:border-white/60 rounded-[14px] opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
         </button>
       ))}
