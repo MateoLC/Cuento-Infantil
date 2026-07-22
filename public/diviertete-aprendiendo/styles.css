@@ -423,7 +423,7 @@ main { min-height: calc(100vh - 72px); padding: 20px clamp(8px, 1.5vw, 24px) 60p
 .maze-stats div { display: flex; justify-content: space-between; gap: 10px; padding-bottom: 6px; border-bottom: 1px solid rgba(72,96,65,.18); }
 .maze-stats dt { color: #6b775f; font-size: clamp(7px, .8vw, 10px); font-weight: 800; text-transform: uppercase; }
 .maze-stats dd { margin: 0; color: #315b34; font-size: clamp(8px, 1vw, 12px); font-weight: 800; }
-.direction-pad { width: min(115px, 100%); display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: auto auto 0; }
+.direction-pad { width: min(115px, 100%); display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: auto; }
 .direction-pad button { aspect-ratio: 1; display: grid; place-items: center; border: 1px solid #597256; border-radius: 50%; background: rgba(255,252,241,.62); color: #315b34; font-size: clamp(13px, 1.6vw, 20px); font-weight: 800; }
 .direction-pad button:hover { background: var(--forest); color: white; }
 .direction-pad button[data-direction="up"] { grid-column: 2; }
