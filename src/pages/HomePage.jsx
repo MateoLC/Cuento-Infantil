@@ -15,28 +15,28 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-[#F5EFE6]">
-      {/* Main Map & Poster Container */}
+      {/* Main Map & Poster Container - Full First Viewport */}
       <div 
         style={{ display: selectedChapter ? 'none' : 'block' }}
         className="transition-opacity duration-500 w-full relative bg-[#F5EFE6]"
       >
-        {/* Global Poster Background with Soft Bottom Fade & Hidden Bottom Border */}
-        <div className="relative w-full overflow-hidden">
+        {/* Global Poster Background - Enlarged to fill full screen height on page load */}
+        <div className="relative w-full min-h-[calc(100vh-5rem)] overflow-hidden">
           <img 
             src="/assets/8.png" 
             alt="Mapa y Fondo Global de la Aventura de Sofía" 
-            className="w-full h-auto block object-cover transform scale-105 origin-top translate-y-2" 
+            className="absolute inset-0 w-full h-full object-cover object-top" 
           />
           
-          {/* Subtle & Soft Bottom Gradient Transition without line artifacts */}
-          <div className="absolute -bottom-1 left-0 w-full h-16 sm:h-24 md:h-32 bg-gradient-to-b from-transparent via-[#F5EFE6]/50 to-[#F5EFE6] pointer-events-none z-10"></div>
+          {/* Subtle & Soft Bottom Gradient at the fold */}
+          <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-b from-transparent to-[#F5EFE6] pointer-events-none z-10"></div>
 
           {/* Overlays for interactive map */}
-          <div className="absolute inset-0 w-full h-full z-20">
-            <div id="historia" className="w-full h-[35%] relative">
+          <div className="relative z-20 w-full min-h-[calc(100vh-5rem)] flex flex-col justify-between">
+            <div id="historia" className="w-full relative">
               <HeroSection />
             </div>
-            <div id="mapa" className="w-full h-[65%] relative">
+            <div id="mapa" className="w-full relative pb-4">
               <JourneyMap onSelectChapter={handleSelectChapter} />
             </div>
           </div>
@@ -44,7 +44,7 @@ const HomePage = () => {
       </div>
 
       {/* Subpages Quick Access Showcase */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="text-xs font-black uppercase tracking-widest text-[#78a130] bg-[#78a130]/10 px-4 py-1.5 rounded-full inline-block mb-3">
             Explora las Subpáginas
