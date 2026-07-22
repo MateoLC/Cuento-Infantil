@@ -2,16 +2,15 @@ import React from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import ChapterView from '../components/ChapterView';
 import { BookOpen, Sparkles } from 'lucide-react';
-import bookData from '../data/bookData.json';
 
 const chapterMapHotspots = [
-  { id: 'anfibios', title: '1. Anfibios', left: '15.5%', top: '26.6%', width: '13%', height: '4%' },
-  { id: 'serpientes', title: '2. Serpientes', left: '71%', top: '26.8%', width: '13%', height: '4%' },
-  { id: 'reptiles', title: '3. Reptiles', left: '15.5%', top: '50.3%', width: '13%', height: '4%' },
-  { id: 'aves', title: '4. Aves', left: '71%', top: '50.8%', width: '13%', height: '4%' },
-  { id: 'mamiferos', title: '5. Mamíferos', left: '15.5%', top: '72.3%', width: '13%', height: '4%' },
-  { id: 'arboles', title: '6. Árboles', left: '71%', top: '78.3%', width: '13%', height: '4%' },
-  { id: 'serhumano', title: '7. El Ser Humano', left: '15.5%', top: '94.8%', width: '13%', height: '4%' },
+  { id: 'anfibios', title: '1. Anfibios', left: '19.2%', top: '24.2%', width: '12.5%', height: '4%' },
+  { id: 'serpientes', title: '2. Serpientes', left: '70.5%', top: '28.3%', width: '12.5%', height: '4%' },
+  { id: 'reptiles', title: '3. Reptiles', left: '19.2%', top: '44.9%', width: '12.5%', height: '4%' },
+  { id: 'aves', title: '4. Aves', left: '71.3%', top: '56.3%', width: '12.5%', height: '4%' },
+  { id: 'mamiferos', title: '5. Mamíferos', left: '19.2%', top: '70.3%', width: '12.5%', height: '4%' },
+  { id: 'arboles', title: '6. Árboles', left: '72.5%', top: '82.9%', width: '12.5%', height: '4%' },
+  { id: 'serhumano', title: '7. El Ser Humano', left: '19.2%', top: '95.3%', width: '12.5%', height: '4%' },
 ];
 
 const ChaptersPage = () => {
@@ -75,8 +74,8 @@ const ChaptersPage = () => {
                 title={`Explorar Capítulo: ${spot.title}`}
               >
                 {/* Glowing ring on hover */}
-                <div className="w-full h-full border-2 border-amber-500/0 group-hover:border-amber-500 rounded-xl bg-amber-500/0 group-hover:bg-amber-500/15 transition-all duration-300 flex items-center justify-center">
-                  <span className="opacity-0 group-hover:opacity-100 text-[10px] sm:text-xs font-bold text-amber-900 bg-amber-200/90 px-2 py-0.5 rounded-md shadow-md transition-opacity">
+                <div className="w-full h-full border-2 border-amber-500/0 group-hover:border-amber-500 rounded-xl bg-amber-500/0 group-hover:bg-amber-500/20 transition-all duration-300 flex items-center justify-center">
+                  <span className="opacity-0 group-hover:opacity-100 text-[10px] sm:text-xs font-bold text-amber-950 bg-amber-200/90 px-2 py-0.5 rounded-md shadow-md transition-opacity">
                     Leer
                   </span>
                 </div>
