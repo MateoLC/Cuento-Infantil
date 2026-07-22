@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+
 :root {
-  --forest: #173b24;
+  --forest: #1A311C;
   --moss: #436c3c;
-  --leaf: #6f913f;
-  --paper: #fffaf0;
-  --ink: #213c26;
+  --leaf: #78a130;
+  --paper: #F5EFE6;
+  --ink: #2a322c;
   --muted: #66745e;
   --gold: #dda64b;
   --orchid: #d57291;
@@ -11,22 +13,22 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scrollbar-gutter: stable; }
-body { margin: 0; background: #153820; color: var(--ink); font-family: "Avenir Next", "Trebuchet MS", Arial, sans-serif; }
+body { margin: 0; background: #153820; color: var(--ink); font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
 button, a { font: inherit; }
 button { cursor: pointer; }
 
 .app-header {
-  min-height: 54px;
+  min-height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
-  padding: 8px clamp(12px, 3vw, 40px);
+  padding: 6px clamp(12px, 3vw, 40px);
   position: sticky;
   z-index: 30;
   top: 0;
-  border-bottom: 1px solid rgba(34, 61, 39, .16);
-  background: rgba(255, 250, 240, .96);
+  border-bottom: 1px solid #e5e4de;
+  background: #F5EFE6;
   backdrop-filter: blur(12px);
 }
 
@@ -35,14 +37,14 @@ button { cursor: pointer; }
   display: none;
 }
 .brand strong, .brand small { display: block; letter-spacing: 0; }
-.brand strong { font-family: "Avenir Next Rounded", "Avenir Next", "Arial Rounded MT Bold", sans-serif; font-size: 19px; line-height: 1; font-weight: 800; }
+.brand strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 19px; line-height: 1; font-weight: 800; }
 .brand small { margin-top: 2px; color: var(--moss); font-size: 10px; font-weight: 800; text-transform: uppercase; }
-.activity-switcher { min-width: 0; display: flex; align-items: center; gap: 4px; }
-.activity-switcher a { min-height: 38px; flex: 0 0 auto; display: inline-flex; align-items: center; gap: 7px; border: 1px solid transparent; border-radius: 5px; padding: 8px 11px; color: #576a55; text-decoration: none; font-size: 10px; font-weight: 800; white-space: nowrap; text-transform: uppercase; }
-.activity-switcher a:hover { border-color: #b7b9a9; color: var(--forest); }
-.activity-switcher a.is-active { border-color: var(--forest); background: var(--forest); color: white; }
-.activity-switcher span { color: var(--orchid); font-size: 9px; }
-.activity-switcher a.is-active span { color: #f0b6c9; }
+.activity-switcher { min-width: 0; display: flex; align-items: center; gap: 6px; }
+.activity-switcher a { min-height: 36px; flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; border-radius: 8px; padding: 7px 13px; color: #2a322c; text-decoration: none; font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.05em; white-space: nowrap; text-transform: uppercase; transition: all 0.2s ease; }
+.activity-switcher a:hover { background: rgba(0, 0, 0, 0.05); color: #1A311C; }
+.activity-switcher a.is-active { border-color: #1A311C; background: #1A311C; color: white; box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+.activity-switcher span { color: #78a130; font-weight: 800; font-size: 10px; }
+.activity-switcher a.is-active span { color: #a4e03d; }
 
 main { min-height: calc(100vh - 72px); padding: 20px clamp(8px, 1.5vw, 24px) 60px; width: 100%; }
 .game-intro {
