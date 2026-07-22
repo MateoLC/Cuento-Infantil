@@ -58,12 +58,12 @@ const ChaptersPage = () => {
               className="w-full h-auto block object-cover" 
             />
 
-            {/* Interactive Hotspot Overlay Buttons for each Chapter */}
+            {/* Completely Invisible Interactive Hotspot Overlay Buttons for each Chapter */}
             {chapterMapHotspots.map((spot) => (
               <button
                 key={spot.id}
                 onClick={() => navigate(`/capitulos/${spot.id}`)}
-                className="absolute z-20 rounded-xl transition-all duration-300 group cursor-pointer hover:scale-105 active:scale-95"
+                className="absolute z-20 rounded-xl cursor-pointer bg-transparent border-none opacity-0 focus:outline-none"
                 style={{
                   left: spot.left,
                   top: spot.top,
@@ -71,15 +71,7 @@ const ChaptersPage = () => {
                   height: spot.height,
                 }}
                 aria-label={`Ver Capítulo ${spot.title}`}
-                title={`Explorar Capítulo: ${spot.title}`}
-              >
-                {/* Glowing ring on hover */}
-                <div className="w-full h-full border-2 border-amber-500/0 group-hover:border-amber-500 rounded-xl bg-amber-500/0 group-hover:bg-amber-500/20 transition-all duration-300 flex items-center justify-center">
-                  <span className="opacity-0 group-hover:opacity-100 text-[10px] sm:text-xs font-bold text-amber-950 bg-amber-200/90 px-2 py-0.5 rounded-md shadow-md transition-opacity">
-                    Leer
-                  </span>
-                </div>
-              </button>
+              />
             ))}
           </div>
         </div>
