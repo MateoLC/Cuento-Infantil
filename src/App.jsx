@@ -6,6 +6,7 @@ import BookPage from './pages/BookPage';
 import ChaptersPage from './pages/ChaptersPage';
 import FunLearningPage from './pages/FunLearningPage';
 import GreenVisionPage from './pages/GreenVisionPage';
+import WhatsAppButton from './components/WhatsAppButton';
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
           <Route path="/vision-verde/*" element={<GreenVisionPage />} />
         </Routes>
       </div>
+
+      {/* Floating WhatsApp Button */}
+      <WhatsAppButton />
 
       {/* Global Footer */}
       <footer className="bg-[#1A311C] text-white py-12 px-6 border-t border-[#78a130]/20 mt-16">
