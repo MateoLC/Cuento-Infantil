@@ -7,7 +7,6 @@ import {
   Map, 
   Sparkles, 
   Leaf, 
-  Download, 
   HelpCircle, 
   Award, 
   Palette, 
@@ -17,7 +16,8 @@ import {
   Menu, 
   X,
   Book,
-  Compass
+  Compass,
+  ShoppingBag
 } from 'lucide-react';
 
 const menuItems = [
@@ -33,9 +33,8 @@ const menuItems = [
     title: 'LIBRO',
     path: '/libro',
     subpages: [
-      { label: 'Lector Digital', path: '/libro/lector', icon: BookOpen, desc: 'Lectura interactiva en Flipbook' },
-      { label: 'Sinopsis y Personajes', path: '/libro/personajes', icon: Sparkles, desc: 'Sofía y la fauna de Colombia' },
-      { label: 'Descargas PDF', path: '/libro/descargas', icon: Download, desc: 'Descarga el libro e imprimibles' }
+      { label: 'Libro Físico y Proyecto', path: '/libro', icon: ShoppingBag, desc: 'Iniciativa educativa y adquisición' },
+      { label: 'Sinopsis y Personajes', path: '/libro/personajes', icon: Sparkles, desc: 'Sofía y la fauna de Colombia' }
     ]
   },
   {

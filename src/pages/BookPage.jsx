@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Sparkles, Download, ShieldCheck, Heart, FileText, CheckCircle2, Award, Building2, BookOpen } from 'lucide-react';
+import { ShoppingBag, Sparkles, Building2 } from 'lucide-react';
 
 const characters = [
   {
@@ -54,7 +54,6 @@ const BookPage = () => {
   // Determine active subpage tab based on URL path
   const getSubpage = () => {
     if (location.pathname.includes('/personajes')) return 'personajes';
-    if (location.pathname.includes('/descargas')) return 'descargas';
     return 'fisico'; // Default is Adquirir Libro Físico
   };
 
@@ -101,18 +100,6 @@ const BookPage = () => {
           >
             <Sparkles size={18} className={activeSubpage === 'personajes' ? 'text-amber-400' : 'text-gray-500'} />
             <span>Sinopsis y Personajes</span>
-          </Link>
-
-          <Link
-            to="/libro/descargas"
-            className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 ${
-              activeSubpage === 'descargas'
-                ? 'bg-[#1A311C] text-white shadow-lg scale-105'
-                : 'bg-white/80 text-[#2a322c] hover:bg-white border border-[#e5e4de]'
-            }`}
-          >
-            <Download size={18} className={activeSubpage === 'descargas' ? 'text-pink-400' : 'text-gray-500'} />
-            <span>Fichas y Descargas</span>
           </Link>
         </div>
 
@@ -250,62 +237,6 @@ const BookPage = () => {
                     </div>
                   </div>
                 ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* SUBPAGE 3: DESCARGAS Y FICHAS */}
-        {activeSubpage === 'descargas' && (
-          <div className="bg-white p-8 rounded-3xl border border-[#e5e4de] shadow-xl max-w-3xl mx-auto space-y-6">
-            <div className="text-center space-y-2">
-              <div className="p-4 bg-[#78a130]/10 text-[#1A311C] w-fit rounded-full mx-auto">
-                <FileText size={40} />
-              </div>
-              <h2 className="text-2xl font-bold font-serif text-[#1A311C]">
-                Fichas Informativas y Material Educativo
-              </h2>
-              <p className="text-xs text-gray-600 font-sans max-w-md mx-auto">
-                Accede a las guías informativas del proyecto pedagógico y solicita tu edición impresa.
-              </p>
-            </div>
-
-            <div className="bg-[#F5EFE6] p-6 rounded-2xl border border-dashed border-[#78a130] flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-green-100 text-green-700 rounded-xl font-bold text-xs uppercase">
-                  LIBRO FÍSICO
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-[#1A311C]">Solicitud de Ejemplares Impresos</h4>
-                  <p className="text-[11px] text-gray-500">Contacta directamente para pedidos individuales o compras corporativas</p>
-                </div>
-              </div>
-
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto bg-[#25D366] text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-[#20bd5a] transition-colors flex items-center justify-center gap-2 shadow-md shrink-0"
-              >
-                <span>Solicitar por WhatsApp</span>
-              </a>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-sans">
-              <div className="p-4 bg-gray-50 rounded-2xl flex items-start gap-3">
-                <ShieldCheck size={20} className="text-[#78a130] shrink-0 mt-0.5" />
-                <div>
-                  <span className="font-bold block text-[#1A311C]">Edición Coleccionable</span>
-                  <span className="text-gray-500">Formato físico impreso de alta durabilidad para colegios y familias.</span>
-                </div>
-              </div>
-
-              <div className="p-4 bg-gray-50 rounded-2xl flex items-start gap-3">
-                <Heart size={20} className="text-pink-500 shrink-0 mt-0.5" />
-                <div>
-                  <span className="font-bold block text-[#1A311C]">Ilustraciones Originales</span>
-                  <span className="text-gray-500">Incluye todas las acuarelas de las especies de fauna colombiana.</span>
-                </div>
               </div>
             </div>
           </div>
