@@ -12,16 +12,14 @@ const HeroSection = () => {
       <div className="relative z-10 w-full px-6 md:px-12 flex justify-start">
         
         <div className="w-full md:w-[60%] lg:w-[50%] space-y-4 md:space-y-6 text-left flex flex-col items-start">
-          <h1 className="text-[2.2rem] sm:text-[3rem] md:text-[3.8rem] lg:text-[4.5rem] font-serif font-black text-[#1A311C] leading-[0.95] tracking-tighter uppercase drop-shadow-sm">
-            EXPLORA, <span className="inline-block text-[#78a130] -ml-2 -mr-2">❦</span><br/>
-            DESCUBRE Y PROTEGE<br/>
-            LA NATURALEZA
+          <h1 className="text-[2.2rem] sm:text-[3rem] md:text-[3.8rem] lg:text-[4.3rem] font-serif font-black text-[#1A311C] leading-[0.95] tracking-tighter uppercase drop-shadow-sm">
+            SOFÍA <span className="inline-block text-[#78a130] -ml-2 -mr-2">❦</span><br/>
+            UN VERDADERO<br/>
+            CUENTO ECOLÓGICO
           </h1>
           
-          <p className="text-[14px] md:text-[16px] text-[#2a322c] font-sans font-medium leading-relaxed pt-1 max-w-[450px]">
-            Acompaña a Sofía en una aventura increíble 
-            para conocer nuestra biodiversidad y aprender 
-            a cuidar el lugar que llamamos hogar.
+          <p className="text-[13px] md:text-[15px] text-[#2a322c] font-sans font-bold leading-relaxed pt-1 max-w-[480px] uppercase tracking-wide">
+            Este cuento no es tan cuento, aunque muchos piensen que es puro cuento, y que algún día puede pasar.
           </p>
           
           <div className="flex flex-wrap gap-3 pt-2 justify-start">
