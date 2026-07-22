@@ -24,10 +24,7 @@ const menuItems = [
   {
     title: 'INICIO',
     path: '/',
-    subpages: [
-      { label: 'Mapa Interactivo', path: '/#mapa', icon: Map, desc: 'Póster interactivo de la aventura de Sofía' },
-      { label: 'Historia de Sofía', path: '/#historia', icon: Compass, desc: 'El viaje ecológico por Colombia' }
-    ]
+    subpages: []
   },
   {
     title: 'LIBRO',
@@ -103,13 +100,14 @@ const Navigation = () => {
         <div className="hidden lg:flex gap-1 xl:gap-2 items-center">
           {menuItems.map((item, idx) => {
             const active = isActive(item.path);
-            const isHovered = activeDropdown === idx;
+            const hasSubpages = item.subpages && item.subpages.length > 0;
+            const isHovered = activeDropdown === idx && hasSubpages;
 
             return (
               <div 
                 key={item.title}
                 className="relative py-4"
-                onMouseEnter={() => setActiveDropdown(idx)}
+                onMouseEnter={() => hasSubpages && setActiveDropdown(idx)}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
                 <Link
@@ -121,10 +119,12 @@ const Navigation = () => {
                   }`}
                 >
                   <span>{item.title}</span>
-                  <ChevronDown 
-                    size={14} 
-                    className={`transition-transform duration-200 ${isHovered ? 'rotate-180 text-[#78a130]' : 'opacity-60'}`} 
-                  />
+                  {hasSubpages && (
+                    <ChevronDown 
+                      size={14} 
+                      className={`transition-transform duration-200 ${isHovered ? 'rotate-180 text-[#78a130]' : 'opacity-60'}`} 
+                    />
+                  )}
                 </Link>
 
                 {/* Active Indicator Bar */}
@@ -133,7 +133,7 @@ const Navigation = () => {
                 )}
 
                 {/* Subpages Dropdown */}
-                {isHovered && (
+                {isHovered && hasSubpages && (
                   <div className="absolute top-full left-0 w-72 bg-white rounded-2xl shadow-xl border border-[#e5e4de] p-3 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
                     <div className="text-[10px] font-bold uppercase tracking-widest text-[#78a130] px-3 py-1 mb-1 border-b border-gray-100">
                       Subpáginas de {item.title}
@@ -195,7 +195,23 @@ const Navigation = () => {
       {mobileMenuOpen && (
         <div className="lg:hidden bg-[#F5EFE6] border-b border-[#e5e4de] px-4 pt-2 pb-6 space-y-2 animate-in slide-in-from-top duration-300">
           {menuItems.map((item, idx) => {
+            const hasSubpages = item.subpages && item.subpages.length > 0;
             const isExpanded = expandedMobileCategory === idx;
+
+            if (!hasSubpages) {
+              return (
+                <div key={item.title} className="bg-white/70 rounded-xl border border-black/5 overflow-hidden">
+                  <Link
+                    to={item.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full flex justify-between items-center px-4 py-3 text-xs font-bold uppercase tracking-wider text-[#1A311C]"
+                  >
+                    <span>{item.title}</span>
+                  </Link>
+                </div>
+              );
+            }
+
             return (
               <div key={item.title} className="bg-white/70 rounded-xl border border-black/5 overflow-hidden">
                 <button
@@ -236,7 +252,7 @@ const Navigation = () => {
             <Link
               to="/diviertete-aprendiendo/pasaporte"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full bg-[#1A311C] text-white py-3 rounded-xl text-xs font-bold tracking-wider uppercase flex justify-center items-center gap-2"
+              className="w-full bg-[#1A311C] text-[#ffffff] py-3 rounded-xl text-xs font-bold tracking-wider uppercase flex justify-center items-center gap-2"
             >
               <Book size={16} className="text-[#78a130]" />
               <span>PASAPORTE DEL EXPLORADOR</span>
