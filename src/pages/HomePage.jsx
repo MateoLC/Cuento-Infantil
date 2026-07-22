@@ -20,16 +20,16 @@ const HomePage = () => {
         style={{ display: selectedChapter ? 'none' : 'block' }}
         className="transition-opacity duration-500 w-full relative bg-[#F5EFE6]"
       >
-        {/* Global Poster Background with Soft Bottom Fade */}
+        {/* Global Poster Background with Soft Bottom Fade & Hidden Bottom Border */}
         <div className="relative w-full overflow-hidden">
           <img 
             src="/assets/8.png" 
             alt="Mapa y Fondo Global de la Aventura de Sofía" 
-            className="w-full h-auto block object-cover" 
+            className="w-full h-auto block object-cover transform scale-105 origin-top translate-y-2" 
           />
           
-          {/* Subtle & Soft Bottom Gradient Transition */}
-          <div className="absolute bottom-0 left-0 w-full h-12 sm:h-16 md:h-24 bg-gradient-to-b from-transparent via-[#F5EFE6]/40 to-[#F5EFE6] pointer-events-none z-10"></div>
+          {/* Subtle & Soft Bottom Gradient Transition without line artifacts */}
+          <div className="absolute -bottom-1 left-0 w-full h-16 sm:h-24 md:h-32 bg-gradient-to-b from-transparent via-[#F5EFE6]/50 to-[#F5EFE6] pointer-events-none z-10"></div>
 
           {/* Overlays for interactive map */}
           <div className="absolute inset-0 w-full h-full z-20">
