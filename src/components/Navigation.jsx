@@ -1,48 +1,250 @@
-import React from 'react';
-import { Search, Book, Flower2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { 
+  Flower2, 
+  ChevronDown, 
+  BookOpen, 
+  Map, 
+  Sparkles, 
+  Leaf, 
+  Download, 
+  HelpCircle, 
+  Award, 
+  Palette, 
+  CheckCircle2, 
+  Newspaper, 
+  Mail, 
+  Menu, 
+  X,
+  Book,
+  Compass
+} from 'lucide-react';
+
+const menuItems = [
+  {
+    title: 'INICIO',
+    path: '/',
+    subpages: [
+      { label: 'Mapa Interactivo', path: '/#mapa', icon: Map, desc: 'Póster interactivo de la aventura de Sofía' },
+      { label: 'Historia de Sofía', path: '/#historia', icon: Compass, desc: 'El viaje ecológico por Colombia' }
+    ]
+  },
+  {
+    title: 'LIBRO',
+    path: '/libro',
+    subpages: [
+      { label: 'Lector Digital', path: '/libro/lector', icon: BookOpen, desc: 'Lectura interactiva en Flipbook' },
+      { label: 'Sinopsis y Personajes', path: '/libro/personajes', icon: Sparkles, desc: 'Sofía y la fauna de Colombia' },
+      { label: 'Descargas PDF', path: '/libro/descargas', icon: Download, desc: 'Descarga el libro e imprimibles' }
+    ]
+  },
+  {
+    title: 'CAPÍTULOS',
+    path: '/capitulos',
+    subpages: [
+      { label: '1. Anfibios', path: '/capitulos/anfibios', icon: Leaf, desc: 'Guardianes del agua' },
+      { label: '2. Serpientes', path: '/capitulos/serpientes', icon: Leaf, desc: 'Reinas del silencio' },
+      { label: '3. Reptiles', path: '/capitulos/reptiles', icon: Leaf, desc: 'Maestros del sol' },
+      { label: '4. Aves', path: '/capitulos/aves', icon: Leaf, desc: 'Joyas del viento' },
+      { label: '5. Mamíferos', path: '/capitulos/mamiferos', icon: Leaf, desc: 'Espíritus del bosque' },
+      { label: '6. Árboles', path: '/capitulos/arboles', icon: Leaf, desc: 'Pulmones de la tierra' },
+      { label: '7. Ser Humano', path: '/capitulos/serhumano', icon: Leaf, desc: 'Armonía y naturaleza' }
+    ]
+  },
+  {
+    title: 'DIVIÉRTETE APRENDIENDO',
+    path: '/diviertete-aprendiendo',
+    subpages: [
+      { label: 'Trivia Ecológica', path: '/diviertete-aprendiendo/trivia', icon: HelpCircle, desc: 'Juegos de preguntas y retos' },
+      { label: 'Pasaporte del Explorador', path: '/diviertete-aprendiendo/pasaporte', icon: Award, desc: 'Consigue insignias ambientales' },
+      { label: 'Coloreables y Talleres', path: '/diviertete-aprendiendo/talleres', icon: Palette, desc: 'Fichas para pintar y experimentos' }
+    ]
+  },
+  {
+    title: 'VISIÓN VERDE',
+    path: '/vision-verde',
+    subpages: [
+      { label: 'Nuestra Misión', path: '/vision-verde/mision', icon: Leaf, desc: 'Biodiversidad y conservación' },
+      { label: 'Decálogo Ambiental', path: '/vision-verde/decalogo', icon: CheckCircle2, desc: '10 compromisos por el planeta' },
+      { label: 'Noticias y Eco-Novedades', path: '/vision-verde/noticias', icon: Newspaper, desc: 'Novedades y eventos ambientales' },
+      { label: 'Contacto Ecológico', path: '/vision-verde/contacto', icon: Mail, desc: 'Únete al club ecológico' }
+    ]
+  }
+];
 
 const Navigation = () => {
+  const location = useLocation();
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [expandedMobileCategory, setExpandedMobileCategory] = useState(null);
+
+  const isActive = (itemPath) => {
+    if (itemPath === '/') return location.pathname === '/';
+    return location.pathname.startsWith(itemPath);
+  };
+
   return (
-    <nav className="w-full py-4 px-6 md:px-12 bg-nature-light sticky top-0 z-50 flex justify-between items-center border-b border-[#e5e4de]">
-      {/* Logo Area */}
-      <div className="flex items-center gap-2">
-        <Flower2 size={32} className="text-pink-500" strokeWidth={2.5} fill="#ec4899" fillOpacity="0.2" />
-        <div className="flex flex-col">
-          <span className="text-nature-dark font-serif font-black text-3xl tracking-tight leading-none">SOFÍA</span>
-          <span className="text-nature-text font-sans font-semibold text-[10px] uppercase tracking-wider leading-tight mt-1">UN VERDADERO<br/>CUENTO ECOLÓGICO</span>
+    <nav className="w-full bg-[#F5EFE6] sticky top-0 z-50 border-b border-[#e5e4de] shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+        
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="p-2 bg-pink-100/80 rounded-2xl group-hover:scale-105 transition-transform duration-300">
+            <Flower2 size={28} className="text-pink-500" strokeWidth={2.5} fill="#ec4899" fillOpacity="0.25" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-[#1A311C] font-serif font-black text-2xl tracking-tight leading-none">SOFÍA</span>
+            <span className="text-[#2a322c] font-sans font-bold text-[9px] uppercase tracking-wider leading-tight mt-0.5">
+              UN VERDADERO<br/>CUENTO ECOLÓGICO
+            </span>
+          </div>
+        </Link>
+
+        {/* Desktop Menu */}
+        <div className="hidden lg:flex gap-1 xl:gap-2 items-center">
+          {menuItems.map((item, idx) => {
+            const active = isActive(item.path);
+            const isHovered = activeDropdown === idx;
+
+            return (
+              <div 
+                key={item.title}
+                className="relative py-4"
+                onMouseEnter={() => setActiveDropdown(idx)}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <Link
+                  to={item.path}
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-[11px] xl:text-[12px] font-sans font-bold tracking-wider uppercase transition-all duration-200 ${
+                    active 
+                      ? 'text-[#1A311C] bg-[#78a130]/15' 
+                      : 'text-[#2a322c] hover:text-[#1A311C] hover:bg-black/5'
+                  }`}
+                >
+                  <span>{item.title}</span>
+                  <ChevronDown 
+                    size={14} 
+                    className={`transition-transform duration-200 ${isHovered ? 'rotate-180 text-[#78a130]' : 'opacity-60'}`} 
+                  />
+                </Link>
+
+                {/* Active Indicator Bar */}
+                {active && (
+                  <div className="absolute bottom-1 left-3 right-3 h-[3px] bg-[#78a130] rounded-full animate-pulse" />
+                )}
+
+                {/* Subpages Dropdown */}
+                {isHovered && (
+                  <div className="absolute top-full left-0 w-72 bg-white rounded-2xl shadow-xl border border-[#e5e4de] p-3 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+                    <div className="text-[10px] font-bold uppercase tracking-widest text-[#78a130] px-3 py-1 mb-1 border-b border-gray-100">
+                      Subpáginas de {item.title}
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      {item.subpages.map((sub) => {
+                        const IconComp = sub.icon;
+                        return (
+                          <Link
+                            key={sub.label}
+                            to={sub.path}
+                            className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F5EFE6] transition-colors group/sub"
+                            onClick={() => setActiveDropdown(null)}
+                          >
+                            <div className="p-2 bg-[#78a130]/10 rounded-lg group-hover/sub:bg-[#78a130] group-hover/sub:text-white transition-colors text-[#1A311C]">
+                              <IconComp size={16} />
+                            </div>
+                            <div className="flex flex-col">
+                              <span className="text-xs font-bold text-[#1A311C] group-hover/sub:text-[#78a130] transition-colors">
+                                {sub.label}
+                              </span>
+                              <span className="text-[10px] text-gray-500 leading-tight">
+                                {sub.desc}
+                              </span>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
-      </div>
-      
-      {/* Center Links */}
-      <div className="hidden xl:flex gap-8 items-center text-[11px] font-sans font-bold uppercase tracking-widest text-nature-text">
-        <a href="#" className="flex flex-col items-center gap-1 group">
-          <span className="group-hover:text-nature-green transition-colors">INICIO</span>
-          <div className="w-6 h-[2px] bg-nature-accent rounded-full"></div>
-        </a>
-        <a href="#" className="hover:text-nature-green transition-colors">SOBRE SOFÍA</a>
-        <a href="#" className="hover:text-nature-green transition-colors flex items-center gap-1">
-          CAPÍTULOS
-          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </a>
-        <a href="#" className="hover:text-nature-green transition-colors flex items-center gap-1">
-          RECURSOS
-          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </a>
-        <a href="#" className="hover:text-nature-green transition-colors">ACTIVIDADES</a>
-        <a href="#" className="hover:text-nature-green transition-colors">NOTICIAS</a>
-        <a href="#" className="hover:text-nature-green transition-colors">CONTACTO</a>
+
+        {/* Right CTA */}
+        <div className="hidden md:flex items-center gap-3">
+          <Link
+            to="/diviertete-aprendiendo/pasaporte"
+            className="bg-[#1A311C] text-white px-4 py-2.5 rounded-xl text-[11px] font-bold tracking-wider uppercase hover:bg-[#78a130] transition-all duration-300 flex items-center gap-2 shadow-md hover:shadow-lg hover:-translate-y-0.5"
+          >
+            <Book size={15} className="text-[#78a130]" />
+            <span>PASAPORTE</span>
+          </Link>
+        </div>
+
+        {/* Mobile Hamburger Button */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="lg:hidden p-2.5 text-[#1A311C] hover:bg-black/5 rounded-xl transition-colors"
+          aria-label="Menú principal"
+        >
+          {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+        </button>
       </div>
 
-      {/* Right Area */}
-      <div className="flex items-center gap-4">
-        <button className="hidden md:flex bg-nature-dark text-white px-5 py-2.5 rounded-md text-[11px] font-bold tracking-widest hover:bg-nature-green transition-colors items-center gap-2 shadow-md">
-          <Book size={14} className="text-nature-accent" />
-          <span>PASAPORTE DEL EXPLORADOR</span>
-        </button>
-        <button className="p-2.5 bg-transparent border border-nature-text/20 rounded-full hover:bg-nature-text/5 transition-colors">
-          <Search size={16} className="text-nature-text" />
-        </button>
-      </div>
+      {/* Mobile Drawer Navigation */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden bg-[#F5EFE6] border-b border-[#e5e4de] px-4 pt-2 pb-6 space-y-2 animate-in slide-in-from-top duration-300">
+          {menuItems.map((item, idx) => {
+            const isExpanded = expandedMobileCategory === idx;
+            return (
+              <div key={item.title} className="bg-white/70 rounded-xl border border-black/5 overflow-hidden">
+                <button
+                  onClick={() => setExpandedMobileCategory(isExpanded ? null : idx)}
+                  className="w-full flex justify-between items-center px-4 py-3 text-xs font-bold uppercase tracking-wider text-[#1A311C]"
+                >
+                  <span>{item.title}</span>
+                  <ChevronDown className={`transition-transform duration-200 ${isExpanded ? 'rotate-180 text-[#78a130]' : ''}`} size={16} />
+                </button>
+
+                {isExpanded && (
+                  <div className="bg-white px-3 py-2 border-t border-gray-100 space-y-1">
+                    <Link
+                      to={item.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block px-3 py-2 text-xs font-bold text-[#78a130] hover:bg-gray-50 rounded-lg"
+                    >
+                      Ir a {item.title} Principal
+                    </Link>
+                    {item.subpages.map((sub) => (
+                      <Link
+                        key={sub.label}
+                        to={sub.path}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-gray-700 hover:bg-[#F5EFE6] rounded-lg"
+                      >
+                        <sub.icon size={14} className="text-[#78a130]" />
+                        <span>{sub.label}</span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+          
+          <div className="pt-2">
+            <Link
+              to="/diviertete-aprendiendo/pasaporte"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full bg-[#1A311C] text-white py-3 rounded-xl text-xs font-bold tracking-wider uppercase flex justify-center items-center gap-2"
+            >
+              <Book size={16} className="text-[#78a130]" />
+              <span>PASAPORTE DEL EXPLORADOR</span>
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

@@ -1,54 +1,43 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
-import HeroSection from './components/HeroSection';
-import JourneyMap from './components/JourneyMap';
-import ChapterView from './components/ChapterView';
+import HomePage from './pages/HomePage';
+import BookPage from './pages/BookPage';
+import ChaptersPage from './pages/ChaptersPage';
+import FunLearningPage from './pages/FunLearningPage';
+import GreenVisionPage from './pages/GreenVisionPage';
 
 function App() {
-  const [selectedChapter, setSelectedChapter] = useState(null);
-
-  const handleSelectChapter = (chapterId) => {
-    setSelectedChapter(chapterId);
-  };
-
-  const handleCloseChapter = () => {
-    setSelectedChapter(null);
-  };
-
   return (
-    <div className="min-h-screen bg-nature-light relative">
-      <Navigation />
-      
-      {/* Main Map View */}
-      <div 
-        style={{ display: selectedChapter ? 'none' : 'block' }}
-        className="transition-opacity duration-500 w-full relative bg-nature-light"
-      >
-        {/* Global Poster Background */}
-        <img 
-          src="/assets/8.png" 
-          alt="Mapa y Fondo Global" 
-          className="w-full h-auto block" 
-        />
-        
-        {/* Overlays */}
-        <div className="absolute inset-0 w-full h-full">
-          <div className="w-full h-[35%] relative">
-            <HeroSection />
-          </div>
-          <div className="w-full h-[65%] relative">
-            <JourneyMap onSelectChapter={handleSelectChapter} />
-          </div>
-        </div>
+    <div className="min-h-screen bg-[#F5EFE6] relative flex flex-col justify-between font-sans">
+      <div>
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/libro/*" element={<BookPage />} />
+          <Route path="/capitulos" element={<ChaptersPage />} />
+          <Route path="/capitulos/:chapterId" element={<ChaptersPage />} />
+          <Route path="/diviertete-aprendiendo/*" element={<FunLearningPage />} />
+          <Route path="/vision-verde/*" element={<GreenVisionPage />} />
+        </Routes>
       </div>
 
-      {/* Chapter Detail View */}
-      {selectedChapter && (
-        <ChapterView 
-          chapterId={selectedChapter} 
-          onClose={handleCloseChapter} 
-        />
-      )}
+      {/* Global Footer */}
+      <footer className="bg-[#1A311C] text-white py-12 px-6 border-t border-[#78a130]/20 mt-16">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
+          <div>
+            <span className="font-serif font-black text-2xl tracking-tight block">SOFÍA</span>
+            <span className="text-xs text-[#78a130] uppercase font-bold tracking-widest block mt-1">
+              Un Verdadero Cuento Ecológico sobre la Biodiversidad de Colombia
+            </span>
+          </div>
+
+          <div className="text-xs text-gray-400 font-medium space-y-1">
+            <p>© {new Date().getFullYear()} Sofía Cuento Ecológico. Todos los derechos reservados.</p>
+            <p>Educación ambiental para la protección de nuestros ecosistemas.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
