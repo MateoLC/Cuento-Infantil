@@ -134,8 +134,8 @@ main { min-height: calc(100vh - 72px); padding: 20px clamp(8px, 1.5vw, 24px) 60p
 .word-cell.is-hint { z-index: 2; background: #efbb52; color: #19361f; animation: word-hint .7s ease-in-out infinite alternate; }
 @keyframes word-hint { to { box-shadow: inset 0 0 0 4px rgba(255,255,255,.78); } }
 
-.game-feedback { min-height: 42px; display: flex; align-items: center; margin-top: 12px; color: #4b6246; font-family: "Avenir Next", "Trebuchet MS", sans-serif; font-size: clamp(12px, 1.2vw, 16px); font-weight: 600; line-height: 1.35; }
-.board-actions { display: flex; gap: 8px; margin-top: auto; }
+.game-feedback { min-height: auto; display: flex; align-items: center; margin-top: 10px; color: #4b6246; font-family: "Avenir Next", "Trebuchet MS", sans-serif; font-size: clamp(12px, 1.2vw, 16px); font-weight: 600; line-height: 1.35; }
+.board-actions { display: flex; gap: 8px; margin-top: 10px; }
 .board-actions button {
   min-height: 34px;
   display: inline-flex;
