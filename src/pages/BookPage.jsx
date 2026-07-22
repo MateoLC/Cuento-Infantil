@@ -202,7 +202,7 @@ const BookPage = () => {
                 <span className="text-xs font-bold uppercase tracking-widest text-[#78a130] bg-[#78a130]/20 px-3 py-1 rounded-full">
                   Sinopsis General
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-serif font-black">
+                <h2 className="text-2xl sm:text-3xl font-serif font-black text-white">
                   Una asamblea de sobrevivientes buscando salvar el planeta
                 </h2>
                 <p className="text-xs sm:text-sm text-gray-200 leading-relaxed font-sans">
