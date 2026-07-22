@@ -12,9 +12,9 @@ const HeroSection = () => {
       <div className="relative z-10 w-full px-6 md:px-12 flex justify-start">
         
         <div className="w-full md:w-[60%] lg:w-[50%] space-y-4 md:space-y-6 text-left flex flex-col items-start">
-          <h1 className="text-[2.2rem] sm:text-[3rem] md:text-[3.8rem] lg:text-[4.3rem] font-serif font-black text-[#1A311C] leading-[0.95] tracking-tighter uppercase drop-shadow-sm">
-            SOFÍA <span className="inline-block text-[#78a130] -ml-2 -mr-2">❦</span><br/>
-            UN VERDADERO<br/>
+          <h1 className="text-[2.2rem] sm:text-[3rem] md:text-[3.8rem] lg:text-[4.3rem] font-serif font-black text-[#1A311C] leading-[0.98] tracking-normal uppercase drop-shadow-sm">
+            SOFÍA <span className="inline-block text-[#78a130] -ml-1 -mr-1">❦</span><br/>
+            UN&nbsp; VERDADERO<br/>
             CUENTO ECOLÓGICO
           </h1>
           
