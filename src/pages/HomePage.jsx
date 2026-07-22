@@ -20,16 +20,19 @@ const HomePage = () => {
         style={{ display: selectedChapter ? 'none' : 'block' }}
         className="transition-opacity duration-500 w-full relative bg-[#F5EFE6]"
       >
-        {/* Global Poster Background */}
-        <div className="relative w-full overflow-hidden shadow-2xl">
+        {/* Global Poster Background with Smooth Bottom Fade */}
+        <div className="relative w-full overflow-hidden">
           <img 
             src="/assets/8.png" 
             alt="Mapa y Fondo Global de la Aventura de Sofía" 
-            className="w-full h-auto block" 
+            className="w-full h-auto block object-cover transform scale-[1.01]" 
           />
           
+          {/* Bottom Gradient Transition to eliminate harsh image edge */}
+          <div className="absolute bottom-0 left-0 w-full h-32 sm:h-48 md:h-64 bg-gradient-to-b from-transparent via-[#F5EFE6]/70 to-[#F5EFE6] pointer-events-none z-10"></div>
+
           {/* Overlays for interactive map */}
-          <div className="absolute inset-0 w-full h-full">
+          <div className="absolute inset-0 w-full h-full z-20">
             <div id="historia" className="w-full h-[35%] relative">
               <HeroSection />
             </div>
@@ -41,7 +44,7 @@ const HomePage = () => {
       </div>
 
       {/* Subpages Quick Access Showcase */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="text-xs font-black uppercase tracking-widest text-[#78a130] bg-[#78a130]/10 px-4 py-1.5 rounded-full inline-block mb-3">
             Explora las Subpáginas
