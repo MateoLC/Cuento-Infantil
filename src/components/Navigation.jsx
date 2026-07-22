@@ -51,9 +51,11 @@ const menuItems = [
     title: 'DIVIÉRTETE APRENDIENDO',
     path: '/diviertete-aprendiendo',
     subpages: [
-      { label: 'Trivia Ecológica', path: '/diviertete-aprendiendo/trivia', icon: HelpCircle, desc: 'Juegos de preguntas y retos' },
-      { label: 'Pasaporte del Explorador', path: '/diviertete-aprendiendo/pasaporte', icon: Award, desc: 'Consigue insignias ambientales' },
-      { label: 'Coloreables y Talleres', path: '/diviertete-aprendiendo/talleres', icon: Palette, desc: 'Fichas para pintar y experimentos' }
+      { label: '1. Sopa de letras', path: '/diviertete-aprendiendo', icon: HelpCircle, desc: 'Encuentra las palabras escondidas' },
+      { label: '2. Laberinto', path: '/diviertete-aprendiendo/laberinto', icon: Compass, desc: 'Guía el camino por el humedal' },
+      { label: '3. Crucigrama', path: '/diviertete-aprendiendo/crucigrama', icon: Book, desc: 'Reto de conocimientos ecológicos' },
+      { label: '4. Colorear', path: '/diviertete-aprendiendo/colorear', icon: Palette, desc: 'Pinta la biodiversidad de Colombia' },
+      { label: '5. Asociar', path: '/diviertete-aprendiendo/asociar', icon: Award, desc: 'Relaciona especies y conceptos' }
     ]
   },
   {
@@ -173,11 +175,11 @@ const Navigation = () => {
         {/* Right CTA */}
         <div className="hidden md:flex items-center gap-3">
           <Link
-            to="/diviertete-aprendiendo/pasaporte"
+            to="/libro"
             className="bg-[#1A311C] text-white px-4 py-2.5 rounded-xl text-[11px] font-bold tracking-wider uppercase hover:bg-[#78a130] transition-all duration-300 flex items-center gap-2 shadow-md hover:shadow-lg hover:-translate-y-0.5"
           >
-            <Book size={15} className="text-[#78a130]" />
-            <span>PASAPORTE</span>
+            <ShoppingBag size={15} className="text-[#78a130]" />
+            <span>LIBRO FÍSICO</span>
           </Link>
         </div>
 
@@ -213,7 +215,7 @@ const Navigation = () => {
             }
 
             return (
-              <div key={item.title} className="bg-white/70 rounded-xl border border-black/5 overflow-hidden">
+              <div key={item.title} className="bg-[#ffffff]/70 rounded-xl border border-black/5 overflow-hidden">
                 <button
                   onClick={() => setExpandedMobileCategory(isExpanded ? null : idx)}
                   className="w-full flex justify-between items-center px-4 py-3 text-xs font-bold uppercase tracking-wider text-[#1A311C]"
@@ -250,12 +252,12 @@ const Navigation = () => {
           
           <div className="pt-2">
             <Link
-              to="/diviertete-aprendiendo/pasaporte"
+              to="/libro"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full bg-[#1A311C] text-[#ffffff] py-3 rounded-xl text-xs font-bold tracking-wider uppercase flex justify-center items-center gap-2"
             >
-              <Book size={16} className="text-[#78a130]" />
-              <span>PASAPORTE DEL EXPLORADOR</span>
+              <ShoppingBag size={16} className="text-[#78a130]" />
+              <span>COMPRAR LIBRO FÍSICO</span>
             </Link>
           </div>
         </div>
