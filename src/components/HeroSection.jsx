@@ -6,8 +6,8 @@ const HeroSection = () => {
   return (
     <section className="relative w-full h-full flex flex-col justify-start pt-6 md:pt-10 lg:pt-14">
       
-      {/* Softer and narrower gradient fade overlay */}
-      <div className="absolute -top-10 left-0 w-full md:w-[50%] lg:w-[45%] h-[150%] bg-gradient-to-r from-[#F5EFE6]/80 via-[#F5EFE6]/45 to-transparent pointer-events-none"></div>
+      {/* Softer lateral gradient overlay with vertical mask fade to eliminate horizontal edge lines */}
+      <div className="absolute -top-10 left-0 w-full md:w-[50%] lg:w-[45%] h-[160%] bg-gradient-to-r from-[#F5EFE6]/85 via-[#F5EFE6]/45 to-transparent [mask-image:linear-gradient(to_bottom,black_40%,transparent_100%)] pointer-events-none"></div>
 
       <div className="relative z-10 w-full px-6 md:px-12 flex justify-start">
         
