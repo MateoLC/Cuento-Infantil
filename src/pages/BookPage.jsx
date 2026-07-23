@@ -7,42 +7,42 @@ const characters = [
     name: 'Sofía',
     role: 'La Exploradora Ecológica',
     desc: 'Representa a la infancia curiosa y comprometida con el cuidado de los ecosistemas de Colombia. Guía nuestro viaje por la flora y fauna.',
-    icon: '👧',
+    icon: '/assets/iconos-secciones/icon-sofia.webp',
     tag: 'Protagonista'
   },
   {
     name: 'Oso de Anteojos',
     role: 'Representante de los Mamíferos',
     desc: 'Habitante del páramo y bosque andino. Símbolo de la conservación de nuestras fuentes de agua y biodiversidad de alta montaña.',
-    icon: '🐻',
+    icon: '/assets/iconos-secciones/icon-oso-anteojos.webp',
     tag: 'Mamíferos'
   },
   {
     name: 'Rana Dorada',
     role: 'Representante de los Anfibios',
     desc: 'Sensible bioindicador de la salud de nuestros bosques. Nos enseña la importancia del cuidado de las fuentes hídricas.',
-    icon: '🐸',
+    icon: '/assets/iconos-secciones/icon-rana-dorada.webp',
     tag: 'Anfibios'
   },
   {
     name: 'Talla X y Toche',
     role: 'Representantes de las Serpientes',
     desc: 'Reinas del silencio y valiosas controladoras biológicas que protegen los cultivos y el equilibrio de los ecosistemas.',
-    icon: '🐍',
+    icon: '/assets/iconos-secciones/icon-talla-x-toche.webp',
     tag: 'Serpientes'
   },
   {
     name: 'Chulo o Guala',
     role: 'Representante de las Aves',
     desc: 'El limpiador de los campos, fundamental para mantener la higiene ecológica de nuestros paisajes naturales.',
-    icon: '🦅',
+    icon: '/assets/iconos-secciones/icon-chulo-guala.webp',
     tag: 'Aves'
   },
   {
     name: 'El Árbol Solitario',
     role: 'El Gran Anfitrión',
     desc: 'Refugio de los últimos sobrevivientes, símbolo del último aliento de la flora que clama por la reforestación.',
-    icon: '🌳',
+    icon: '/assets/iconos-secciones/icon-arbol-solitario.webp',
     tag: 'Árboles'
   }
 ];
@@ -195,8 +195,8 @@ const BookPage = () => {
           <div className="space-y-8">
             {/* Overview Banner */}
             <div className="bg-gradient-to-br from-[#1A311C] to-[#2b4728] text-white p-8 rounded-3xl shadow-xl flex flex-col md:flex-row items-center gap-8">
-              <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center text-5xl shrink-0">
-                📖
+              <div className="w-24 h-24 bg-white/10 rounded-2xl flex items-center justify-center p-2 shrink-0">
+                <img src="/assets/iconos-secciones/icon-sinopsis.webp" alt="Sinopsis General" className="w-20 h-20 object-contain" />
               </div>
               <div className="space-y-3">
                 <span className="text-xs font-bold uppercase tracking-widest text-[#78a130] bg-[#78a130]/20 px-3 py-1 rounded-full">
@@ -220,11 +220,13 @@ const BookPage = () => {
                 {characters.map((char) => (
                   <div 
                     key={char.name}
-                    className="bg-white p-6 rounded-3xl border border-[#e5e4de] shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+                    className="bg-white p-6 rounded-3xl border border-[#e5e4de] shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
                   >
                     <div>
                       <div className="flex justify-between items-start mb-4">
-                        <span className="text-4xl p-3 bg-[#F5EFE6] rounded-2xl">{char.icon}</span>
+                        <div className="w-16 h-16 bg-[#F5EFE6] rounded-2xl flex items-center justify-center p-1.5 shadow-sm group-hover:scale-105 transition-transform">
+                          <img src={char.icon} alt={char.name} className="w-13 h-13 object-contain" />
+                        </div>
                         <span className="text-[10px] font-bold uppercase tracking-wider text-[#78a130] bg-[#78a130]/10 px-3 py-1 rounded-full">
                           {char.tag}
                         </span>
