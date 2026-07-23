@@ -28,8 +28,8 @@ const HomePage = () => {
             className="w-full h-auto md:absolute md:inset-0 md:w-full md:h-full object-contain md:object-cover object-center md:object-top" 
           />
           
-          {/* Subtle & Soft Bottom Gradient at the fold */}
-          <div className="hidden md:block absolute bottom-0 left-0 w-full h-20 bg-gradient-to-b from-transparent to-[#F5EFE6] pointer-events-none z-10"></div>
+          {/* Soft & Seamless Bottom Blend Gradient */}
+          <div className="absolute bottom-0 left-0 w-full h-10 md:h-20 bg-gradient-to-b from-transparent to-[#F5EFE6] pointer-events-none z-10"></div>
 
           {/* Overlays for interactive map */}
           <div className="relative md:absolute md:inset-0 z-20 w-full min-h-full flex flex-col justify-between">
