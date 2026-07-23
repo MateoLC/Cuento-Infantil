@@ -53,9 +53,10 @@ const ChaptersPage = () => {
           <div className="relative w-full rounded-2xl overflow-hidden shadow-lg border border-amber-900/10">
             {/* Illustrated Map Poster Image */}
             <img 
-              src="/assets/nuestros-capitulos.png" 
+              src="/assets/capitulos-sofia-optimizado.webp" 
               alt="Nuestros Capítulos - Sofía Cuento Ecológico" 
               className="w-full h-auto block object-cover" 
+              decoding="async"
             />
 
             {/* Completely Invisible Interactive Hotspot Overlay Buttons for each Chapter */}
