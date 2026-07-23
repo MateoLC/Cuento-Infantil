@@ -38,13 +38,13 @@ const menuItems = [
     title: 'CAPÍTULOS',
     path: '/capitulos',
     subpages: [
-      { label: '1. Anfibios', path: '/capitulos/anfibios', icon: Leaf, desc: 'Guardianes del agua' },
-      { label: '2. Serpientes', path: '/capitulos/serpientes', icon: Leaf, desc: 'Reinas del silencio' },
-      { label: '3. Reptiles', path: '/capitulos/reptiles', icon: Leaf, desc: 'Maestros del sol' },
-      { label: '4. Aves', path: '/capitulos/aves', icon: Leaf, desc: 'Joyas del viento' },
-      { label: '5. Mamíferos', path: '/capitulos/mamiferos', icon: Leaf, desc: 'Espíritus del bosque' },
-      { label: '6. Árboles', path: '/capitulos/arboles', icon: Leaf, desc: 'Pulmones de la tierra' },
-      { label: '7. Ser Humano', path: '/capitulos/serhumano', icon: Leaf, desc: 'Armonía y naturaleza' }
+      { label: '1. Anfibios', path: '/capitulos/anfibios', imgSrc: '/assets/capitulos/icon-01-anfibios.webp', desc: 'Guardianes del agua' },
+      { label: '2. Serpientes', path: '/capitulos/serpientes', imgSrc: '/assets/capitulos/icon-02-serpientes.webp', desc: 'Reinas del silencio' },
+      { label: '3. Reptiles', path: '/capitulos/reptiles', imgSrc: '/assets/capitulos/icon-03-reptiles.webp', desc: 'Maestros del sol' },
+      { label: '4. Aves', path: '/capitulos/aves', imgSrc: '/assets/capitulos/icon-04-aves.webp', desc: 'Joyas del viento' },
+      { label: '5. Mamíferos', path: '/capitulos/mamiferos', imgSrc: '/assets/capitulos/icon-05-mamiferos.webp', desc: 'Espíritus del bosque' },
+      { label: '6. Árboles', path: '/capitulos/arboles', imgSrc: '/assets/capitulos/icon-06-arboles.webp', desc: 'Pulmones de la tierra' },
+      { label: '7. Ser Humano', path: '/capitulos/serhumano', imgSrc: '/assets/capitulos/icon-07-ser-humano.webp', desc: 'Armonía y naturaleza' }
     ]
   },
   {
@@ -150,9 +150,15 @@ const Navigation = () => {
                             className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F5EFE6] transition-colors group/sub"
                             onClick={() => setActiveDropdown(null)}
                           >
-                            <div className="p-2 bg-[#78a130]/10 rounded-lg group-hover/sub:bg-[#78a130] group-hover/sub:text-white transition-colors text-[#1A311C]">
-                              <IconComp size={16} />
-                            </div>
+                            {sub.imgSrc ? (
+                              <div className="w-8 h-8 flex items-center justify-center shrink-0">
+                                <img src={sub.imgSrc} alt="" className="w-7 h-7 object-contain" decoding="async" />
+                              </div>
+                            ) : (
+                              <div className="p-2 bg-[#78a130]/10 rounded-lg group-hover/sub:bg-[#78a130] group-hover/sub:text-white transition-colors text-[#1A311C]">
+                                <IconComp size={16} />
+                              </div>
+                            )}
                             <div className="flex flex-col">
                               <span className="text-xs font-bold text-[#1A311C] group-hover/sub:text-[#78a130] transition-colors">
                                 {sub.label}
@@ -240,7 +246,11 @@ const Navigation = () => {
                         onClick={() => setMobileMenuOpen(false)}
                         className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-gray-700 hover:bg-[#F5EFE6] rounded-lg"
                       >
-                        <sub.icon size={14} className="text-[#78a130]" />
+                        {sub.imgSrc ? (
+                          <img src={sub.imgSrc} alt="" className="w-5 h-5 object-contain shrink-0" decoding="async" />
+                        ) : (
+                          <sub.icon size={14} className="text-[#78a130]" />
+                        )}
                         <span>{sub.label}</span>
                       </Link>
                     ))}
