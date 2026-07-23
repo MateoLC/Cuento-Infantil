@@ -22,11 +22,27 @@ const HomePage = () => {
       >
         {/* Global Poster Background */}
         <div className="relative w-full min-h-[auto] md:min-h-[calc(100vh-5rem)] overflow-hidden bg-[#F5EFE6]">
-          <img 
-            src="/assets/8.png" 
-            alt="Mapa y Fondo Global de la Aventura de Sofía" 
-            className="w-full h-auto md:absolute md:inset-0 md:w-full md:h-full object-contain md:object-cover object-center md:object-top" 
-          />
+          <picture>
+            <source
+              type="image/avif"
+              srcSet="/assets/sofia-hero-768.avif 768w, /assets/sofia-hero-1024.avif 1024w, /assets/sofia-hero-1440.avif 1440w, /assets/sofia-hero-1798.avif 1798w"
+              sizes="100vw"
+            />
+            <source
+              type="image/webp"
+              srcSet="/assets/sofia-hero-768.webp 768w, /assets/sofia-hero-1024.webp 1024w, /assets/sofia-hero-1440.webp 1440w, /assets/sofia-hero-1798.webp 1798w"
+              sizes="100vw"
+            />
+            <img 
+              src="/assets/sofia-hero-1440.webp" 
+              width="1798"
+              height="875"
+              alt="Sofía explorando la biodiversidad colombiana" 
+              className="w-full h-auto md:absolute md:inset-0 md:w-full md:h-full object-contain md:object-cover object-center md:object-top" 
+              fetchpriority="high"
+              decoding="async"
+            />
+          </picture>
           
           {/* Soft & Seamless Bottom Blend Gradient */}
           <div className="absolute bottom-0 left-0 w-full h-10 md:h-20 bg-gradient-to-b from-transparent to-[#F5EFE6] pointer-events-none z-10"></div>

@@ -110,11 +110,27 @@ const BookPage = () => {
             {/* Main Poster Image Display */}
             <div className="bg-white p-4 sm:p-8 rounded-3xl border border-[#e5e4de] shadow-2xl overflow-hidden">
               <div className="relative w-full rounded-2xl overflow-hidden shadow-lg border border-gray-100 mb-8">
-                <img 
-                  src="/assets/libro-fisico.png" 
-                  alt="Sofía Un Verdadero Cuento Ecológico - Libro Físico e Iniciativa Nacional" 
-                  className="w-full h-auto block object-cover" 
-                />
+                <picture>
+                  <source
+                    type="image/avif"
+                    srcSet="/assets/sofia-propuesta-768.avif 768w, /assets/sofia-propuesta-1200.avif 1200w, /assets/sofia-propuesta-1600.avif 1600w, /assets/sofia-propuesta-2048.avif 2048w"
+                    sizes="(max-width: 768px) 100vw, 1200px"
+                  />
+                  <source
+                    type="image/webp"
+                    srcSet="/assets/sofia-propuesta-768.webp 768w, /assets/sofia-propuesta-1200.webp 1200w, /assets/sofia-propuesta-1600.webp 1600w, /assets/sofia-propuesta-2048.webp 2048w"
+                    sizes="(max-width: 768px) 100vw, 1200px"
+                  />
+                  <img 
+                    src="/assets/sofia-propuesta-1200.webp" 
+                    width="2048"
+                    height="1360"
+                    alt="Propuesta de patrocinio educativo de Sofía" 
+                    className="w-full h-auto block object-cover" 
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               </div>
 
               {/* Call to Action Grid */}
