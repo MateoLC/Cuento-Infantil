@@ -64,8 +64,8 @@ const HomePage = () => {
             className="group bg-white p-6 rounded-3xl border border-[#e5e4de] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
-              <div className="p-3 bg-[#78a130]/10 w-fit rounded-2xl text-[#1A311C] group-hover:bg-[#78a130] group-hover:text-white transition-colors mb-4">
-                <BookOpen size={28} />
+              <div className="w-16 h-16 flex items-center justify-center mb-3 transition-transform group-hover:scale-110 duration-300">
+                <img src="/assets/iconos/icon-libro-digital.webp" alt="Libro Digital" className="w-14 h-14 object-contain" />
               </div>
               <h3 className="text-xl font-bold text-[#1A311C] mb-2 font-serif">Libro Digital</h3>
               <p className="text-xs text-gray-600 leading-relaxed font-sans mb-4">
@@ -84,8 +84,8 @@ const HomePage = () => {
             className="group bg-white p-6 rounded-3xl border border-[#e5e4de] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
-              <div className="p-3 bg-amber-100 w-fit rounded-2xl text-amber-700 group-hover:bg-amber-600 group-hover:text-white transition-colors mb-4">
-                <Sparkles size={28} />
+              <div className="w-16 h-16 flex items-center justify-center mb-3 transition-transform group-hover:scale-110 duration-300">
+                <img src="/assets/iconos/icon-capitulos-naturaleza.webp" alt="Capítulos de la Naturaleza" className="w-14 h-14 object-contain" />
               </div>
               <h3 className="text-xl font-bold text-[#1A311C] mb-2 font-serif">Capítulos de la Naturaleza</h3>
               <p className="text-xs text-gray-600 leading-relaxed font-sans mb-4">
@@ -104,12 +104,12 @@ const HomePage = () => {
             className="group bg-white p-6 rounded-3xl border border-[#e5e4de] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
-              <div className="p-3 bg-pink-100 w-fit rounded-2xl text-pink-600 group-hover:bg-pink-500 group-hover:text-white transition-colors mb-4">
-                <HelpCircle size={28} />
+              <div className="w-16 h-16 flex items-center justify-center mb-3 transition-transform group-hover:scale-110 duration-300">
+                <img src="/assets/iconos/icon-diviertete-aprendiendo.webp" alt="Diviértete Aprendiendo" className="w-14 h-14 object-contain" />
               </div>
               <h3 className="text-xl font-bold text-[#1A311C] mb-2 font-serif">Diviértete Aprendiendo</h3>
               <p className="text-xs text-gray-600 leading-relaxed font-sans mb-4">
-                Juega la trivia de la biodiversidad, obtén tus insignias en el pasaporte y descarga fichas para colorear.
+                Explora las 5 actividades interactivas sobre la biodiversidad de Colombia y colecciona insignias.
               </p>
             </div>
             <div className="flex items-center gap-2 text-xs font-bold text-pink-600 group-hover:translate-x-1 transition-transform">
@@ -124,8 +124,8 @@ const HomePage = () => {
             className="group bg-white p-6 rounded-3xl border border-[#e5e4de] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
-              <div className="p-3 bg-[#1A311C]/10 w-fit rounded-2xl text-[#1A311C] group-hover:bg-[#1A311C] group-hover:text-white transition-colors mb-4">
-                <Leaf size={28} />
+              <div className="w-16 h-16 flex items-center justify-center mb-3 transition-transform group-hover:scale-110 duration-300">
+                <img src="/assets/iconos/icon-vision-verde.webp" alt="Visión Verde" className="w-14 h-14 object-contain" />
               </div>
               <h3 className="text-xl font-bold text-[#1A311C] mb-2 font-serif">Visión Verde</h3>
               <p className="text-xs text-gray-600 leading-relaxed font-sans mb-4">
