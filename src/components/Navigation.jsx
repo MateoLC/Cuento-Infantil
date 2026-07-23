@@ -30,8 +30,8 @@ const menuItems = [
     title: 'LIBRO',
     path: '/libro',
     subpages: [
-      { label: 'Libro Físico y Proyecto', path: '/libro', icon: ShoppingBag, desc: 'Iniciativa educativa y adquisición' },
-      { label: 'Sinopsis y Personajes', path: '/libro/personajes', icon: Sparkles, desc: 'Sofía y la fauna de Colombia' }
+      { label: 'Libro Físico y Proyecto', path: '/libro', imgSrc: '/assets/submenus/icon-libro-fisico.webp', desc: 'Iniciativa educativa y adquisición' },
+      { label: 'Sinopsis y Personajes', path: '/libro/personajes', imgSrc: '/assets/submenus/icon-sinopsis-personajes.webp', desc: 'Sofía y la fauna de Colombia' }
     ]
   },
   {
@@ -51,11 +51,11 @@ const menuItems = [
     title: 'DIVIÉRTETE APRENDIENDO',
     path: '/diviertete-aprendiendo',
     subpages: [
-      { label: '1. Sopa de letras', path: '/diviertete-aprendiendo', icon: HelpCircle, desc: 'Encuentra las palabras escondidas' },
-      { label: '2. Laberinto', path: '/diviertete-aprendiendo/laberinto', icon: Compass, desc: 'Guía el camino por el humedal' },
-      { label: '3. Crucigrama', path: '/diviertete-aprendiendo/crucigrama', icon: Book, desc: 'Reto de conocimientos ecológicos' },
-      { label: '4. Colorear', path: '/diviertete-aprendiendo/colorear', icon: Palette, desc: 'Pinta la biodiversidad de Colombia' },
-      { label: '5. Asociar', path: '/diviertete-aprendiendo/asociar', icon: Award, desc: 'Relaciona especies y conceptos' }
+      { label: '1. Sopa de letras', path: '/diviertete-aprendiendo', imgSrc: '/assets/submenus/icon-sopa-letras.webp', desc: 'Encuentra las palabras escondidas' },
+      { label: '2. Laberinto', path: '/diviertete-aprendiendo/laberinto', imgSrc: '/assets/submenus/icon-laberinto.webp', desc: 'Guía el camino por el humedal' },
+      { label: '3. Crucigrama', path: '/diviertete-aprendiendo/crucigrama', imgSrc: '/assets/submenus/icon-crucigrama.webp', desc: 'Reto de conocimientos ecológicos' },
+      { label: '4. Colorear', path: '/diviertete-aprendiendo/colorear', imgSrc: '/assets/submenus/icon-colorear.webp', desc: 'Pinta la biodiversidad de Colombia' },
+      { label: '5. Asociar', path: '/diviertete-aprendiendo/asociar', imgSrc: '/assets/submenus/icon-asociar.webp', desc: 'Relaciona especies y conceptos' }
     ]
   },
   {

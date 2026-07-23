@@ -86,7 +86,7 @@ const BookPage = () => {
                 : 'bg-white/80 text-[#2a322c] hover:bg-white border border-[#e5e4de]'
             }`}
           >
-            <ShoppingBag size={18} className={activeSubpage === 'fisico' ? 'text-[#78a130]' : 'text-gray-500'} />
+            <img src="/assets/submenus/icon-libro-fisico.webp" alt="" className="w-6 h-6 object-contain" />
             <span>Libro Físico y Proyecto</span>
           </Link>
 
@@ -98,7 +98,7 @@ const BookPage = () => {
                 : 'bg-white/80 text-[#2a322c] hover:bg-white border border-[#e5e4de]'
             }`}
           >
-            <Sparkles size={18} className={activeSubpage === 'personajes' ? 'text-amber-400' : 'text-gray-500'} />
+            <img src="/assets/submenus/icon-sinopsis-personajes.webp" alt="" className="w-6 h-6 object-contain" />
             <span>Sinopsis y Personajes</span>
           </Link>
         </div>
