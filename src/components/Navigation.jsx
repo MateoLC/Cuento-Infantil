@@ -86,8 +86,11 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
         
         {/* Logo */}
-        <Link to="/" className="flex items-center group">
-          <div className="flex flex-col text-left">
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="p-2 bg-pink-100/80 rounded-2xl group-hover:scale-105 transition-transform duration-300">
+            <Flower2 size={28} className="text-pink-500" strokeWidth={2.5} fill="#ec4899" fillOpacity="0.25" />
+          </div>
+          <div className="flex flex-col">
             <span className="text-[#1A311C] font-serif font-black text-2xl tracking-tight leading-none">SOFÍA</span>
             <span className="text-[#2a322c] font-sans font-bold text-[9px] uppercase tracking-wider leading-tight mt-0.5">
               UN VERDADERO<br/>CUENTO ECOLÓGICO
