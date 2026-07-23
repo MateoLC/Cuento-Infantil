@@ -9,7 +9,7 @@ const HeroSection = () => {
       {/* Softer lateral gradient overlay for desktop */}
       <div className="hidden md:block absolute -top-10 left-0 w-full md:w-[50%] lg:w-[45%] h-[160%] bg-gradient-to-r from-[#F5EFE6]/85 via-[#F5EFE6]/45 to-transparent [mask-image:linear-gradient(to_bottom,black_40%,transparent_100%)] pointer-events-none"></div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex justify-start">
+      <div className="relative z-10 w-full px-6 md:px-12 flex justify-start">
         
         <div className="w-full md:w-[60%] lg:w-[50%] space-y-4 md:space-y-6 text-left flex flex-col items-start">
           <h1 className="text-[2.2rem] sm:text-[3rem] md:text-[3.8rem] lg:text-[4.3rem] font-serif font-black text-[#1A311C] leading-[0.98] tracking-normal uppercase drop-shadow-sm">
