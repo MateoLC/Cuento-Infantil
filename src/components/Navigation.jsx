@@ -83,7 +83,7 @@ const Navigation = () => {
 
   return (
     <nav className="w-full bg-[#F5EFE6] sticky top-0 z-50 border-b border-[#e5e4de] shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 h-20 flex justify-between items-center">
         
         {/* Logo */}
         <Link to="/" className="flex items-center group">
