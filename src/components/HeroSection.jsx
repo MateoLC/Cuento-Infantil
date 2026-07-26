@@ -19,7 +19,7 @@ const HeroSection = () => {
           </h1>
           
           <p className="text-[13px] md:text-[15px] text-[#2a322c] font-sans font-bold leading-relaxed pt-1 max-w-[480px] uppercase tracking-wide drop-shadow-xs">
-            Este cuento no es tan cuento, aunque muchos piensen que es puro cuento, y que algún día puede pasar.
+            Este cuento no es tan cuento, aunque muchos piensen que es puro cuento que algún día puede pasar.
           </p>
           
           {/* Shifted button downwards with extra top padding */}

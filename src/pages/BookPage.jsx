@@ -44,6 +44,13 @@ const characters = [
     desc: 'Refugio de los últimos sobrevivientes, símbolo del último aliento de la flora que clama por la reforestación.',
     icon: '/assets/iconos-secciones/icon-arbol-solitario.webp',
     tag: 'Árboles'
+  },
+  {
+    name: 'El Ser Humano',
+    role: 'Representante de la Humanidad',
+    desc: 'El último en llegar a la asamblea. Reflexiona sobre el impacto de nuestras acciones y busca sensibilizar sobre la responsabilidad de cuidar nuestra casa común.',
+    icon: '/assets/iconos-secciones/icon-ser-humano.webp',
+    tag: 'Ser Humano'
   }
 ];
 
@@ -109,22 +116,22 @@ const BookPage = () => {
             
             {/* Main Poster Image Display */}
             <div className="bg-white p-4 sm:p-8 rounded-3xl border border-[#e5e4de] shadow-2xl overflow-hidden">
-              <div className="relative w-full rounded-2xl overflow-hidden shadow-lg border border-gray-100 mb-8">
+              <div className="relative w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-gray-100 mb-8">
                 <picture>
                   <source
                     type="image/avif"
                     srcSet="/assets/sofia-propuesta-768.avif 768w, /assets/sofia-propuesta-1200.avif 1200w, /assets/sofia-propuesta-1600.avif 1600w, /assets/sofia-propuesta-2048.avif 2048w"
-                    sizes="(max-width: 768px) 100vw, 1200px"
+                    sizes="(max-width: 768px) 100vw, 1024px"
                   />
                   <source
                     type="image/webp"
                     srcSet="/assets/sofia-propuesta-768.webp 768w, /assets/sofia-propuesta-1200.webp 1200w, /assets/sofia-propuesta-1600.webp 1600w, /assets/sofia-propuesta-2048.webp 2048w"
-                    sizes="(max-width: 768px) 100vw, 1200px"
+                    sizes="(max-width: 768px) 100vw, 1024px"
                   />
                   <img 
                     src="/assets/sofia-propuesta-1200.webp" 
-                    width="2048"
-                    height="1360"
+                    width="1024"
+                    height="679"
                     alt="Propuesta de patrocinio educativo de Sofía" 
                     className="w-full h-auto block object-cover" 
                     loading="lazy"
@@ -222,7 +229,7 @@ const BookPage = () => {
                   Una asamblea de sobrevivientes buscando salvar el planeta
                 </h2>
                 <p className="text-xs sm:text-sm text-gray-200 leading-relaxed font-sans">
-                  Bajo el último árbol en pie sobre un paisaje desértico, el último ser humano y los últimos representantes de la fauna colombiana se reúnen para relatar sus historias de adaptación y concienciar al mundo sobre la fragilidad de nuestra megadiversidad.
+                  Bajo el último árbol en pie sobre un paisaje desértico, el último ser humano y los últimos representantes de la fauna colombiana se reúnen para relatar sus historias de adaptación y sensibilizar al mundo sobre la fragilidad de nuestra megadiversidad.
                 </p>
               </div>
             </div>
