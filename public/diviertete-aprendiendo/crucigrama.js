@@ -1,18 +1,10 @@
-const CROSSWORD_SIZE = 17;
-const CROSSWORD_STORAGE_KEY = "diviertete-crucigrama-biodiversidad-v1";
-
-const CROSSWORD_WORDS = [
-  { answer: "BIODIVERSIDAD", clue: "Variedad de seres vivos que comparten nuestro planeta." },
-  { answer: "SERPIENTE", clue: "Reptil alargado que se desplaza sin patas." },
-  { answer: "COLOMBIA", clue: "País que reúne selvas, páramos, costas y una enorme riqueza natural." },
-  { answer: "ANFIBIO", clue: "Animal que puede vivir entre el agua y la tierra." },
-  { answer: "HUMEDAL", clue: "Ecosistema donde el agua y la tierra se encuentran." },
-  { answer: "ESCAMAS", clue: "Cubierta que protege la piel de muchos reptiles." },
-  { answer: "HABITAT", clue: "Lugar natural donde vive una especie." },
-  { answer: "REPTIL", clue: "Vertebrado de piel seca que regula su temperatura con el ambiente." },
-  { answer: "RANA", clue: "Anfibio saltador que anuncia la salud del agua." },
-  { answer: "VIDA", clue: "Lo que cuidamos cuando protegemos la naturaleza." },
-];
+const session = window.SofiaGames.init("crossword");
+const CROSSWORD_SIZE = session.difficulty.crossword.size;
+const CROSSWORD_STORAGE_KEY = session.storageKey;
+const CROSSWORD_WORDS = session.pickEntries(
+  session.difficulty.crossword.count,
+  { offset: 503, longestFirst: true },
+).map(({ answer, clue }) => ({ answer, clue }));
 
 const gridElement = document.querySelector("#crossword-grid");
 const cluesElement = document.querySelector("#crossword-clues");
@@ -21,6 +13,13 @@ const foundElement = document.querySelector("#crossword-found");
 const progressLabel = document.querySelector("#crossword-progress-label");
 const progressBar = document.querySelector("#crossword-progress-bar");
 const completion = document.querySelector("#crossword-completion");
+
+document.querySelector("#crossword-title").textContent = `Crucigrama de ${session.chapter.title}`;
+document.querySelector(".crossword-heading > b small").textContent = `/${CROSSWORD_WORDS.length}`;
+document.querySelector(".crossword-clues-panel > p").textContent =
+  `Pistas tomadas del capítulo ${session.chapter.number}, páginas ${session.chapter.pages}.`;
+document.querySelector("#crossword-completion p").textContent =
+  `Reconociste el vocabulario del capítulo ${session.chapter.number}: ${session.chapter.title}.`;
 
 function createEmptyGrid() {
   return Array.from({ length: CROSSWORD_SIZE }, () => Array(CROSSWORD_SIZE).fill(null));
@@ -55,10 +54,8 @@ function validatePlacement(grid, answer, row, col, direction) {
       continue;
     }
 
-    const neighbors = direction === "across"
-      ? [grid[cell.row - 1]?.[cell.col], grid[cell.row + 1]?.[cell.col]]
-      : [grid[cell.row]?.[cell.col - 1], grid[cell.row]?.[cell.col + 1]];
-    if (neighbors.some(Boolean)) return null;
+    // Se permiten casillas vecinas de otras respuestas; los cruces siguen
+    // exigiendo la misma letra y una dirección distinta.
   }
 
   return crossings ? { cells, crossings } : null;
@@ -110,17 +107,24 @@ function solveCrossword(entries, index, grid, placements) {
 }
 
 function buildCrossword() {
-  const entries = [...CROSSWORD_WORDS].sort((a, b) => b.answer.length - a.answer.length);
-  const grid = createEmptyGrid();
-  const first = entries[0];
-  const firstPlacement = {
-    ...first,
-    row: Math.floor(CROSSWORD_SIZE / 2),
-    col: Math.floor((CROSSWORD_SIZE - first.answer.length) / 2),
-    direction: "across",
-  };
-  const firstGrid = addPlacement(grid, first, firstPlacement);
-  return solveCrossword(entries, 1, firstGrid, [firstPlacement]);
+  const baseEntries = [...CROSSWORD_WORDS].sort((a, b) => b.answer.length - a.answer.length);
+  for (let attempt = 0; attempt < 48; attempt += 1) {
+    const entries = attempt === 0
+      ? baseEntries
+      : window.SofiaGames.shuffle(baseEntries, window.SofiaGames.seededRandom(session.seed + 900 + attempt));
+    const grid = createEmptyGrid();
+    const first = entries[0];
+    const firstPlacement = {
+      ...first,
+      row: Math.floor(CROSSWORD_SIZE / 2),
+      col: Math.floor((CROSSWORD_SIZE - first.answer.length) / 2),
+      direction: "across",
+    };
+    const firstGrid = addPlacement(grid, first, firstPlacement);
+    const solution = solveCrossword(entries, 1, firstGrid, [firstPlacement]);
+    if (solution) return solution;
+  }
+  return null;
 }
 
 const solution = buildCrossword();
@@ -223,7 +227,7 @@ function updateProgress() {
   });
 
   if (count === solution.placements.length) {
-    feedbackElement.textContent = "¡Completaste el crucigrama de la biodiversidad!";
+    feedbackElement.textContent = `¡Completaste el crucigrama de ${session.chapter.title}!`;
     completion.hidden = false;
   }
   saveProgress();
@@ -353,6 +357,10 @@ function checkAnswers() {
 }
 
 function revealHint() {
+  if (!session.takeHint()) {
+    feedbackElement.textContent = "El modo Guardián se completa sin ayudas.";
+    return;
+  }
   const active = solution.placements.find((word) => word.id === activeWordId);
   const candidates = [active, ...solution.placements.filter((word) => word.id !== activeWordId && !isWordComplete(word))];
   const placement = candidates.find((word) => !isWordComplete(word));
@@ -388,3 +396,4 @@ document.querySelector("#crossword-check").addEventListener("click", checkAnswer
 document.querySelector("#crossword-hint").addEventListener("click", revealHint);
 document.querySelector("#crossword-reset").addEventListener("click", resetCrossword);
 document.querySelector("#crossword-again").addEventListener("click", resetCrossword);
+session.updateHintButtons();

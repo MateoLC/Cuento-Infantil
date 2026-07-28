@@ -1,7 +1,8 @@
-const MAZE_SIZE = 13;
-const MAZE_SEED = 2026071802;
-const BEST_KEY = "diviertete-laberinto-humedal-best-v1";
-const COMPLETE_KEY = "diviertete-laberinto-humedal-complete-v1";
+const session = window.SofiaGames.init("maze");
+const MAZE_SIZE = session.difficulty.maze.size;
+const MAZE_SEED = session.seed + 302;
+const BEST_KEY = `${session.storageKey}:best`;
+const COMPLETE_KEY = `${session.storageKey}:complete`;
 
 const DIRECTIONS = {
   up: { row: -1, col: 0, wall: "top", opposite: "bottom" },
@@ -21,6 +22,17 @@ const progressBar = document.querySelector("#maze-progress-bar");
 const percentLabel = document.querySelector("#maze-percent");
 const completion = document.querySelector("#maze-completion");
 const result = document.querySelector("#maze-result");
+
+document.querySelector("#maze-title").textContent = `Ruta de ${session.chapter.title}`;
+document.querySelector(".maze-info-panel h2").textContent = `Llega a ${session.chapter.goal}`;
+document.querySelector(".maze-info-panel > p").textContent = session.chapter.mission;
+document.querySelector("#maze-canvas").setAttribute(
+  "aria-label",
+  `Laberinto del capítulo ${session.chapter.number}: ${session.chapter.title}. ${session.chapter.mission}`,
+);
+document.querySelector("#maze-completion h2").textContent = "¡Ruta completada!";
+document.querySelector("#maze-completion > p").textContent =
+  `Completaste el mapa inspirado en ${session.chapter.title}.`;
 
 function seededRandom(initialSeed) {
   let seed = initialSeed >>> 0;
@@ -175,27 +187,17 @@ function drawGoal(centerX, centerY, radius) {
   context.restore();
 }
 
-function drawFrog(centerX, centerY, radius) {
+function drawExplorer(centerX, centerY, radius) {
   context.save();
-  context.fillStyle = "#6f9a3e";
+  context.fillStyle = session.chapter.color;
   context.beginPath();
-  context.ellipse(centerX, centerY + radius * .12, radius * .62, radius * .5, 0, 0, Math.PI * 2);
+  context.arc(centerX, centerY, radius * .62, 0, Math.PI * 2);
   context.fill();
-  context.fillStyle = "#8bb84f";
-  context.beginPath();
-  context.arc(centerX - radius * .38, centerY - radius * .32, radius * .28, 0, Math.PI * 2);
-  context.arc(centerX + radius * .38, centerY - radius * .32, radius * .28, 0, Math.PI * 2);
-  context.fill();
-  context.fillStyle = "#fff9dc";
-  context.beginPath();
-  context.arc(centerX - radius * .38, centerY - radius * .35, radius * .14, 0, Math.PI * 2);
-  context.arc(centerX + radius * .38, centerY - radius * .35, radius * .14, 0, Math.PI * 2);
-  context.fill();
-  context.fillStyle = "#1f3521";
-  context.beginPath();
-  context.arc(centerX - radius * .38, centerY - radius * .35, radius * .07, 0, Math.PI * 2);
-  context.arc(centerX + radius * .38, centerY - radius * .35, radius * .07, 0, Math.PI * 2);
-  context.fill();
+  context.fillStyle = "#fffaf0";
+  context.font = `800 ${Math.max(12, radius * .7)}px "Avenir Next", sans-serif`;
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.fillText(session.chapter.start.slice(0, 1).toLocaleUpperCase("es"), centerX, centerY);
   context.restore();
 }
 
@@ -241,7 +243,7 @@ function drawMaze() {
     context.stroke();
   });
 
-  drawFrog(
+  drawExplorer(
     padding + (player.col + .5) * cellSize,
     padding + (player.row + .5) * cellSize,
     cellSize * .48,
@@ -256,7 +258,7 @@ function finishMaze() {
   localStorage.setItem(COMPLETE_KEY, "true");
   bestCount.textContent = String(Math.min(previousBest || steps, steps));
   result.textContent = `Llegaste en ${steps} pasos y ${formatTime(seconds)}.`;
-  setFeedback("¡Llegaste al humedal!");
+  setFeedback(`¡Llegaste a ${session.chapter.goal}!`);
   updateProgress();
   window.setTimeout(() => { completion.hidden = false; }, 250);
 }
@@ -282,6 +284,10 @@ function move(directionName) {
 
 function showHint() {
   if (solved) return;
+  if (!session.takeHint()) {
+    setFeedback("El modo Guardián se completa sin ayudas.");
+    return;
+  }
   const path = findPath(player);
   if (path.length < 2) return;
   window.clearTimeout(hintTimeout);
@@ -305,7 +311,7 @@ function resetMaze() {
   hintCell = null;
   completion.hidden = true;
   timeCount.textContent = "00:00";
-  setFeedback("La rana está lista para comenzar la ruta.");
+  setFeedback(`${session.chapter.mission} La ruta está lista.`);
   updateProgress();
   drawMaze();
   canvas.focus();
@@ -349,3 +355,4 @@ const savedBest = Number(localStorage.getItem(BEST_KEY));
 bestCount.textContent = savedBest ? String(savedBest) : "—";
 updateProgress();
 drawMaze();
+session.updateHintButtons();

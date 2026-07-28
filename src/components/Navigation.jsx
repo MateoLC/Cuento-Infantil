@@ -17,7 +17,8 @@ import {
   X,
   Book,
   Compass,
-  ShoppingBag
+  ShoppingBag,
+  Image as ImageIcon
 } from 'lucide-react';
 
 const menuItems = [
@@ -64,8 +65,8 @@ const menuItems = [
     subpages: [
       { label: 'Nuestra Misión', path: '/vision-verde/mision', icon: Leaf, desc: 'Biodiversidad y conservación' },
       { label: 'Decálogo Ambiental', path: '/vision-verde/decalogo', icon: CheckCircle2, desc: '10 compromisos por el planeta' },
-      { label: 'Noticias y Eco-Novedades', path: '/vision-verde/noticias', icon: Newspaper, desc: 'Novedades y eventos ambientales' },
-      { label: 'Contacto Ecológico', path: '/vision-verde/contacto', icon: Mail, desc: 'Únete al club ecológico' }
+      { label: 'Misión y Visión', path: '/vision-verde/mision-vision', icon: Compass, desc: 'Propósito y futuro ecológico' },
+      { label: 'Galería Ecológica', path: '/vision-verde/galeria', icon: ImageIcon, desc: 'Fotos e ilustraciones ecológicas' }
     ]
   }
 ];

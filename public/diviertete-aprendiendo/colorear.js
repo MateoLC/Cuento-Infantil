@@ -1,6 +1,7 @@
-const COLORING_STORAGE_KEY = "diviertete-colorear-biodiversidad-v1";
+const session = window.SofiaGames.init("coloring");
+const COLORING_STORAGE_KEY = session.storageKey;
 const SOURCE_CROP = { x: 0.08, y: 0.191, width: 0.608, height: 0.686 };
-const MAX_ACTIONS = 120;
+const MAX_ACTIONS = session.difficulty.id === "guardian" ? 200 : 120;
 
 const COLORS = [
   { name: "Verde hoja", value: "#5f8d3e" },
@@ -26,10 +27,19 @@ const progressLabel = document.querySelector("#color-progress-label");
 const progressBar = document.querySelector("#color-progress-bar");
 const brushSize = document.querySelector("#brush-size");
 
+document.querySelector("#coloring-title").textContent = `Paleta de ${session.chapter.title}`;
+document.querySelector(".coloring-tools-panel > p").textContent =
+  session.difficulty.id === "guardian"
+    ? `Capítulo ${session.chapter.number}: colorea a mano, sin relleno automático.`
+    : `Capítulo ${session.chapter.number}: puedes usar relleno automático o pincel.`;
+brushSize.min = String(session.difficulty.coloring.brushMin);
+brushSize.max = String(session.difficulty.coloring.brushMax);
+brushSize.value = String(session.difficulty.coloring.brushDefault);
+
 let originalImageData = null;
 let actions = [];
 let selectedColor = COLORS[0].value;
-let activeTool = "fill";
+let activeTool = session.difficulty.coloring.fill ? "fill" : "brush";
 let activeStroke = null;
 let ready = false;
 
@@ -67,6 +77,10 @@ function updateProgress() {
 }
 
 function setTool(tool) {
+  if (tool === "fill" && !session.difficulty.coloring.fill) {
+    feedback.textContent = "En modo Guardián se colorea a mano con el pincel.";
+    return;
+  }
   activeTool = tool;
   document.querySelectorAll(".tool-modes button").forEach((button) => {
     const active = button.dataset.tool === tool;
@@ -311,6 +325,19 @@ function initializeCanvas() {
     const sourceWidth = Math.round(image.naturalWidth * SOURCE_CROP.width);
     const sourceHeight = Math.round(image.naturalHeight * SOURCE_CROP.height);
     context.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, canvas.width, canvas.height);
+    context.save();
+    context.fillStyle = "rgba(255, 250, 240, .9)";
+    context.fillRect(34, 26, canvas.width - 68, 64);
+    context.fillStyle = "#31562f";
+    context.font = '700 28px "Avenir Next", sans-serif';
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillText(
+      `Capítulo ${session.chapter.number}: ${session.chapter.title} · páginas ${session.chapter.pages}`,
+      canvas.width / 2,
+      58,
+    );
+    context.restore();
     originalImageData = context.getImageData(0, 0, canvas.width, canvas.height);
     actions = loadActions();
     renderActions();
@@ -326,6 +353,18 @@ function initializeCanvas() {
 renderPalette();
 initializeCanvas();
 
+if (!session.difficulty.coloring.fill) {
+  const fillButton = document.querySelector('[data-tool="fill"]');
+  fillButton.hidden = true;
+  fillButton.disabled = true;
+  document.querySelectorAll(".tool-modes button").forEach((button) => {
+    const isBrush = button.dataset.tool === "brush";
+    button.classList.toggle("is-active", isBrush);
+    button.setAttribute("aria-pressed", String(isBrush));
+  });
+  document.querySelector(".tool-modes").classList.add("has-two-tools");
+  feedback.textContent = "Modo Guardián: usa el pincel fino y colorea sin relleno automático.";
+}
 document.querySelectorAll(".tool-modes button").forEach((button) => button.addEventListener("click", () => setTool(button.dataset.tool)));
 document.querySelector("#color-undo").addEventListener("click", undo);
 document.querySelector("#color-reset").addEventListener("click", resetDrawing);

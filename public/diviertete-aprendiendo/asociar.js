@@ -1,17 +1,15 @@
-const MATCH_STORAGE_KEY = "diviertete-asociar-capitulos-v1";
+"use strict";
 
-const MATCHES = [
-  { id: "anfibios", label: "Anfibios", badge: "AN", description: "Piel húmeda y vida entre el agua y la tierra.", color: "#5f8d3e" },
-  { id: "serpientes", label: "Serpientes", badge: "SE", description: "Reptiles alargados que no tienen patas.", color: "#8b603c" },
-  { id: "reptiles", label: "Reptiles", badge: "RE", description: "Piel protegida por escamas.", color: "#73924b" },
-  { id: "aves", label: "Aves", badge: "AV", description: "Plumas, pico y alas.", color: "#4f83a4" },
-  { id: "mamiferos", label: "Mamíferos", badge: "MA", description: "Pelo y alimentación con leche.", color: "#9b7043" },
-  { id: "arboles", label: "Árboles", badge: "AR", description: "Raíces, tronco y hojas.", color: "#426d3b" },
-  { id: "ser-humano", label: "Ser humano", badge: "SH", description: "Responsabilidad de proteger la naturaleza.", color: "#b76582" },
-];
-
-const SOURCE_ORDER = ["aves", "anfibios", "arboles", "serpientes", "ser-humano", "reptiles", "mamiferos"];
-const TARGET_ORDER = ["mamiferos", "reptiles", "ser-humano", "anfibios", "aves", "arboles", "serpientes"];
+const session = window.SofiaGames.init("matching");
+const MATCH_STORAGE_KEY = session.storageKey;
+const MATCHES = session.pickEntries(session.difficulty.matching.count, { offset: 701 }).map((entry) => ({
+  id: entry.id,
+  label: entry.label,
+  description: entry.clue,
+  color: session.chapter.color,
+}));
+const sourceOrder = window.SofiaGames.shuffle(MATCHES.map((entry) => entry.id), window.SofiaGames.seededRandom(session.seed + 702));
+const targetOrder = window.SofiaGames.shuffle(MATCHES.map((entry) => entry.id), window.SofiaGames.seededRandom(session.seed + 703));
 
 const sourceList = document.querySelector("#source-list");
 const targetList = document.querySelector("#target-list");
@@ -22,6 +20,12 @@ const progressBar = document.querySelector("#match-progress-bar");
 const feedback = document.querySelector("#match-feedback");
 const completion = document.querySelector("#match-completion");
 const result = document.querySelector("#match-result");
+
+document.querySelector("#matching-title").textContent = `Conceptos de ${session.chapter.title}`;
+document.querySelector(".matching-column-targets h2").textContent = "Encuentra su definición";
+document.querySelector(".matching-info-panel > p").textContent =
+  `Relaciona cada término con la explicación tomada del capítulo ${session.chapter.number}.`;
+document.querySelector("#match-completion > span").textContent = `${MATCHES.length} conexiones`;
 
 let matched = new Set();
 let attempts = 0;
@@ -56,8 +60,8 @@ function createCard(entry, type) {
   button.dataset.cardType = type;
   button.style.setProperty("--card-color", entry.color);
   button.innerHTML = type === "source"
-    ? `<b>${entry.badge}</b><span>${entry.label}</span>`
-    : `<b>?</b><span>${entry.description}</span>`;
+    ? `<span>${entry.label}</span>`
+    : `<span>${entry.description}</span>`;
 
   if (type === "source") {
     button.draggable = true;
@@ -76,7 +80,7 @@ function createCard(entry, type) {
     });
     button.addEventListener("dragend", () => button.classList.remove("is-dragging"));
   } else {
-    button.setAttribute("aria-label", `${entry.description}. Elegir como característica.`);
+    button.setAttribute("aria-label", `${entry.description}. Elegir como definición.`);
     button.addEventListener("click", () => chooseTarget(entry.id));
     button.addEventListener("dragover", (event) => {
       if (matched.has(entry.id)) return;
@@ -96,8 +100,8 @@ function createCard(entry, type) {
 }
 
 function renderCards() {
-  sourceList.replaceChildren(...SOURCE_ORDER.map((id) => createCard(getMatch(id), "source")));
-  targetList.replaceChildren(...TARGET_ORDER.map((id) => createCard(getMatch(id), "target")));
+  sourceList.replaceChildren(...sourceOrder.map((id) => createCard(getMatch(id), "source")));
+  targetList.replaceChildren(...targetOrder.map((id) => createCard(getMatch(id), "target")));
 }
 
 function cardsFor(id) {
@@ -109,14 +113,14 @@ function selectSource(id) {
   selectedId = selectedId === id ? null : id;
   updateSelection();
   feedback.textContent = selectedId
-    ? `Ahora elige la característica de ${getMatch(id).label}.`
-    : "Selecciona una tarjeta de la columna izquierda.";
+    ? `Ahora elige la definición de ${getMatch(id).label}.`
+    : "Selecciona un término de la columna izquierda.";
 }
 
 function chooseTarget(targetId) {
   if (matched.has(targetId)) return;
   if (!selectedId) {
-    feedback.textContent = "Primero selecciona un capítulo de la columna izquierda.";
+    feedback.textContent = "Primero selecciona un término de la columna izquierda.";
     return;
   }
   tryMatch(selectedId, targetId);
@@ -143,11 +147,11 @@ function tryMatch(sourceId, targetId) {
   if (sourceId === targetId) {
     matched.add(sourceId);
     selectedId = null;
-    feedback.textContent = `¡Correcto! ${getMatch(sourceId).label} encontró su característica.`;
+    feedback.textContent = `¡Correcto! ${getMatch(sourceId).label} encontró su definición.`;
   } else {
     selectedId = sourceId;
     flashWrong(sourceId, targetId);
-    feedback.textContent = "Esa conexión no corresponde. Observa las pistas e intenta otra vez.";
+    feedback.textContent = "Esa relación no corresponde. Lee de nuevo e intenta otra vez.";
   }
   saveState();
   updateBoard();
@@ -159,8 +163,6 @@ function updateBoard() {
     card.classList.toggle("is-matched", isMatched);
     card.disabled = isMatched;
     card.draggable = card.dataset.cardType === "source" && !isMatched;
-    const badge = card.querySelector("b");
-    if (card.dataset.cardType === "target") badge.textContent = isMatched ? "✓" : "?";
   });
   updateSelection();
 
@@ -171,12 +173,17 @@ function updateBoard() {
   progressBar.style.width = `${Math.round((count / MATCHES.length) * 100)}%`;
 
   if (count === MATCHES.length) {
-    result.textContent = `Completaste las siete conexiones en ${attempts} ${attempts === 1 ? "intento" : "intentos"}.`;
+    result.textContent =
+      `Completaste ${MATCHES.length} conexiones del capítulo ${session.chapter.number} en ${attempts} intentos.`;
     completion.hidden = false;
   }
 }
 
 function showHint() {
+  if (!session.takeHint()) {
+    feedback.textContent = "El modo Guardián se completa sin ayudas.";
+    return;
+  }
   window.clearTimeout(hintTimeout);
   document.querySelectorAll(".match-card").forEach((card) => card.classList.remove("is-hint"));
   const id = selectedId && !matched.has(selectedId)
@@ -196,7 +203,7 @@ function resetGame() {
   selectedId = null;
   completion.hidden = true;
   localStorage.removeItem(MATCH_STORAGE_KEY);
-  feedback.textContent = "Selecciona una tarjeta de la columna izquierda.";
+  feedback.textContent = "Selecciona un término de la columna izquierda.";
   updateBoard();
 }
 
@@ -207,3 +214,4 @@ updateBoard();
 document.querySelector("#match-hint").addEventListener("click", showHint);
 document.querySelector("#match-reset").addEventListener("click", resetGame);
 document.querySelector("#match-again").addEventListener("click", resetGame);
+session.updateHintButtons();

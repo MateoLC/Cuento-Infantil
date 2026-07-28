@@ -1,11 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
-
 :root {
-  --forest: #1A311C;
+  --forest: #173b24;
   --moss: #436c3c;
-  --leaf: #78a130;
-  --paper: #F5EFE6;
-  --ink: #2a322c;
+  --leaf: #6f913f;
+  --paper: #fffaf0;
+  --ink: #213c26;
   --muted: #66745e;
   --gold: #dda64b;
   --orchid: #d57291;
@@ -13,48 +11,48 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scrollbar-gutter: stable; }
-body { margin: 0; background: #153820; color: var(--ink); font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+body { margin: 0; background: #153820; color: var(--ink); font-family: "Avenir Next", "Trebuchet MS", Arial, sans-serif; }
 button, a { font: inherit; }
 button { cursor: pointer; }
 
 .app-header {
-  min-height: 52px;
+  min-height: 72px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 6px clamp(12px, 3vw, 40px);
+  justify-content: space-between;
+  gap: 24px;
+  padding: 11px clamp(18px, 5vw, 72px);
   position: sticky;
   z-index: 30;
   top: 0;
-  border-bottom: 1px solid #e5e4de;
-  background: #F5EFE6;
+  border-bottom: 1px solid rgba(34, 61, 39, .16);
+  background: rgba(255, 250, 240, .96);
   backdrop-filter: blur(12px);
 }
 
-.brand, .back-to-home { display: none !important; }
+.brand { display: flex; align-items: center; gap: 0; border-left: 4px solid var(--orchid); padding-left: 12px; color: inherit; text-decoration: none; }
 .brand-mark {
   display: none;
 }
 .brand strong, .brand small { display: block; letter-spacing: 0; }
-.brand strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 19px; line-height: 1; font-weight: 800; }
+.brand strong { font-family: "Avenir Next Rounded", "Avenir Next", "Arial Rounded MT Bold", sans-serif; font-size: 19px; line-height: 1; font-weight: 800; }
 .brand small { margin-top: 2px; color: var(--moss); font-size: 10px; font-weight: 800; text-transform: uppercase; }
-.activity-switcher { min-width: 0; display: flex; align-items: center; gap: 6px; }
-.activity-switcher a { min-height: 36px; flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; border-radius: 8px; padding: 7px 13px; color: #2a322c; text-decoration: none; font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.05em; white-space: nowrap; text-transform: uppercase; transition: all 0.2s ease; }
-.activity-switcher a:hover { background: rgba(0, 0, 0, 0.05); color: #1A311C; }
-.activity-switcher a.is-active { border-color: #1A311C; background: #1A311C; color: white; box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
-.activity-switcher span { color: #78a130; font-weight: 800; font-size: 10px; }
-.activity-switcher a.is-active span { color: #a4e03d; }
+.activity-switcher { min-width: 0; display: flex; align-items: center; gap: 4px; }
+.activity-switcher a { min-height: 38px; flex: 0 0 auto; display: inline-flex; align-items: center; gap: 7px; border: 1px solid transparent; border-radius: 5px; padding: 8px 11px; color: #576a55; text-decoration: none; font-size: 10px; font-weight: 800; white-space: nowrap; text-transform: uppercase; }
+.activity-switcher a:hover { border-color: #b7b9a9; color: var(--forest); }
+.activity-switcher a.is-active { border-color: var(--forest); background: var(--forest); color: white; }
+.activity-switcher span { color: var(--orchid); font-size: 9px; }
+.activity-switcher a.is-active span { color: #f0b6c9; }
 
-main { min-height: calc(100vh - 72px); padding: 20px clamp(8px, 1.5vw, 24px) 60px; width: 100%; }
+main { min-height: calc(100vh - 72px); padding: 52px clamp(14px, 5vw, 72px) 90px; }
 .game-intro {
-  width: min(1350px, 100%);
-  min-height: 120px;
+  width: min(1120px, 100%);
+  min-height: 156px;
   display: grid;
   grid-template-columns: minmax(300px, 1fr) minmax(220px, .35fr);
-  gap: 32px;
+  gap: 42px;
   align-items: end;
-  margin: 0 auto 24px;
+  margin: 0 auto 32px;
   color: white;
 }
 .game-intro p { margin: 0 0 9px; color: #d9e9ad; font-size: 11px; font-weight: 850; letter-spacing: 1.1px; text-transform: uppercase; }
@@ -63,6 +61,54 @@ main { min-height: calc(100vh - 72px); padding: 20px clamp(8px, 1.5vw, 24px) 60p
 .global-progress > span { color: #e3ecd8; font-size: 11px; font-weight: 800; text-align: right; text-transform: uppercase; }
 .global-progress > div { height: 7px; overflow: hidden; border: 1px solid rgba(255,255,255,.42); border-radius: 99px; }
 .global-progress i { display: block; width: 0; height: 100%; background: var(--gold); transition: width .3s ease; }
+
+.game-intro.has-session-controls { min-height: 216px; }
+.session-controls {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: auto minmax(260px, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  border-top: 1px solid rgba(255,255,255,.22);
+  padding-top: 15px;
+}
+.difficulty-control {
+  display: inline-grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.48);
+  border-radius: 5px;
+}
+.difficulty-control a {
+  min-width: 112px;
+  display: grid;
+  gap: 1px;
+  padding: 8px 12px;
+  color: #e9f0e4;
+  text-decoration: none;
+  text-align: left;
+}
+.difficulty-control a + a { border-left: 1px solid rgba(255,255,255,.35); }
+.difficulty-control a.is-active { background: #fffaf0; color: var(--forest); }
+.difficulty-control strong { font-size: 10px; text-transform: uppercase; }
+.difficulty-control small { font-size: 8px; opacity: .76; }
+.chapter-reference { display: grid; gap: 1px; color: #fff; }
+.chapter-reference span { color: #d9e9ad; font-size: 8px; font-weight: 800; text-transform: uppercase; }
+.chapter-reference strong { font-size: 12px; line-height: 1.25; }
+.chapter-reference small { color: #dbe6d7; font-size: 9px; }
+.new-map-button {
+  min-height: 40px;
+  border: 1px solid rgba(255,255,255,.52);
+  border-radius: 4px;
+  padding: 8px 13px;
+  background: transparent;
+  color: white;
+  font-size: 9px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+.new-map-button:hover { background: #fffaf0; color: var(--forest); }
+button:disabled { cursor: not-allowed; opacity: .54; }
 
 .word-search-scene,
 .maze-scene,
@@ -96,11 +142,12 @@ main { min-height: calc(100vh - 72px); padding: 20px clamp(8px, 1.5vw, 24px) 60p
 .board-heading > b small { color: #79836f; font-family: "Avenir Next", "Trebuchet MS", sans-serif; font-size: .36em; }
 
 .word-grid {
+  --word-grid-size: 12;
   width: 100%;
   aspect-ratio: 1;
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-template-rows: repeat(12, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--word-grid-size), minmax(0, 1fr));
+  grid-template-rows: repeat(var(--word-grid-size), minmax(0, 1fr));
   overflow: hidden;
   border: 1px solid rgba(62,82,46,.44);
   border-radius: 5px;
@@ -127,8 +174,6 @@ main { min-height: calc(100vh - 72px); padding: 20px clamp(8px, 1.5vw, 24px) 60p
   line-height: 1;
   transition: color .12s ease, background .12s ease, transform .12s ease;
 }
-.word-cell:nth-child(12n) { border-right: 0; }
-.word-cell:nth-last-child(-n + 12) { border-bottom: 0; }
 .word-cell:hover { background: rgba(190,204,111,.24); }
 .word-cell:focus-visible { position: relative; z-index: 2; outline: 2px solid #315f34; outline-offset: -2px; }
 .word-cell.is-selected { background: var(--gold); color: #1e3a22; transform: scale(.9); }
@@ -136,8 +181,8 @@ main { min-height: calc(100vh - 72px); padding: 20px clamp(8px, 1.5vw, 24px) 60p
 .word-cell.is-hint { z-index: 2; background: #efbb52; color: #19361f; animation: word-hint .7s ease-in-out infinite alternate; }
 @keyframes word-hint { to { box-shadow: inset 0 0 0 4px rgba(255,255,255,.78); } }
 
-.game-feedback { min-height: auto; display: flex; align-items: center; margin-top: 10px; color: #4b6246; font-family: "Avenir Next", "Trebuchet MS", sans-serif; font-size: clamp(12px, 1.2vw, 16px); font-weight: 600; line-height: 1.35; }
-.board-actions { display: flex; gap: 8px; margin-top: 10px; }
+.game-feedback { min-height: 28px; display: flex; align-items: center; margin-top: 8px; color: #4b6246; font-family: "Avenir Next", "Trebuchet MS", sans-serif; font-size: clamp(12px, 1.2vw, 16px); font-weight: 600; line-height: 1.35; }
+.board-actions { display: flex; gap: 8px; margin-top: 8px; }
 .board-actions button {
   min-height: 34px;
   display: inline-flex;
@@ -320,6 +365,7 @@ main { min-height: calc(100vh - 72px); padding: 20px clamp(8px, 1.5vw, 24px) 60p
 .color-swatch:hover { transform: scale(1.08); }
 .color-swatch.is-active { outline: 3px solid #315b34; outline-offset: 2px; }
 .tool-modes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: clamp(14px, 2vw, 24px); }
+.tool-modes.has-two-tools { grid-template-columns: repeat(2, 1fr); }
 .tool-modes button { min-width: 0; border: 1px solid #71806b; border-radius: 4px; padding: 7px 2px; background: rgba(255,252,241,.65); color: #53664e; font-size: clamp(6px, .72vw, 9px); font-weight: 800; }
 .tool-modes button.is-active { border-color: var(--forest); background: var(--forest); color: white; }
 .brush-control { display: grid; gap: 6px; margin-top: clamp(13px, 1.8vw, 21px); color: #6b775f; font-size: clamp(7px, .8vw, 10px); font-weight: 800; text-transform: uppercase; }
@@ -425,7 +471,7 @@ main { min-height: calc(100vh - 72px); padding: 20px clamp(8px, 1.5vw, 24px) 60p
 .maze-stats div { display: flex; justify-content: space-between; gap: 10px; padding-bottom: 6px; border-bottom: 1px solid rgba(72,96,65,.18); }
 .maze-stats dt { color: #6b775f; font-size: clamp(7px, .8vw, 10px); font-weight: 800; text-transform: uppercase; }
 .maze-stats dd { margin: 0; color: #315b34; font-size: clamp(8px, 1vw, 12px); font-weight: 800; }
-.direction-pad { width: min(115px, 100%); display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: auto; }
+.direction-pad { width: min(115px, 100%); display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: auto auto 0; }
 .direction-pad button { aspect-ratio: 1; display: grid; place-items: center; border: 1px solid #597256; border-radius: 50%; background: rgba(255,252,241,.62); color: #315b34; font-size: clamp(13px, 1.6vw, 20px); font-weight: 800; }
 .direction-pad button:hover { background: var(--forest); color: white; }
 .direction-pad button[data-direction="up"] { grid-column: 2; }
@@ -433,52 +479,68 @@ main { min-height: calc(100vh - 72px); padding: 20px clamp(8px, 1.5vw, 24px) 60p
 .direction-pad button[data-direction="down"] { grid-column: 2; grid-row: 2; }
 .direction-pad button[data-direction="right"] { grid-column: 3; grid-row: 2; }
 
+html[data-difficulty="guardian"] .match-card { height: clamp(42px, 4vw, 53px); }
+html[data-difficulty="guardian"] .match-card span { font-size: clamp(6px, .72vw, 9px); }
+html[data-difficulty="guardian"] .word-cell { font-size: clamp(8px, 1vw, 15px); }
+html[data-difficulty="guardian"] .word-list { gap: clamp(2px, .42vw, 6px); }
+html[data-difficulty="guardian"] .word-list button { font-size: clamp(6px, .76vw, 10px); }
+
 @media (max-width: 1050px) {
   .app-header {
-    min-height: 52px;
-    padding: 6px 12px;
+    min-height: 112px;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    padding: 10px clamp(18px, 4vw, 42px);
   }
   .activity-switcher {
+    order: 3;
     width: 100%;
-    justify-content: flex-start;
+    justify-content: center;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding: 2px 4px;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
   }
-  .activity-switcher::-webkit-scrollbar { display: none; }
 }
 
 @media (max-width: 760px) {
-  .app-header { position: sticky; top: 0; min-height: 50px; padding: 6px 8px; }
+  .app-header { position: relative; min-height: 67px; flex-wrap: wrap; padding: 10px 16px; }
+  .brand-mark { width: 39px; height: 39px; }
+  .brand strong { font-size: 17px; }
   .activity-switcher {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 6px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding: 2px 4px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 2px;
+    overflow: visible;
+    padding-top: 4px;
   }
-  .activity-switcher::-webkit-scrollbar { display: none; }
   .activity-switcher a {
-    flex: 0 0 auto;
-    min-height: 36px;
-    flex-direction: row;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    font-size: 10px;
-    line-height: 1.1;
-    text-align: left;
-    white-space: nowrap;
-    border-radius: 8px;
+    min-width: 0;
+    min-height: 40px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1px;
+    padding: 4px 2px;
+    font-size: 7px;
+    line-height: 1.05;
+    text-align: center;
+    white-space: normal;
   }
   main { padding: 44px 0 0; }
   .game-intro { min-height: 159px; display: block; padding: 0 20px; margin-bottom: 28px; }
+  .game-intro.has-session-controls { min-height: 330px; }
   .game-intro h1 { font-size: clamp(32px, 5vw, 36px); overflow-wrap: anywhere; }
   .global-progress { margin-top: 22px; }
   .global-progress > span { text-align: left; }
+  .session-controls {
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 14px;
+  }
+  .difficulty-control { grid-column: 1 / -1; }
+  .difficulty-control a { min-width: 0; }
+  .chapter-reference strong { font-size: 11px; }
+  .new-map-button { min-height: 38px; padding: 7px 10px; }
   .word-search-scene {
     width: 100%;
     min-height: 1120px;
@@ -498,6 +560,7 @@ main { min-height: calc(100vh - 72px); padding: 20px clamp(8px, 1.5vw, 24px) 60p
   .board-heading h2 { font-size: 20px; }
   .board-heading > b { font-size: 28px; }
   .word-cell { font-size: clamp(10px, 3.25vw, 16px); }
+  html[data-difficulty="guardian"] .word-cell { font-size: clamp(7px, 2.35vw, 12px); }
   .game-feedback { min-height: 44px; font-size: 13px; }
   .board-actions { margin-top: 3px; }
   .word-panel { display: block; padding: 18px 16px; border: 1px solid rgba(74,91,52,.42); border-radius: 6px; background: rgba(255,251,238,.97); }
@@ -547,6 +610,7 @@ main { min-height: calc(100vh - 72px); padding: 20px clamp(8px, 1.5vw, 24px) 60p
   .matching-column h2 { min-height: 42px; font-size: 17px; }
   .matching-list { gap: 7px; }
   .match-card { height: 64px; padding: 7px 10px; }
+  html[data-difficulty="guardian"] .match-card { height: 70px; }
   .match-card span { font-size: 9px; }
   .matching-info-panel { display: block; padding: 18px 16px; border: 1px solid rgba(74,91,52,.42); border-radius: 6px; background: rgba(255,251,238,.97); }
   .matching-info-panel h2 { font-size: 20px; }

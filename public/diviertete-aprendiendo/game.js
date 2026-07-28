@@ -1,24 +1,10 @@
-const WORDS = [
-  "SERPIENTE",
-  "COLOMBIA",
-  "ANFIBIO",
-  "HUMEDAL",
-  "ESCAMAS",
-  "HABITAT",
-  "REPTIL",
-  "BOSQUE",
-  "RANA",
-  "AGUA",
-];
+"use strict";
 
-const GRID_SIZE = 12;
-const STORAGE_KEY = "diviertete-sopa-biodiversidad-v1";
-const DIRECTIONS = [
-  [-1, -1], [-1, 0], [-1, 1],
-  [0, -1], [0, 1],
-  [1, -1], [1, 0], [1, 1],
-];
-const FILL_LETTERS = "AAAAABCDEEEEEFGHIIIIJLLLMNNNNOOOOPQRRRRSSSSTTTUUVY";
+const session = window.SofiaGames.init("wordsearch");
+const config = session.difficulty.wordSearch;
+const words = session.pickEntries(config.count, { offset: 101 });
+const answers = words.map((entry) => entry.answer);
+const fillLetters = "AAAAABCDEEEEEFGHIIIIJLLLMNNNNOOOOPQRRRRSSSSTTTUUVY";
 
 const gridElement = document.querySelector("#word-grid");
 const wordListElement = document.querySelector("#word-list");
@@ -28,53 +14,49 @@ const progressCountElement = document.querySelector("#progress-count");
 const progressBarElement = document.querySelector("#progress-bar");
 const wordPanelNote = document.querySelector("#word-panel-note");
 const completionElement = document.querySelector("#completion");
+const hintButton = document.querySelector("#hint-button");
 
-function seededRandom(initialSeed) {
-  let seed = initialSeed >>> 0;
-  return () => {
-    seed = (seed * 1664525 + 1013904223) >>> 0;
-    return seed / 4294967296;
-  };
-}
-
-function shuffle(items, random) {
-  const result = [...items];
-  for (let index = result.length - 1; index > 0; index -= 1) {
-    const target = Math.floor(random() * (index + 1));
-    [result[index], result[target]] = [result[target], result[index]];
-  }
-  return result;
-}
+gridElement.style.setProperty("--word-grid-size", config.size);
+document.querySelector(".word-grid").setAttribute(
+  "aria-label",
+  `Sopa de letras del capítulo ${session.chapter.number}: ${session.chapter.title}`,
+);
+document.querySelector("#puzzle-title").textContent = `${session.chapter.title}: sopa de letras`;
+document.querySelector(".board-heading > b small").textContent = `/${answers.length}`;
+document.querySelector("#completion p").textContent =
+  `Completaste el reto del capítulo ${session.chapter.number}: ${session.chapter.title}.`;
 
 function createPuzzle() {
-  const random = seededRandom(20260718);
-  const grid = Array.from({ length: GRID_SIZE }, () => Array(GRID_SIZE).fill(""));
+  const random = window.SofiaGames.seededRandom(session.seed + 211);
+  const grid = Array.from({ length: config.size }, () => Array(config.size).fill(""));
   const placements = {};
 
-  [...WORDS].sort((a, b) => b.length - a.length).forEach((word) => {
+  [...answers].sort((a, b) => b.length - a.length).forEach((word) => {
     const candidates = [];
-    for (let row = 0; row < GRID_SIZE; row += 1) {
-      for (let col = 0; col < GRID_SIZE; col += 1) {
-        DIRECTIONS.forEach(([rowStep, colStep]) => {
+    for (let row = 0; row < config.size; row += 1) {
+      for (let col = 0; col < config.size; col += 1) {
+        config.directions.forEach(([rowStep, colStep]) => {
           const cells = Array.from({ length: word.length }, (_, index) => ({
             row: row + rowStep * index,
             col: col + colStep * index,
           }));
-          if (cells.some((cell) => cell.row < 0 || cell.row >= GRID_SIZE || cell.col < 0 || cell.col >= GRID_SIZE)) return;
+          if (cells.some((cell) => cell.row < 0 || cell.row >= config.size || cell.col < 0 || cell.col >= config.size)) return;
           if (cells.some((cell, index) => grid[cell.row][cell.col] && grid[cell.row][cell.col] !== word[index])) return;
           candidates.push({ cells, overlap: cells.filter((cell) => grid[cell.row][cell.col]).length });
         });
       }
     }
 
-    const choice = shuffle(candidates, random).sort((a, b) => b.overlap - a.overlap)[0];
-    if (!choice) throw new Error(`No fue posible ubicar la palabra ${word}`);
+    const candidatesByOverlap = window.SofiaGames.shuffle(candidates, random)
+      .sort((a, b) => b.overlap - a.overlap);
+    const choice = candidatesByOverlap[0];
+    if (!choice) throw new Error(`No fue posible ubicar ${word} en la sopa de letras.`);
     choice.cells.forEach((cell, index) => { grid[cell.row][cell.col] = word[index]; });
     placements[word] = choice.cells;
   });
 
   grid.forEach((row) => row.forEach((letter, col) => {
-    if (!letter) row[col] = FILL_LETTERS[Math.floor(random() * FILL_LETTERS.length)];
+    if (!letter) row[col] = fillLetters[Math.floor(random() * fillLetters.length)];
   }));
   return { grid, placements };
 }
@@ -88,8 +70,8 @@ let pointerActive = false;
 let hintTimeout = null;
 
 try {
-  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-  found = new Set(saved.filter((word) => WORDS.includes(word)));
+  const saved = JSON.parse(localStorage.getItem(session.storageKey) || "[]");
+  found = new Set(saved.filter((word) => answers.includes(word)));
 } catch {
   found = new Set();
 }
@@ -125,14 +107,14 @@ function renderSelection() {
 }
 
 function saveProgress() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify([...found]));
+  localStorage.setItem(session.storageKey, JSON.stringify([...found]));
 }
 
 function updateProgress() {
   const count = found.size;
   foundCountElement.textContent = String(count);
-  progressCountElement.textContent = `${count} de ${WORDS.length}`;
-  progressBarElement.style.width = `${(count / WORDS.length) * 100}%`;
+  progressCountElement.textContent = `${count} de ${answers.length}`;
+  progressBarElement.style.width = `${(count / answers.length) * 100}%`;
 
   wordListElement.querySelectorAll("button").forEach((button) => {
     const isFound = found.has(button.dataset.word);
@@ -141,9 +123,11 @@ function updateProgress() {
     button.setAttribute("aria-pressed", String(isFound));
     button.querySelector("span").textContent = isFound ? "✓" : "○";
   });
-  wordPanelNote.textContent = count === WORDS.length
+  wordPanelNote.textContent = count === answers.length
     ? "Expedición completada."
-    : "Selecciona una palabra para recibir una pista.";
+    : session.difficulty.hints
+      ? "Toca una palabra para usar una ayuda."
+      : "Modo Guardián: encuentra las palabras sin ayudas.";
   renderSelection();
 }
 
@@ -155,7 +139,7 @@ function completeSelection(cells) {
   }
   const letters = cells.map((cell) => puzzle.grid[cell.row][cell.col]).join("");
   const reversed = [...letters].reverse().join("");
-  const match = WORDS.find((word) => word === letters || word === reversed);
+  const match = answers.find((word) => word === letters || word === reversed);
 
   if (!match) {
     setFeedback("Esa combinación aún no es una palabra. Sigue explorando.");
@@ -164,18 +148,22 @@ function completeSelection(cells) {
   } else {
     found.add(match);
     saveProgress();
-    setFeedback(found.size === WORDS.length ? "¡Misión cumplida!" : `¡Encontraste ${match}!`);
+    setFeedback(found.size === answers.length ? "¡Misión cumplida!" : `¡Encontraste ${match}!`);
     updateProgress();
-    if (found.size === WORDS.length) completionElement.hidden = false;
+    if (found.size === answers.length) completionElement.hidden = false;
   }
   selection = [];
   renderSelection();
 }
 
 function revealHint(requestedWord) {
+  if (!session.takeHint()) {
+    setFeedback("El modo Guardián se completa sin ayudas.");
+    return;
+  }
   const word = requestedWord && !found.has(requestedWord)
     ? requestedWord
-    : WORDS.find((candidate) => !found.has(candidate));
+    : answers.find((candidate) => !found.has(candidate));
   if (!word) return;
 
   window.clearTimeout(hintTimeout);
@@ -193,8 +181,8 @@ function resetGame() {
   pointerStart = null;
   keyboardStart = null;
   completionElement.hidden = true;
-  localStorage.removeItem(STORAGE_KEY);
-  setFeedback("Nueva expedición lista. Encuentra las diez palabras.");
+  localStorage.removeItem(session.storageKey);
+  setFeedback(`Nueva expedición del capítulo ${session.chapter.number} lista.`);
   updateProgress();
 }
 
@@ -224,7 +212,7 @@ function renderGame() {
       if (!keyboardStart) {
         keyboardStart = current;
         selection = [current];
-        setFeedback("Elige ahora la última letra de la palabra.");
+        setFeedback("Elige ahora la última letra.");
         renderSelection();
       } else {
         completeSelection(getLine(keyboardStart, current));
@@ -236,12 +224,14 @@ function renderGame() {
   gridElement.appendChild(gridFragment);
 
   const wordFragment = document.createDocumentFragment();
-  WORDS.forEach((word) => {
+  words.forEach((entry) => {
     const button = document.createElement("button");
     button.type = "button";
-    button.dataset.word = word;
-    button.innerHTML = `<span aria-hidden="true">○</span>${word}`;
-    button.addEventListener("click", () => revealHint(word));
+    button.dataset.word = entry.answer;
+    button.innerHTML = `<span aria-hidden="true">○</span>${entry.label}`;
+    button.title = entry.clue;
+    if (session.difficulty.hints) button.addEventListener("click", () => revealHint(entry.answer));
+    else button.disabled = false;
     wordFragment.appendChild(button);
   });
   wordListElement.appendChild(wordFragment);
@@ -268,8 +258,9 @@ function finishPointerSelection() {
 
 window.addEventListener("pointerup", finishPointerSelection);
 window.addEventListener("pointercancel", finishPointerSelection);
-document.querySelector("#hint-button").addEventListener("click", () => revealHint());
+hintButton.addEventListener("click", () => revealHint());
 document.querySelector("#reset-button").addEventListener("click", resetGame);
 document.querySelector("#continue-button").addEventListener("click", () => { completionElement.hidden = true; });
 
 renderGame();
+session.updateHintButtons();
