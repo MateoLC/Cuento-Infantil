@@ -5,6 +5,7 @@ const FunLearningPage = () => {
   const location = useLocation();
 
   const getGamePath = () => {
+    if (location.pathname.includes('/memoria')) return '/diviertete-aprendiendo/memoria.html';
     if (location.pathname.includes('/laberinto')) return '/diviertete-aprendiendo/laberinto.html';
     if (location.pathname.includes('/crucigrama')) return '/diviertete-aprendiendo/crucigrama.html';
     if (location.pathname.includes('/colorear')) return '/diviertete-aprendiendo/colorear.html';

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#173b24" />
+    <link rel="icon" href="data:," />
+    <title>Diviértete aprendiendo | Memoria de la fauna</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="chapters.js" defer></script>
+    <script src="memoria.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand" href="index.html" aria-label="Diviértete aprendiendo, inicio">
+        <span class="brand-mark" aria-hidden="true">DA</span>
+        <span><strong>Diviértete</strong><small>aprendiendo</small></span>
+      </a>
+      <nav class="activity-switcher" aria-label="Actividades">
+        <a href="index.html"><span>01</span>Sopa de letras</a>
+        <a href="laberinto.html"><span>02</span>Laberinto</a>
+        <a href="crucigrama.html"><span>03</span>Crucigrama</a>
+        <a href="colorear.html"><span>04</span>Colorear</a>
+        <a href="asociar.html"><span>05</span>Asociar</a>
+        <a class="is-active" href="memoria.html" aria-current="page"><span>06</span>Memoria</a>
+      </nav>
+    </header>
+
+    <main id="juego">
+      <header class="game-intro">
+        <div>
+          <p>Fauna colombiana</p>
+          <h1>Recuerda quién se esconde.</h1>
+        </div>
+        <div class="global-progress" aria-label="Progreso del juego de memoria">
+          <span id="memory-progress-label">0 parejas encontradas</span>
+          <div><i id="memory-progress-bar"></i></div>
+        </div>
+      </header>
+
+      <section class="memory-scene" aria-labelledby="memory-title">
+        <div class="memory-board-panel">
+          <div class="board-heading memory-heading">
+            <div>
+              <span>Cuaderno de exploración</span>
+              <h2 id="memory-title">Memoria de la fauna</h2>
+            </div>
+            <b><span id="memory-found">0</span><small>/6</small></b>
+          </div>
+
+          <div
+            class="memory-grid"
+            id="memory-grid"
+            role="grid"
+            aria-label="Cartas de memoria con fauna colombiana"
+          ></div>
+
+          <div class="game-feedback" id="memory-feedback" role="status" aria-live="polite">
+            Voltea dos cartas y encuentra el primer par.
+          </div>
+          <div class="board-actions">
+            <button id="memory-hint" type="button">Pista</button>
+            <button id="memory-reset" type="button">Reiniciar</button>
+          </div>
+        </div>
+
+        <aside class="memory-info-panel" aria-label="Bitácora del juego de memoria">
+          <span class="panel-label">Bitácora</span>
+          <h2>Tu recorrido</h2>
+          <p id="memory-source-note">Encuentra las parejas de animales del libro.</p>
+
+          <dl class="memory-stats">
+            <div><dt>Parejas</dt><dd id="memory-pair-count">0</dd></div>
+            <div><dt>Intentos</dt><dd id="memory-move-count">0</dd></div>
+            <div><dt>Tiempo</dt><dd id="memory-time-count">00:00</dd></div>
+          </dl>
+
+          <p id="memory-level-note">Observa cada especie y recuerda su ubicación.</p>
+        </aside>
+
+        <div class="completion" id="memory-completion" hidden>
+          <span aria-hidden="true">Memoria completada</span>
+          <h2>¡Reconociste toda la fauna!</h2>
+          <p id="memory-result">Encontraste todas las parejas.</p>
+          <button type="button" id="memory-again">Jugar de nuevo</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

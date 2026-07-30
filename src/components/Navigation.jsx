@@ -56,7 +56,8 @@ const menuItems = [
       { label: '2. Laberinto', path: '/diviertete-aprendiendo/laberinto', imgSrc: '/assets/submenus/icon-laberinto.webp', desc: 'Guía el camino por el humedal' },
       { label: '3. Crucigrama', path: '/diviertete-aprendiendo/crucigrama', imgSrc: '/assets/submenus/icon-crucigrama.webp', desc: 'Reto de conocimientos ecológicos' },
       { label: '4. Colorear', path: '/diviertete-aprendiendo/colorear', imgSrc: '/assets/submenus/icon-colorear.webp', desc: 'Pinta la biodiversidad de Colombia' },
-      { label: '5. Asociar', path: '/diviertete-aprendiendo/asociar', imgSrc: '/assets/submenus/icon-asociar.webp', desc: 'Relaciona especies y conceptos' }
+      { label: '5. Asociar', path: '/diviertete-aprendiendo/asociar', imgSrc: '/assets/submenus/icon-asociar.webp', desc: 'Relaciona especies y conceptos' },
+      { label: '6. Memoria', path: '/diviertete-aprendiendo/memoria', icon: Sparkles, desc: 'Encuentra las parejas de fauna' }
     ]
   },
   {

@@ -208,6 +208,21 @@
     })),
   }));
 
+  const ANIMALS = [
+    { id: "rana-dorada", name: "Rana dorada", image: "assets/memory/rana-dorada.webp", chapter: 1 },
+    { id: "boa", name: "Boa constrictora", image: "assets/memory/boa.webp", chapter: 2 },
+    { id: "iguana", name: "Iguana verde", image: "assets/memory/iguana.webp", chapter: 3 },
+    { id: "caiman", name: "Caimán", image: "assets/memory/caiman.webp", chapter: 3 },
+    { id: "colibri", name: "Colibrí", image: "assets/memory/colibri.webp", chapter: 4 },
+    { id: "condor", name: "Cóndor andino", image: "assets/memory/condor.webp", chapter: 4 },
+    { id: "oso-anteojos", name: "Oso de anteojos", image: "assets/memory/oso-anteojos.webp", chapter: 5 },
+    { id: "jaguar", name: "Jaguar", image: "assets/memory/jaguar.webp", chapter: 5 },
+    { id: "danta", name: "Danta", image: "assets/memory/danta.webp", chapter: 5 },
+    { id: "manati", name: "Manatí", image: "assets/memory/manati.webp", chapter: 5 },
+    { id: "delfin-rosado", name: "Delfín rosado", image: "assets/memory/delfin-rosado.webp", chapter: 5 },
+    { id: "mono-ardilla", name: "Mono ardilla", image: "assets/memory/mono-ardilla.webp", chapter: 5 },
+  ];
+
   const DIFFICULTIES = {
     explorer: {
       id: "explorer",
@@ -218,6 +233,7 @@
       maze: { size: 11 },
       crossword: { count: 6, size: 19 },
       matching: { count: 5 },
+      memory: { pairs: 6, columns: 4, revealMs: 1200 },
       coloring: { fill: true, brushMin: 10, brushMax: 60, brushDefault: 30 },
     },
     guardian: {
@@ -233,6 +249,7 @@
       maze: { size: 19 },
       crossword: { count: 9, size: 25 },
       matching: { count: 8 },
+      memory: { pairs: 10, columns: 5, revealMs: 850 },
       coloring: { fill: false, brushMin: 5, brushMax: 34, brushDefault: 14 },
     },
   };
@@ -243,6 +260,7 @@
     crossword: "crucigrama.html",
     coloring: "colorear.html",
     matching: "asociar.html",
+    memory: "memoria.html",
   };
 
   function titleCase(value) {
@@ -310,7 +328,7 @@
     `;
     intro.append(controls);
     controls.querySelector(".new-map-button").addEventListener("click", () => {
-      const candidates = CHAPTERS.filter((chapter) => chapter.id !== session.chapter.id);
+      const candidates = session.chapterPool.filter((chapter) => chapter.id !== session.chapter.id);
       const chapter = candidates[Math.floor(Math.random() * candidates.length)];
       window.location.assign(buildUrl(ACTIVITY_FILES[session.activity], session.difficulty.id, chapter.id, randomSeed()));
     });
@@ -329,8 +347,11 @@
     const seedParam = Number(params.get("semilla"));
     const seed = Number.isFinite(seedParam) && seedParam > 0 ? seedParam >>> 0 : randomSeed();
     const random = seededRandom(seed);
-    const requestedChapter = CHAPTERS.find((chapter) => chapter.id === params.get("capitulo"));
-    const chapter = requestedChapter || CHAPTERS[Math.floor(random() * CHAPTERS.length)];
+    const chapterPool = activity === "memory"
+      ? CHAPTERS.filter((chapter) => chapter.number <= 5)
+      : CHAPTERS;
+    const requestedChapter = chapterPool.find((chapter) => chapter.id === params.get("capitulo"));
+    const chapter = requestedChapter || chapterPool[Math.floor(random() * chapterPool.length)];
 
     if (!requestedChapter || !params.get("semilla") || params.get("dificultad") !== difficultyId) {
       history.replaceState(null, "", buildUrl(ACTIVITY_FILES[activity], difficultyId, chapter.id, seed));
@@ -341,6 +362,7 @@
       seed,
       random,
       chapter,
+      chapterPool,
       difficulty: DIFFICULTIES[difficultyId],
       storageKey: `sofia-games-v2:${activity}:${difficultyId}:${chapter.id}:${seed}`,
       hintsRemaining: DIFFICULTIES[difficultyId].hints,
@@ -351,7 +373,7 @@
         return true;
       },
       updateHintButtons() {
-        document.querySelectorAll("[data-hint-button], #hint-button, #maze-hint, #crossword-hint, #match-hint")
+        document.querySelectorAll("[data-hint-button], #hint-button, #maze-hint, #crossword-hint, #match-hint, #memory-hint")
           .forEach((button) => {
             button.disabled = this.hintsRemaining <= 0;
             button.textContent = this.hintsRemaining > 0 ? `Pista (${this.hintsRemaining})` : "Sin pistas";
@@ -377,6 +399,7 @@
 
   window.SofiaGames = {
     chapters: CHAPTERS,
+    animals: ANIMALS,
     difficulties: DIFFICULTIES,
     init,
     seededRandom,

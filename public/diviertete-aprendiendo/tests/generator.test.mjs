@@ -18,9 +18,13 @@ sandbox.window = sandbox;
 vm.createContext(sandbox);
 vm.runInContext(source, sandbox);
 
-const { chapters, difficulties, seededRandom, shuffle } = sandbox.SofiaGames;
+const { animals, chapters, difficulties, seededRandom, shuffle } = sandbox.SofiaGames;
 assert.equal(chapters.length, 7);
 assert.deepEqual(Object.keys(difficulties), ["explorer", "guardian"]);
+assert.equal(animals.length, 12);
+assert.equal(new Set(animals.map((animal) => animal.id)).size, animals.length);
+assert.ok(chapters.filter((chapter) => chapter.number <= 5)
+  .every((chapter) => animals.some((animal) => animal.chapter === chapter.number)));
 
 function pickEntries(chapter, difficulty, count, seed) {
   const pool = difficulty === "guardian" ? chapter.entries.slice(6) : chapter.entries.slice(0, 8);
@@ -145,4 +149,17 @@ for (const chapter of chapters) {
   }
 }
 
-console.log("OK: 7 capítulos x 2 dificultades x 30 semillas.");
+for (const difficultyId of ["explorer", "guardian"]) {
+  const difficulty = difficulties[difficultyId];
+  assert.ok(difficulty.memory.pairs <= animals.length);
+  for (let seed = 1; seed <= 30; seed += 1) {
+    const selected = shuffle(animals, seededRandom(seed + 1201)).slice(0, difficulty.memory.pairs);
+    const deck = shuffle(selected.flatMap((animal) => [animal.id, animal.id]), seededRandom(seed + 1202));
+    assert.equal(deck.length, difficulty.memory.pairs * 2);
+    for (const animal of selected) {
+      assert.equal(deck.filter((id) => id === animal.id).length, 2);
+    }
+  }
+}
+
+console.log("OK: 7 capítulos, 2 dificultades, 30 semillas y 12 animales.");

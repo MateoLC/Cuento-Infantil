@@ -10,6 +10,7 @@ const pages = [
   ["crucigrama.html", "crucigrama.js"],
   ["colorear.html", "colorear.js"],
   ["asociar.html", "asociar.js"],
+  ["memoria.html", "memoria.js"],
 ];
 
 for (const [htmlFile, scriptFile] of pages) {
@@ -29,6 +30,11 @@ for (const [htmlFile, scriptFile] of pages) {
   }
 }
 
+for (const page of pages.map(([htmlFile]) => htmlFile)) {
+  const html = fs.readFileSync(path.join(root, page), "utf8");
+  assert.ok(html.includes('href="memoria.html"'), `${page} debe incluir Memoria en la navegación`);
+}
+
 for (const asset of [
   "sopa-de-letras-frame.webp",
   "laberinto-frame.webp",
@@ -39,4 +45,21 @@ for (const asset of [
   assert.ok(fs.existsSync(path.join(root, "assets", asset)), `Falta assets/${asset}`);
 }
 
-console.log("OK: estructura de 5 páginas, scripts, IDs y recursos.");
+for (const asset of [
+  "rana-dorada.webp",
+  "boa.webp",
+  "iguana.webp",
+  "caiman.webp",
+  "colibri.webp",
+  "condor.webp",
+  "oso-anteojos.webp",
+  "jaguar.webp",
+  "danta.webp",
+  "manati.webp",
+  "delfin-rosado.webp",
+  "mono-ardilla.webp",
+]) {
+  assert.ok(fs.existsSync(path.join(root, "assets", "memory", asset)), `Falta assets/memory/${asset}`);
+}
+
+console.log("OK: estructura de 6 páginas, scripts, navegación, IDs y recursos.");
