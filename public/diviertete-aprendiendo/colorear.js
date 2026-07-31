@@ -325,19 +325,6 @@ function initializeCanvas() {
     const sourceWidth = Math.round(image.naturalWidth * SOURCE_CROP.width);
     const sourceHeight = Math.round(image.naturalHeight * SOURCE_CROP.height);
     context.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, canvas.width, canvas.height);
-    context.save();
-    context.fillStyle = "rgba(255, 250, 240, .9)";
-    context.fillRect(34, 26, canvas.width - 68, 64);
-    context.fillStyle = "#31562f";
-    context.font = '700 28px "Avenir Next", sans-serif';
-    context.textAlign = "center";
-    context.textBaseline = "middle";
-    context.fillText(
-      `Capítulo ${session.chapter.number}: ${session.chapter.title} · páginas ${session.chapter.pages}`,
-      canvas.width / 2,
-      58,
-    );
-    context.restore();
     originalImageData = context.getImageData(0, 0, canvas.width, canvas.height);
     actions = loadActions();
     renderActions();

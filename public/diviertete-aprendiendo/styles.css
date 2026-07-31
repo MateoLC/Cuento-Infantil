@@ -184,7 +184,7 @@ button:disabled { cursor: not-allowed; opacity: .54; }
 @keyframes word-hint { to { box-shadow: inset 0 0 0 4px rgba(255,255,255,.78); } }
 
 .game-feedback { min-height: 42px; display: flex; align-items: center; margin-top: 12px; color: #4b6246; font-family: "Avenir Next", "Trebuchet MS", sans-serif; font-size: clamp(12px, 1.2vw, 16px); font-weight: 600; line-height: 1.35; }
-.board-actions { display: flex; gap: 8px; margin-top: auto; }
+.board-actions { display: flex; gap: 8px; margin-top: 10px; }
 .board-actions button {
   min-height: 34px;
   display: inline-flex;
@@ -203,13 +203,13 @@ button:disabled { cursor: not-allowed; opacity: .54; }
 
 .word-panel {
   position: absolute;
-  left: 80.7%;
+  left: 76.8%;
   top: 20%;
-  width: 17%;
+  width: 20.2%;
   height: 55.8%;
   display: flex;
   flex-direction: column;
-  padding: clamp(10px, 1.6vw, 22px) clamp(8px, 1.2vw, 17px);
+  padding: clamp(10px, 1.6vw, 22px) clamp(4px, .8vw, 12px);
   color: #355235;
 }
 .word-panel h2 { margin: 4px 0 16px; font-family: "Avenir Next Rounded", "Avenir Next", "Arial Rounded MT Bold", sans-serif; font-size: clamp(17px, 2vw, 25px); font-weight: 800; line-height: 1; }
@@ -312,7 +312,7 @@ button:disabled { cursor: not-allowed; opacity: .54; }
 .crossword-number { position: absolute; z-index: 3; left: 2px; top: 1px; color: #6b724f; font-size: clamp(5px, .55vw, 8px); font-weight: 850; line-height: 1; pointer-events: none; }
 .crossword-clues-panel {
   position: absolute;
-  left: 72.5%;
+  left: 71%;
   top: 23.5%;
   width: 22.5%;
   height: 55.5%;
@@ -352,7 +352,7 @@ button:disabled { cursor: not-allowed; opacity: .54; }
 .canvas-loading[hidden] { display: none; }
 .coloring-tools-panel {
   position: absolute;
-  left: 72.5%;
+  left: 71%;
   top: 23.5%;
   width: 22.5%;
   height: 55.5%;
@@ -423,7 +423,7 @@ button:disabled { cursor: not-allowed; opacity: .54; }
 
 .matching-info-panel {
   position: absolute;
-  left: 74%;
+  left: 72.5%;
   top: 23.5%;
   width: 20.5%;
   height: 55.5%;
@@ -558,7 +558,7 @@ button:disabled { cursor: not-allowed; opacity: .54; }
 .memory-card.is-matched .memory-card-front { border-color: #5f8d3e; background: #edf3dd; }
 .memory-info-panel {
   position: absolute;
-  left: 74%;
+  left: 72.5%;
   top: 23.5%;
   width: 20.5%;
   height: 55.5%;
@@ -613,7 +613,7 @@ button:disabled { cursor: not-allowed; opacity: .54; }
 #maze-canvas:focus-visible { outline: 3px solid var(--orchid); outline-offset: -4px; }
 .maze-info-panel {
   position: absolute;
-  left: 75.8%;
+  left: 75.7%;
   top: 18.8%;
   width: 20.5%;
   height: 49%;
@@ -628,7 +628,7 @@ button:disabled { cursor: not-allowed; opacity: .54; }
 .maze-stats div { display: flex; justify-content: space-between; gap: 10px; padding-bottom: 6px; border-bottom: 1px solid rgba(72,96,65,.18); }
 .maze-stats dt { color: #6b775f; font-size: clamp(7px, .8vw, 10px); font-weight: 800; text-transform: uppercase; }
 .maze-stats dd { margin: 0; color: #315b34; font-size: clamp(8px, 1vw, 12px); font-weight: 800; }
-.direction-pad { width: min(115px, 100%); display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: auto auto 0; }
+.direction-pad { width: min(115px, 100%); display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: clamp(10px, 1.4vw, 18px) auto auto; transform: translateY(-7px); }
 .direction-pad button { aspect-ratio: 1; display: grid; place-items: center; border: 1px solid #597256; border-radius: 50%; background: rgba(255,252,241,.62); color: #315b34; font-size: clamp(13px, 1.6vw, 20px); font-weight: 800; }
 .direction-pad button:hover { background: var(--forest); color: white; }
 .direction-pad button[data-direction="up"] { grid-column: 2; }
