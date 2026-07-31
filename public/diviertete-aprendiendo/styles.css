@@ -11,7 +11,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scrollbar-gutter: stable; }
-body { margin: 0; background: #E2EFE0; color: var(--ink); font-family: "Avenir Next", "Trebuchet MS", Arial, sans-serif; }
+body { margin: 0; background: #153820; color: var(--ink); font-family: "Avenir Next", "Trebuchet MS", Arial, sans-serif; }
 button, a { font: inherit; }
 button { cursor: pointer; }
 
@@ -53,14 +53,14 @@ main { min-height: calc(100vh - 72px); padding: 52px clamp(14px, 5vw, 72px) 90px
   gap: 42px;
   align-items: end;
   margin: 0 auto 32px;
-  color: #173b24;
+  color: white;
 }
-.game-intro p { margin: 0 0 9px; color: #2d5427; font-size: 11px; font-weight: 850; letter-spacing: 1.1px; text-transform: uppercase; }
-.game-intro h1 { max-width: 740px; margin: 0; font-family: "Avenir Next Rounded", "Avenir Next", "Arial Rounded MT Bold", sans-serif; color: #173b24; font-size: clamp(39px, 5vw, 66px); font-weight: 800; line-height: 1; letter-spacing: 0; }
+.game-intro p { margin: 0 0 9px; color: #d9e9ad; font-size: 11px; font-weight: 850; letter-spacing: 1.1px; text-transform: uppercase; }
+.game-intro h1 { max-width: 740px; margin: 0; font-family: "Avenir Next Rounded", "Avenir Next", "Arial Rounded MT Bold", sans-serif; font-size: clamp(39px, 5vw, 66px); font-weight: 800; line-height: 1; letter-spacing: 0; }
 .global-progress { display: grid; gap: 8px; padding-bottom: 5px; }
-.global-progress > span { color: #213c26; font-size: 11px; font-weight: 800; text-align: right; text-transform: uppercase; }
-.global-progress > div { height: 7px; overflow: hidden; border: 1px solid rgba(23,59,36,.28); border-radius: 99px; background: rgba(255,255,255,.5); }
-.global-progress i { display: block; width: 0; height: 100%; background: #5f8d3e; transition: width .3s ease; }
+.global-progress > span { color: #e3ecd8; font-size: 11px; font-weight: 800; text-align: right; text-transform: uppercase; }
+.global-progress > div { height: 7px; overflow: hidden; border: 1px solid rgba(255,255,255,.42); border-radius: 99px; }
+.global-progress i { display: block; width: 0; height: 100%; background: var(--gold); transition: width .3s ease; }
 
 .game-intro.has-session-controls { min-height: 216px; }
 .session-controls {
@@ -69,14 +69,14 @@ main { min-height: calc(100vh - 72px); padding: 52px clamp(14px, 5vw, 72px) 90px
   grid-template-columns: auto minmax(260px, 1fr) auto;
   align-items: center;
   gap: 18px;
-  border-top: 1px solid rgba(23,59,36,.2);
+  border-top: 1px solid rgba(255,255,255,.22);
   padding-top: 15px;
 }
 .difficulty-control {
   display: inline-grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   overflow: hidden;
-  border: 1px solid rgba(23,59,36,.3);
+  border: 1px solid rgba(255,255,255,.48);
   border-radius: 5px;
 }
 .difficulty-control a {
@@ -84,30 +84,30 @@ main { min-height: calc(100vh - 72px); padding: 52px clamp(14px, 5vw, 72px) 90px
   display: grid;
   gap: 1px;
   padding: 8px 12px;
-  color: #173b24;
+  color: #e9f0e4;
   text-decoration: none;
   text-align: left;
 }
-.difficulty-control a + a { border-left: 1px solid rgba(23,59,36,.25); }
-.difficulty-control a.is-active { background: #173b24; color: #fffaf0; }
+.difficulty-control a + a { border-left: 1px solid rgba(255,255,255,.35); }
+.difficulty-control a.is-active { background: #fffaf0; color: var(--forest); }
 .difficulty-control strong { font-size: 10px; text-transform: uppercase; }
-.difficulty-control small { font-size: 8px; opacity: .85; }
-.chapter-reference { display: grid; gap: 1px; color: #173b24; }
-.chapter-reference span { color: #2d5427; font-size: 8px; font-weight: 800; text-transform: uppercase; }
-.chapter-reference strong { font-size: 12px; line-height: 1.25; color: #173b24; }
-.chapter-reference small { color: #3b5a36; font-size: 9px; }
+.difficulty-control small { font-size: 8px; opacity: .76; }
+.chapter-reference { display: grid; gap: 1px; color: #fff; }
+.chapter-reference span { color: #d9e9ad; font-size: 8px; font-weight: 800; text-transform: uppercase; }
+.chapter-reference strong { font-size: 12px; line-height: 1.25; }
+.chapter-reference small { color: #dbe6d7; font-size: 9px; }
 .new-map-button {
   min-height: 40px;
-  border: 1px solid #173b24;
+  border: 1px solid rgba(255,255,255,.52);
   border-radius: 4px;
   padding: 8px 13px;
-  background: #173b24;
+  background: transparent;
   color: white;
   font-size: 9px;
   font-weight: 850;
   text-transform: uppercase;
 }
-.new-map-button:hover { background: #315a36; color: white; }
+.new-map-button:hover { background: #fffaf0; color: var(--forest); }
 button:disabled { cursor: not-allowed; opacity: .54; }
 
 .word-search-scene,
