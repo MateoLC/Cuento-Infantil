@@ -1,7 +1,10 @@
 "use strict";
 
 function startMemoria() {
-  if (!window.SofiaGames) return;
+  if (!window.SofiaGames || typeof window.SofiaGames.init !== "function") {
+    setTimeout(startMemoria, 50);
+    return;
+  }
 
   const session = window.SofiaGames.init("memory");
   const config = session.difficulty.memory;
