@@ -84,7 +84,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="w-full bg-[#F5EFE6] sticky top-0 z-50 border-b border-[#e5e4de] shadow-sm">
+    <nav className="w-full bg-[#e6f2d6] sticky top-0 z-50 border-b border-[#c8e0a8] shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
         
         {/* Logo */}
@@ -200,7 +200,7 @@ const Navigation = () => {
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#F5EFE6] border-b border-[#e5e4de] px-4 pt-2 pb-6 space-y-2 animate-in slide-in-from-top duration-300">
+        <div className="lg:hidden bg-[#e6f2d6] border-b border-[#c8e0a8] px-4 pt-2 pb-6 space-y-2 animate-in slide-in-from-top duration-300">
           {menuItems.map((item, idx) => {
             const hasSubpages = item.subpages && item.subpages.length > 0;
             const isExpanded = expandedMobileCategory === idx;
