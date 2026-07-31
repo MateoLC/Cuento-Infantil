@@ -255,7 +255,7 @@
   };
 
   const ACTIVITY_FILES = {
-    wordsearch: "index.html",
+    wordsearch: "sopa.html",
     maze: "laberinto.html",
     crossword: "crucigrama.html",
     coloring: "colorear.html",

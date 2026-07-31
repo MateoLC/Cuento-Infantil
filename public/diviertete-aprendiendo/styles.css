@@ -44,16 +44,16 @@ button { cursor: pointer; }
 .activity-switcher span { color: var(--orchid); font-size: 9px; }
 .activity-switcher a.is-active span { color: #f0b6c9; }
 
-main { min-height: calc(100vh - 72px); padding: 52px clamp(14px, 5vw, 72px) 90px; }
+main { min-height: calc(100vh - 72px); padding: 16px clamp(14px, 5vw, 72px) 40px; }
 .game-intro {
   width: min(1120px, 100%);
-  min-height: 156px;
+  min-height: 120px;
   display: grid;
   grid-template-columns: minmax(300px, 1fr) minmax(220px, .35fr);
-  gap: 42px;
+  gap: 32px;
   align-items: end;
-  margin: 0 auto 32px;
-  color: white;
+  margin: 0 auto 16px;
+  color: #173b24;
 }
 .game-intro p { margin: 0 0 9px; color: #d9e9ad; font-size: 11px; font-weight: 850; letter-spacing: 1.1px; text-transform: uppercase; }
 .game-intro h1 { max-width: 740px; margin: 0; font-family: "Avenir Next Rounded", "Avenir Next", "Arial Rounded MT Bold", sans-serif; font-size: clamp(39px, 5vw, 66px); font-weight: 800; line-height: 1; letter-spacing: 0; }

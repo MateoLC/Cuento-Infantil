@@ -5,12 +5,13 @@ const FunLearningPage = () => {
   const location = useLocation();
 
   const getGamePath = () => {
-    if (location.pathname.includes('/memoria')) return '/diviertete-aprendiendo/memoria.html';
-    if (location.pathname.includes('/laberinto')) return '/diviertete-aprendiendo/laberinto.html';
-    if (location.pathname.includes('/crucigrama')) return '/diviertete-aprendiendo/crucigrama.html';
-    if (location.pathname.includes('/colorear')) return '/diviertete-aprendiendo/colorear.html';
-    if (location.pathname.includes('/asociar')) return '/diviertete-aprendiendo/asociar.html';
-    return '/diviertete-aprendiendo/index.html'; // Default
+    let basePath = '/diviertete-aprendiendo/sopa.html';
+    if (location.pathname.includes('/memoria')) basePath = '/diviertete-aprendiendo/memoria.html';
+    else if (location.pathname.includes('/laberinto')) basePath = '/diviertete-aprendiendo/laberinto.html';
+    else if (location.pathname.includes('/crucigrama')) basePath = '/diviertete-aprendiendo/crucigrama.html';
+    else if (location.pathname.includes('/colorear')) basePath = '/diviertete-aprendiendo/colorear.html';
+    else if (location.pathname.includes('/asociar')) basePath = '/diviertete-aprendiendo/asociar.html';
+    return basePath + (location.search || '');
   };
 
   const gamePath = getGamePath();

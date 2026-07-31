@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const pages = [
-  ["index.html", "game.js"],
+  ["sopa.html", "game.js"],
   ["laberinto.html", "laberinto.js"],
   ["crucigrama.html", "crucigrama.js"],
   ["colorear.html", "colorear.js"],
@@ -19,7 +19,7 @@ for (const [htmlFile, scriptFile] of pages) {
   const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
   assert.equal(new Set(ids).size, ids.length, `${htmlFile} contiene IDs duplicados`);
   assert.ok(
-    html.indexOf('src="chapters.js"') < html.indexOf(`src="${scriptFile}"`),
+    html.indexOf('src="chapters.js') < html.indexOf(`src="${scriptFile}`),
     `${htmlFile} debe cargar chapters.js antes de ${scriptFile}`,
   );
 
