@@ -176,6 +176,7 @@ function updateBoard() {
     result.textContent =
       `Completaste ${MATCHES.length} conexiones del capítulo ${session.chapter.number} en ${attempts} intentos.`;
     completion.hidden = false;
+    window.SofiaLeaderboardBridge?.complete({ matches: MATCHES.length, attempts });
   }
 }
 

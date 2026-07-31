@@ -6,7 +6,10 @@ import BookPage from './pages/BookPage';
 import ChaptersPage from './pages/ChaptersPage';
 import FunLearningPage from './pages/FunLearningPage';
 import GreenVisionPage from './pages/GreenVisionPage';
+import LeaderboardPage from './pages/LeaderboardPage';
 import WhatsAppButton from './components/WhatsAppButton';
+import ExplorerProfileModal from './components/ExplorerProfileModal';
+import ScoreToast from './components/ScoreToast';
 
 function App() {
   return (
@@ -19,12 +22,15 @@ function App() {
           <Route path="/capitulos" element={<ChaptersPage />} />
           <Route path="/capitulos/:chapterId" element={<ChaptersPage />} />
           <Route path="/diviertete-aprendiendo/*" element={<FunLearningPage />} />
+          <Route path="/clasificacion" element={<LeaderboardPage />} />
           <Route path="/vision-verde/*" element={<GreenVisionPage />} />
         </Routes>
       </div>
 
       {/* Floating WhatsApp Button */}
       <WhatsAppButton />
+      <ExplorerProfileModal />
+      <ScoreToast />
 
       {/* Global Footer */}
       <footer className="bg-[#1A311C] text-white py-12 px-6 border-t border-[#78a130]/20 mt-16">

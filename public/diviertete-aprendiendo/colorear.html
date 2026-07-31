@@ -8,6 +8,7 @@
     <title>Diviértete aprendiendo | Colorea la biodiversidad</title>
     <link rel="stylesheet" href="styles.css?v=3" />
     <script src="chapters.js?v=3" defer></script>
+    <script src="leaderboard-client.js?v=1" defer></script>
     <script src="colorear.js?v=3" defer></script>
   </head>
   <body>
@@ -65,10 +66,18 @@
             <button id="color-undo" type="button">Deshacer</button>
             <button id="color-reset" type="button">Limpiar</button>
             <button id="color-save" type="button">Guardar</button>
+            <button id="color-complete" class="primary-action" type="button" disabled>Terminar</button>
           </div>
 
           <p id="color-feedback" role="status" aria-live="polite">Toca una zona cerrada para llenarla de color.</p>
         </aside>
+
+        <section class="completion" id="color-completion" hidden aria-live="polite">
+          <span>Misión cumplida</span>
+          <h2>Tu bosque tiene nuevos colores.</h2>
+          <p id="color-result">Terminaste una ilustración inspirada en la biodiversidad de Colombia.</p>
+          <button id="color-continue" type="button">Seguir coloreando</button>
+        </section>
       </section>
     </main>
   </body>

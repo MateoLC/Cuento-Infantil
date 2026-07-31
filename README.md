@@ -1,16 +1,41 @@
-# React + Vite
+# Sofia, un verdadero cuento ecologico
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Sitio web educativo en React/Vite con lector del libro, capitulos, Vision Verde y siete rutas dentro de Diviertete Aprendiendo: seis juegos y una clasificacion publica.
 
-Currently, two official plugins are available:
+## Desarrollo local
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+La web funciona sin el servicio de clasificacion. Para guardar nombres y puntajes tambien debe ejecutarse `leaderboard-api` con PostgreSQL.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Clasificacion
 
-## Expanding the Oxlint configuration
+El navegador conserva un pasaporte anonimo. Solo el alias elegido aparece publicamente; no se solicitan correo, contrasena ni nombre real. El servidor firma cada reto, valida tiempos plausibles y calcula los puntos sin confiar en el puntaje enviado por el cliente.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```bash
+cd leaderboard-api
+cp .env.example .env
+pnpm install
+pnpm start
+```
+
+Variables necesarias:
+
+- `DATABASE_URL`: conexion PostgreSQL.
+- `PLAYER_TOKEN_SECRET`: secreto aleatorio de al menos 32 caracteres.
+- `ALLOWED_ORIGIN`: origen publico de la web.
+- `DATABASE_SSL`: `disable` para la red interna de Dokploy o `require` para un proveedor externo.
+
+## Dokploy
+
+La aplicacion web existente se mantiene independiente. El despliegue recomendado agrega:
+
+1. PostgreSQL `sofia-leaderboard-db` con volumen persistente.
+2. Aplicacion `sofia-leaderboard-api` desde este repositorio, ruta de construccion `/leaderboard-api` y Dockerfile `leaderboard-api/Dockerfile`.
+3. Dominio `sofiacuentoecologico.com`, ruta `/api`, puerto `3000` y HTTPS.
+4. Las variables descritas arriba usando la URL interna de PostgreSQL.
+
+Orden seguro: base de datos, API, verificacion de `/api/health` y finalmente frontend. Para revertir, se restaura el despliegue anterior del frontend y se desactiva la ruta `/api`; los juegos siguen funcionando sin la clasificacion.

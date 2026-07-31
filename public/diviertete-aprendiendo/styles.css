@@ -373,9 +373,11 @@ button:disabled { cursor: not-allowed; opacity: .54; }
 .tool-modes button.is-active { border-color: var(--forest); background: var(--forest); color: white; }
 .brush-control { display: grid; gap: 6px; margin-top: clamp(13px, 1.8vw, 21px); color: #6b775f; font-size: clamp(7px, .8vw, 10px); font-weight: 800; text-transform: uppercase; }
 .brush-control input { width: 100%; accent-color: var(--moss); }
-.coloring-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; margin-top: clamp(13px, 1.8vw, 21px); }
+.coloring-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; margin-top: clamp(13px, 1.8vw, 21px); }
 .coloring-actions button { min-width: 0; min-height: 33px; border: 1px solid #597256; border-radius: 4px; padding: 6px 2px; background: rgba(255,252,241,.65); color: #315b34; font-size: clamp(6px, .65vw, 8px); font-weight: 800; text-transform: uppercase; }
 .coloring-actions button:hover { background: var(--forest); color: white; }
+.coloring-actions button.primary-action { background: var(--forest); color: white; }
+.coloring-actions button:disabled { cursor: not-allowed; opacity: .45; }
 .coloring-tools-panel > p { margin: auto 0 0; color: #66745e; font-size: clamp(7px, .82vw, 10px); font-style: italic; line-height: 1.4; }
 
 .matching-scene {

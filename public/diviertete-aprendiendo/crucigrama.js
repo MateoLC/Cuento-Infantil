@@ -229,6 +229,7 @@ function updateProgress() {
   if (count === solution.placements.length) {
     feedbackElement.textContent = `¡Completaste el crucigrama de ${session.chapter.title}!`;
     completion.hidden = false;
+    window.SofiaLeaderboardBridge?.complete({ words: solution.placements.length });
   }
   saveProgress();
 }

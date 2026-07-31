@@ -393,6 +393,15 @@
     document.documentElement.dataset.difficulty = difficultyId;
     document.documentElement.dataset.chapter = chapter.id;
     renderSessionControls(session);
+    window.SofiaGames.currentSession = session;
+    window.dispatchEvent(new CustomEvent("sofia:session-ready", {
+      detail: {
+        activity,
+        difficulty: difficultyId,
+        chapter: chapter.id,
+        seed,
+      },
+    }));
     window.setTimeout(() => session.updateHintButtons(), 0);
     return session;
   }
@@ -405,5 +414,6 @@
     seededRandom,
     shuffle,
     buildUrl,
+    currentSession: null,
   };
 })();

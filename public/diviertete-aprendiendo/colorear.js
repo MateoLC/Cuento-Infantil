@@ -26,6 +26,8 @@ const feedback = document.querySelector("#color-feedback");
 const progressLabel = document.querySelector("#color-progress-label");
 const progressBar = document.querySelector("#color-progress-bar");
 const brushSize = document.querySelector("#brush-size");
+const completeButton = document.querySelector("#color-complete");
+const completion = document.querySelector("#color-completion");
 
 document.querySelector("#coloring-title").textContent = `Paleta de ${session.chapter.title}`;
 document.querySelector(".coloring-tools-panel > p").textContent =
@@ -74,6 +76,7 @@ function updateProgress() {
   progressLabel.textContent = count ? `${count} ${count === 1 ? "color usado" : "colores usados"}` : "Elige tu primer color";
   progressBar.style.width = `${Math.min(100, Math.round((count / 8) * 100))}%`;
   document.querySelector("#color-undo").disabled = !actions.length;
+  completeButton.disabled = actions.filter((action) => action.tool !== "eraser").length < 4 || count < 3;
 }
 
 function setTool(tool) {
@@ -317,6 +320,19 @@ function saveDrawing() {
   feedback.textContent = "Tu ilustración está lista para guardar.";
 }
 
+function completeDrawing() {
+  if (completeButton.disabled) {
+    feedback.textContent = "Usa al menos tres colores y completa cuatro acciones para terminar.";
+    return;
+  }
+  const paintedActions = actions.filter((action) => action.tool !== "eraser");
+  const colors = new Set(paintedActions.map((action) => action.color)).size;
+  document.querySelector("#color-result").textContent =
+    `Completaste tu ilustración con ${colors} colores y ${paintedActions.length} acciones.`;
+  completion.hidden = false;
+  window.SofiaLeaderboardBridge?.complete({ actions: paintedActions.length, colors });
+}
+
 function initializeCanvas() {
   const image = new Image();
   image.addEventListener("load", () => {
@@ -356,6 +372,8 @@ document.querySelectorAll(".tool-modes button").forEach((button) => button.addEv
 document.querySelector("#color-undo").addEventListener("click", undo);
 document.querySelector("#color-reset").addEventListener("click", resetDrawing);
 document.querySelector("#color-save").addEventListener("click", saveDrawing);
+completeButton.addEventListener("click", completeDrawing);
+document.querySelector("#color-continue").addEventListener("click", () => { completion.hidden = true; });
 canvas.addEventListener("pointerdown", handlePointerDown);
 canvas.addEventListener("pointermove", handlePointerMove);
 canvas.addEventListener("pointerup", finishStroke);

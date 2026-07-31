@@ -150,7 +150,10 @@ function completeSelection(cells) {
     saveProgress();
     setFeedback(found.size === answers.length ? "¡Misión cumplida!" : `¡Encontraste ${match}!`);
     updateProgress();
-    if (found.size === answers.length) completionElement.hidden = false;
+    if (found.size === answers.length) {
+      completionElement.hidden = false;
+      window.SofiaLeaderboardBridge?.complete({ words: answers.length });
+    }
   }
   selection = [];
   renderSelection();

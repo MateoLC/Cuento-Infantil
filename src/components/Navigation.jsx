@@ -1,25 +1,18 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  Flower2, 
-  ChevronDown, 
-  BookOpen, 
-  Map, 
-  Sparkles, 
-  Leaf, 
-  HelpCircle, 
-  Award, 
-  Palette, 
-  CheckCircle2, 
-  Newspaper, 
-  Mail, 
-  Menu, 
+import {
+  ChevronDown,
+  Sparkles,
+  Leaf,
+  CheckCircle2,
+  Menu,
   X,
-  Book,
   Compass,
   ShoppingBag,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Trophy
 } from 'lucide-react';
+import { useExplorer } from '../leaderboard/useExplorer';
 
 const menuItems = [
   {
@@ -57,7 +50,8 @@ const menuItems = [
       { label: '3. Crucigrama', path: '/diviertete-aprendiendo/crucigrama', imgSrc: '/assets/submenus/icon-crucigrama.webp', desc: 'Reto de conocimientos ecológicos' },
       { label: '4. Colorear', path: '/diviertete-aprendiendo/colorear', imgSrc: '/assets/submenus/icon-colorear.webp', desc: 'Pinta la biodiversidad de Colombia' },
       { label: '5. Asociar', path: '/diviertete-aprendiendo/asociar', imgSrc: '/assets/submenus/icon-asociar.webp', desc: 'Relaciona especies y conceptos' },
-      { label: '6. Memoria', path: '/diviertete-aprendiendo/memoria', icon: Sparkles, desc: 'Encuentra las parejas de fauna' }
+      { label: '6. Memoria', path: '/diviertete-aprendiendo/memoria', icon: Sparkles, desc: 'Encuentra las parejas de fauna' },
+      { label: '7. Clasificación', path: '/clasificacion', icon: Trophy, desc: 'Puntos y posiciones públicas' }
     ]
   },
   {
@@ -74,6 +68,7 @@ const menuItems = [
 
 const Navigation = () => {
   const location = useLocation();
+  const { player, openProfile } = useExplorer();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [expandedMobileCategory, setExpandedMobileCategory] = useState(null);
@@ -100,7 +95,8 @@ const Navigation = () => {
         {/* Desktop Menu */}
         <div className="hidden lg:flex gap-1 xl:gap-2 items-center">
           {menuItems.map((item, idx) => {
-            const active = isActive(item.path);
+            const active = isActive(item.path)
+              || (item.path === '/diviertete-aprendiendo' && location.pathname === '/clasificacion');
             const hasSubpages = item.subpages && item.subpages.length > 0;
             const isHovered = activeDropdown === idx && hasSubpages;
 
@@ -179,6 +175,15 @@ const Navigation = () => {
 
         {/* Right CTA */}
         <div className="hidden md:flex items-center gap-3">
+          <button
+            type="button"
+            onClick={openProfile}
+            className="grid h-10 w-10 place-items-center rounded-md border border-[#9db585] text-[#1A311C] hover:bg-white/60"
+            aria-label={player ? `Pasaporte de ${player.displayName}` : 'Crear pasaporte del explorador'}
+            title={player ? `${player.displayName}: ${player.points || 0} puntos` : 'Crear pasaporte'}
+          >
+            <Trophy size={18} />
+          </button>
           <Link
             to="/libro"
             className="bg-[#1A311C] text-white px-4 py-2.5 rounded-xl text-[11px] font-bold tracking-wider uppercase hover:bg-[#78a130] transition-all duration-300 flex items-center gap-2 shadow-md hover:shadow-lg hover:-translate-y-0.5"
@@ -260,6 +265,14 @@ const Navigation = () => {
           })}
           
           <div className="pt-2">
+            <button
+              type="button"
+              onClick={() => { setMobileMenuOpen(false); openProfile(); }}
+              className="mb-2 flex w-full items-center justify-center gap-2 rounded-md border border-[#8daa75] bg-white/70 py-3 text-xs font-bold uppercase tracking-wider text-[#1A311C]"
+            >
+              <Trophy size={16} />
+              <span>{player ? `${player.displayName}: ${player.points || 0} puntos` : 'Crear pasaporte'}</span>
+            </button>
             <Link
               to="/libro"
               onClick={() => setMobileMenuOpen(false)}

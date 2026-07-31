@@ -149,6 +149,7 @@ function finishGame() {
   if (result) {
     result.textContent = `Completaste ${config.pairs} parejas en ${moves} intentos y ${formatTime(seconds)}.`;
   }
+  window.SofiaLeaderboardBridge?.complete({ pairs: config.pairs, moves, seconds });
   if (completion) window.setTimeout(() => { completion.hidden = false; }, 300);
 }
 

@@ -260,6 +260,7 @@ function finishMaze() {
   result.textContent = `Llegaste en ${steps} pasos y ${formatTime(seconds)}.`;
   setFeedback(`¡Llegaste a ${session.chapter.goal}!`);
   updateProgress();
+  window.SofiaLeaderboardBridge?.complete({ steps, seconds });
   window.setTimeout(() => { completion.hidden = false; }, 250);
 }
 
