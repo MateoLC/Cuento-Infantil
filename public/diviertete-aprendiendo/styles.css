@@ -44,70 +44,70 @@ button { cursor: pointer; }
 .activity-switcher span { color: var(--orchid); font-size: 9px; }
 .activity-switcher a.is-active span { color: #f0b6c9; }
 
-main { min-height: calc(100vh - 72px); padding: 16px clamp(14px, 5vw, 72px) 40px; }
+main { min-height: calc(100vh - 72px); padding: 12px clamp(14px, 4vw, 48px) 24px; }
 .game-intro {
   width: min(1120px, 100%);
-  min-height: 120px;
+  min-height: auto;
   display: grid;
-  grid-template-columns: minmax(300px, 1fr) minmax(220px, .35fr);
-  gap: 32px;
+  grid-template-columns: minmax(280px, 1fr) minmax(180px, .35fr);
+  gap: 24px;
   align-items: end;
-  margin: 0 auto 16px;
+  margin: 0 auto 12px;
   color: #173b24;
 }
-.game-intro p { margin: 0 0 9px; color: #d9e9ad; font-size: 11px; font-weight: 850; letter-spacing: 1.1px; text-transform: uppercase; }
-.game-intro h1 { max-width: 740px; margin: 0; font-family: "Avenir Next Rounded", "Avenir Next", "Arial Rounded MT Bold", sans-serif; font-size: clamp(39px, 5vw, 66px); font-weight: 800; line-height: 1; letter-spacing: 0; }
+.game-intro p { margin: 0 0 4px; color: #d9e9ad; font-size: 10px; font-weight: 850; letter-spacing: 1.1px; text-transform: uppercase; }
+.game-intro h1 { max-width: 740px; margin: 0; font-family: "Avenir Next Rounded", "Avenir Next", "Arial Rounded MT Bold", sans-serif; font-size: clamp(24px, 3.5vw, 44px); font-weight: 800; line-height: 1; letter-spacing: 0; }
 .global-progress { display: grid; gap: 8px; padding-bottom: 5px; }
 .global-progress > span { color: #e3ecd8; font-size: 11px; font-weight: 800; text-align: right; text-transform: uppercase; }
 .global-progress > div { height: 7px; overflow: hidden; border: 1px solid rgba(255,255,255,.42); border-radius: 99px; }
 .global-progress i { display: block; width: 0; height: 100%; background: var(--gold); transition: width .3s ease; }
 
-.game-intro.has-session-controls { min-height: 216px; }
+.game-intro.has-session-controls { min-height: auto; }
 .session-controls {
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: auto minmax(260px, 1fr) auto;
   align-items: center;
   gap: 18px;
-  border-top: 1px solid rgba(255,255,255,.22);
-  padding-top: 15px;
+  border-top: 1px solid rgba(23,59,36,.2);
+  padding-top: 10px;
 }
 .difficulty-control {
   display: inline-grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,.48);
+  border: 1px solid rgba(23,59,36,.3);
   border-radius: 5px;
 }
 .difficulty-control a {
   min-width: 112px;
   display: grid;
   gap: 1px;
-  padding: 8px 12px;
-  color: #e9f0e4;
+  padding: 6px 10px;
+  color: #173b24;
   text-decoration: none;
   text-align: left;
 }
-.difficulty-control a + a { border-left: 1px solid rgba(255,255,255,.35); }
-.difficulty-control a.is-active { background: #fffaf0; color: var(--forest); }
+.difficulty-control a + a { border-left: 1px solid rgba(23,59,36,.25); }
+.difficulty-control a.is-active { background: #173b24; color: #fffaf0; }
 .difficulty-control strong { font-size: 10px; text-transform: uppercase; }
-.difficulty-control small { font-size: 8px; opacity: .76; }
-.chapter-reference { display: grid; gap: 1px; color: #fff; }
-.chapter-reference span { color: #d9e9ad; font-size: 8px; font-weight: 800; text-transform: uppercase; }
-.chapter-reference strong { font-size: 12px; line-height: 1.25; }
-.chapter-reference small { color: #dbe6d7; font-size: 9px; }
+.difficulty-control small { font-size: 8px; opacity: .85; }
+.chapter-reference { display: grid; gap: 1px; color: #173b24; }
+.chapter-reference span { color: #2d5427; font-size: 8px; font-weight: 800; text-transform: uppercase; }
+.chapter-reference strong { font-size: 12px; line-height: 1.25; color: #173b24; }
+.chapter-reference small { color: #3b5a36; font-size: 9px; }
 .new-map-button {
-  min-height: 40px;
-  border: 1px solid rgba(255,255,255,.52);
+  min-height: 36px;
+  border: 1px solid #173b24;
   border-radius: 4px;
-  padding: 8px 13px;
-  background: transparent;
+  padding: 6px 11px;
+  background: #173b24;
   color: white;
   font-size: 9px;
   font-weight: 850;
   text-transform: uppercase;
 }
-.new-map-button:hover { background: #fffaf0; color: var(--forest); }
+.new-map-button:hover { background: #315a36; color: white; }
 button:disabled { cursor: not-allowed; opacity: .54; }
 
 .word-search-scene,
@@ -117,9 +117,10 @@ button:disabled { cursor: not-allowed; opacity: .54; }
 .matching-scene,
 .memory-scene {
   position: relative;
-  width: min(1050px, 100%);
+  width: min(780px, 95vw);
+  max-height: calc(100vh - 140px);
   aspect-ratio: 1744 / 2336;
-  margin: auto;
+  margin: 0 auto;
   flex: 0 0 auto;
 }
 .word-search-scene {
