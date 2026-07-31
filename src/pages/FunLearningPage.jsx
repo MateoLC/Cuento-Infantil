@@ -16,12 +16,12 @@ const FunLearningPage = () => {
   const gamePath = getGamePath();
 
   return (
-    <div className="w-full min-h-[calc(100vh-5rem)] h-[calc(100vh-5rem)] bg-[#153820] flex flex-col overflow-hidden">
+    <div className="w-full min-h-[calc(100vh-5rem)] bg-[#153820] flex flex-col">
       <iframe
         key={gamePath}
         src={gamePath}
         title="Diviértete Aprendiendo - Juegos Ecológicos"
-        className="w-full h-full border-0 block flex-1"
+        className="w-full min-h-[calc(100vh-5rem)] border-0 block flex-1"
       />
     </div>
   );
