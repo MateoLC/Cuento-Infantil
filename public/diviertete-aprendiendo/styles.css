@@ -37,8 +37,9 @@ button { cursor: pointer; }
 .brand strong, .brand small { display: block; letter-spacing: 0; }
 .brand strong { font-family: "Avenir Next Rounded", "Avenir Next", "Arial Rounded MT Bold", sans-serif; font-size: 19px; line-height: 1; font-weight: 800; }
 .brand small { margin-top: 2px; color: var(--moss); font-size: 10px; font-weight: 800; text-transform: uppercase; }
-.activity-switcher { min-width: 0; display: flex; align-items: center; gap: 4px; }
-.activity-switcher a { min-height: 38px; flex: 0 0 auto; display: inline-flex; align-items: center; gap: 7px; border: 1px solid transparent; border-radius: 5px; padding: 8px 11px; color: #576a55; text-decoration: none; font-size: 10px; font-weight: 800; white-space: nowrap; text-transform: uppercase; }
+.activity-switcher { min-width: 0; max-width: 100%; display: flex; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+.activity-switcher::-webkit-scrollbar { display: none; }
+.activity-switcher a { min-height: 38px; flex: 0 0 auto; display: inline-flex; align-items: center; gap: 7px; border: 1px solid transparent; border-radius: 5px; padding: 8px 10px; color: #576a55; text-decoration: none; font-size: 10px; font-weight: 800; white-space: nowrap; text-transform: uppercase; }
 .activity-switcher a:hover { border-color: #b7b9a9; color: var(--forest); }
 .activity-switcher a.is-active { border-color: var(--forest); background: var(--forest); color: white; }
 .activity-switcher span { color: var(--orchid); font-size: 9px; }
