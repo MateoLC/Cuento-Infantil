@@ -362,7 +362,15 @@ button:disabled { cursor: not-allowed; opacity: .54; }
   padding: clamp(11px, 1.7vw, 23px) clamp(9px, 1.25vw, 17px);
   color: #355235;
 }
-.coloring-tools-panel h2 { margin: 4px 0 14px; font-family: "Avenir Next Rounded", "Avenir Next", "Arial Rounded MT Bold", sans-serif; font-size: clamp(17px, 2vw, 25px); font-weight: 800; line-height: 1; }
+.coloring-tools-panel h2 { margin: 4px 0 10px; font-family: "Avenir Next Rounded", "Avenir Next", "Arial Rounded MT Bold", sans-serif; font-size: clamp(15px, 1.7vw, 22px); font-weight: 800; line-height: 1.05; }
+.coloring-sheet-section { margin-bottom: clamp(10px, 1.2vw, 14px); }
+.coloring-sheet-section > span { display: block; margin-bottom: 5px; color: #73805f; font-size: clamp(6px, .7vw, 9px); font-weight: 850; text-transform: uppercase; }
+.coloring-sheet-picker { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
+.coloring-sheet-picker button { min-width: 0; min-height: 43px; display: grid; grid-template-columns: 28px minmax(0, 1fr); align-items: center; gap: 5px; border: 1px solid rgba(70,96,61,.32); border-radius: 4px; padding: 3px; background: rgba(255,252,241,.68); color: #476045; text-align: left; }
+.coloring-sheet-picker button:hover { border-color: #608444; background: rgba(235,241,213,.9); }
+.coloring-sheet-picker button.is-active { border-color: #4f793b; background: #e1ecc6; box-shadow: inset 0 0 0 1px rgba(79,121,59,.2); }
+.coloring-sheet-picker img { width: 28px; height: 35px; border-radius: 2px; object-fit: cover; background: #fffaf0; }
+.coloring-sheet-picker span { min-width: 0; font-size: 6px; font-weight: 800; line-height: 1.05; overflow-wrap: normal; }
 .color-palette { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(5px, .75vw, 9px); }
 .color-swatch { aspect-ratio: 1; border: 2px solid rgba(255,255,255,.9); border-radius: 50%; padding: 0; background: var(--swatch); box-shadow: 0 0 0 1px rgba(48,73,46,.3); }
 .color-swatch:hover { transform: scale(1.08); }
@@ -761,6 +769,11 @@ html[data-difficulty="guardian"] .word-list button { font-size: clamp(6px, .76vw
   .coloring-canvas-wrap { aspect-ratio: 1060 / 1602; border: 1px solid rgba(74,91,52,.42); border-radius: 6px; box-shadow: 0 14px 35px rgba(41,54,25,.2); }
   .coloring-tools-panel { display: block; padding: 18px 16px; border: 1px solid rgba(74,91,52,.42); border-radius: 6px; background: rgba(255,251,238,.97); }
   .coloring-tools-panel h2 { font-size: 20px; }
+  .coloring-sheet-section > span { font-size: 9px; }
+  .coloring-sheet-picker { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .coloring-sheet-picker button { grid-template-columns: 34px minmax(0, 1fr); min-height: 48px; padding: 4px; }
+  .coloring-sheet-picker img { width: 34px; height: 40px; }
+  .coloring-sheet-picker span { font-size: 9px; }
   .color-palette { grid-template-columns: repeat(8, minmax(0, 1fr)); }
   .tool-modes button { min-height: 36px; font-size: 9px; }
   .brush-control { font-size: 9px; }

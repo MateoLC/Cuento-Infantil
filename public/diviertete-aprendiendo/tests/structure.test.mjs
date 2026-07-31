@@ -40,6 +40,10 @@ for (const asset of [
   "laberinto-frame.webp",
   "crucigrama-frame.webp",
   "colorear-frame.webp",
+  "colorear-biodiversidad.webp",
+  "colorear-mamifero.webp",
+  "colorear-reptil.webp",
+  "colorear-humano.webp",
   "asociar-frame.webp",
 ]) {
   assert.ok(fs.existsSync(path.join(root, "assets", asset)), `Falta assets/${asset}`);

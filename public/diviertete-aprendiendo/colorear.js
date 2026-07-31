@@ -1,7 +1,37 @@
 const session = window.SofiaGames.init("coloring");
-const COLORING_STORAGE_KEY = session.storageKey;
-const SOURCE_CROP = { x: 0.08, y: 0.191, width: 0.608, height: 0.686 };
+const ACTIVE_SHEET_STORAGE_KEY = `${session.storageKey}:active-sheet`;
 const MAX_ACTIONS = session.difficulty.id === "guardian" ? 200 : 120;
+
+const COLORING_SHEETS = [
+  {
+    id: "biodiversidad",
+    name: "Bosque",
+    heading: "Paleta del bosque",
+    description: "la fauna y flora del bosque",
+    src: "assets/colorear-biodiversidad.webp",
+  },
+  {
+    id: "mamifero",
+    name: "Oso",
+    heading: "Paleta del oso andino",
+    description: "un oso de anteojos en el bosque andino",
+    src: "assets/colorear-mamifero.webp",
+  },
+  {
+    id: "reptil",
+    name: "Reptil",
+    heading: "Paleta de la iguana",
+    description: "una iguana en su hábitat tropical",
+    src: "assets/colorear-reptil.webp",
+  },
+  {
+    id: "humano",
+    name: "Humano",
+    heading: "Paleta de una nueva vida",
+    description: "a un pequeño guardián sembrando un árbol",
+    src: "assets/colorear-humano.webp",
+  },
+];
 
 const COLORS = [
   { name: "Verde hoja", value: "#5f8d3e" },
@@ -22,6 +52,7 @@ const canvas = document.querySelector("#coloring-canvas");
 const context = canvas.getContext("2d", { willReadFrequently: true });
 const loading = document.querySelector("#canvas-loading");
 const palette = document.querySelector("#color-palette");
+const sheetPicker = document.querySelector("#coloring-sheet-picker");
 const feedback = document.querySelector("#color-feedback");
 const progressLabel = document.querySelector("#color-progress-label");
 const progressBar = document.querySelector("#color-progress-bar");
@@ -29,11 +60,6 @@ const brushSize = document.querySelector("#brush-size");
 const completeButton = document.querySelector("#color-complete");
 const completion = document.querySelector("#color-completion");
 
-document.querySelector("#coloring-title").textContent = `Paleta de ${session.chapter.title}`;
-document.querySelector(".coloring-tools-panel > p").textContent =
-  session.difficulty.id === "guardian"
-    ? `Capítulo ${session.chapter.number}: colorea a mano, sin relleno automático.`
-    : `Capítulo ${session.chapter.number}: puedes usar relleno automático o pincel.`;
 brushSize.min = String(session.difficulty.coloring.brushMin);
 brushSize.max = String(session.difficulty.coloring.brushMax);
 brushSize.value = String(session.difficulty.coloring.brushDefault);
@@ -44,6 +70,21 @@ let selectedColor = COLORS[0].value;
 let activeTool = session.difficulty.coloring.fill ? "fill" : "brush";
 let activeStroke = null;
 let ready = false;
+let loadToken = 0;
+let activeSheet = COLORING_SHEETS.find((sheet) => sheet.id === localStorage.getItem(ACTIVE_SHEET_STORAGE_KEY))
+  || COLORING_SHEETS[0];
+
+function getColoringStorageKey() {
+  return `${session.storageKey}:${activeSheet.id}`;
+}
+
+function updateSheetCopy() {
+  document.querySelector("#coloring-title").textContent = activeSheet.heading;
+  document.querySelector(".coloring-tools-panel > p").textContent =
+    session.difficulty.id === "guardian"
+      ? `Colorea ${activeSheet.description} a mano, sin relleno automático.`
+      : `Colorea ${activeSheet.description} con relleno automático o pincel.`;
+}
 
 function hexToRgb(hex) {
   return {
@@ -59,7 +100,7 @@ function luminance(data, index) {
 
 function loadActions() {
   try {
-    const stored = JSON.parse(localStorage.getItem(COLORING_STORAGE_KEY));
+    const stored = JSON.parse(localStorage.getItem(getColoringStorageKey()));
     return Array.isArray(stored) ? stored.slice(-MAX_ACTIONS) : [];
   } catch {
     return [];
@@ -67,7 +108,7 @@ function loadActions() {
 }
 
 function saveActions() {
-  localStorage.setItem(COLORING_STORAGE_KEY, JSON.stringify(actions.slice(-MAX_ACTIONS)));
+  localStorage.setItem(getColoringStorageKey(), JSON.stringify(actions.slice(-MAX_ACTIONS)));
 }
 
 function updateProgress() {
@@ -115,6 +156,27 @@ function renderPalette() {
     });
     palette.append(button);
   });
+}
+
+function updateSheetPicker() {
+  sheetPicker.querySelectorAll("button").forEach((button) => {
+    const active = button.dataset.sheet === activeSheet.id;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+}
+
+function renderSheetPicker() {
+  COLORING_SHEETS.forEach((sheet) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.dataset.sheet = sheet.id;
+    button.setAttribute("aria-label", `Colorear ${sheet.description}`);
+    button.innerHTML = `<img src="${sheet.src}" alt="" /><span>${sheet.name}</span>`;
+    button.addEventListener("click", () => selectSheet(sheet.id));
+    sheetPicker.append(button);
+  });
+  updateSheetPicker();
 }
 
 function getCanvasPoint(event) {
@@ -306,7 +368,7 @@ function undo() {
 function resetDrawing() {
   if (!ready) return;
   actions = [];
-  localStorage.removeItem(COLORING_STORAGE_KEY);
+  localStorage.removeItem(getColoringStorageKey());
   renderActions();
   feedback.textContent = "El papel está listo para una nueva combinación de colores.";
 }
@@ -314,7 +376,7 @@ function resetDrawing() {
 function saveDrawing() {
   if (!ready) return;
   const link = document.createElement("a");
-  link.download = "mi-biodiversidad-coloreada.png";
+  link.download = `mi-${activeSheet.id}-coloreado.png`;
   link.href = canvas.toDataURL("image/png");
   link.click();
   feedback.textContent = "Tu ilustración está lista para guardar.";
@@ -328,29 +390,52 @@ function completeDrawing() {
   const paintedActions = actions.filter((action) => action.tool !== "eraser");
   const colors = new Set(paintedActions.map((action) => action.color)).size;
   document.querySelector("#color-result").textContent =
-    `Completaste tu ilustración con ${colors} colores y ${paintedActions.length} acciones.`;
+    `Completaste ${activeSheet.description} con ${colors} colores y ${paintedActions.length} acciones.`;
   completion.hidden = false;
   window.SofiaLeaderboardBridge?.complete({ actions: paintedActions.length, colors });
 }
 
-function initializeCanvas() {
+function loadSheet(sheet, announce = false) {
+  const token = ++loadToken;
+  ready = false;
+  activeStroke = null;
+  loading.hidden = false;
+  loading.textContent = "Preparando el dibujo...";
+  context.clearRect(0, 0, canvas.width, canvas.height);
   const image = new Image();
   image.addEventListener("load", () => {
-    const sourceX = Math.round(image.naturalWidth * SOURCE_CROP.x);
-    const sourceY = Math.round(image.naturalHeight * SOURCE_CROP.y);
-    const sourceWidth = Math.round(image.naturalWidth * SOURCE_CROP.width);
-    const sourceHeight = Math.round(image.naturalHeight * SOURCE_CROP.height);
-    context.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, canvas.width, canvas.height);
+    if (token !== loadToken) return;
+    context.fillStyle = "#fffaf0";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
     originalImageData = context.getImageData(0, 0, canvas.width, canvas.height);
     actions = loadActions();
     renderActions();
     ready = true;
     loading.hidden = true;
+    if (announce) feedback.textContent = `${sheet.name} está lista para colorear.`;
   });
   image.addEventListener("error", () => {
+    if (token !== loadToken) return;
     loading.textContent = "No fue posible preparar el dibujo.";
   });
-  image.src = "assets/colorear-frame.webp";
+  image.src = sheet.src;
+}
+
+function selectSheet(sheetId) {
+  const sheet = COLORING_SHEETS.find((candidate) => candidate.id === sheetId);
+  if (!sheet || sheet.id === activeSheet.id) return;
+  activeSheet = sheet;
+  localStorage.setItem(ACTIVE_SHEET_STORAGE_KEY, sheet.id);
+  updateSheetPicker();
+  updateSheetCopy();
+  loadSheet(sheet, true);
+}
+
+function initializeCanvas() {
+  renderSheetPicker();
+  updateSheetCopy();
+  loadSheet(activeSheet);
 }
 
 renderPalette();
