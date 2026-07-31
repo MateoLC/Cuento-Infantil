@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   ChevronDown,
-  Sparkles,
   Leaf,
   CheckCircle2,
   Menu,
@@ -50,8 +49,8 @@ const menuItems = [
       { label: '3. Crucigrama', path: '/diviertete-aprendiendo/crucigrama', imgSrc: '/assets/submenus/icon-crucigrama.webp', desc: 'Reto de conocimientos ecológicos' },
       { label: '4. Colorear', path: '/diviertete-aprendiendo/colorear', imgSrc: '/assets/submenus/icon-colorear.webp', desc: 'Pinta la biodiversidad de Colombia' },
       { label: '5. Asociar', path: '/diviertete-aprendiendo/asociar', imgSrc: '/assets/submenus/icon-asociar.webp', desc: 'Relaciona especies y conceptos' },
-      { label: '6. Memoria', path: '/diviertete-aprendiendo/memoria', icon: Sparkles, desc: 'Encuentra las parejas de fauna' },
-      { label: '7. Clasificación', path: '/clasificacion', icon: Trophy, desc: 'Puntos y posiciones públicas' }
+      { label: '6. Memoria', path: '/diviertete-aprendiendo/memoria', imgSrc: '/assets/submenus/icon-memoria.webp', desc: 'Encuentra las parejas de fauna' },
+      { label: '7. Clasificación', path: '/clasificacion', imgSrc: '/assets/submenus/icon-clasificacion.webp', desc: 'Puntos y posiciones públicas' }
     ]
   },
   {
