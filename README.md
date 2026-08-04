@@ -15,6 +15,12 @@ La web funciona sin el servicio de clasificacion. Para guardar nombres y puntaje
 
 El navegador conserva un pasaporte anonimo. Solo el alias elegido aparece publicamente; no se solicitan correo, contrasena ni nombre real. El servidor firma cada reto, valida tiempos plausibles y calcula los puntos sin confiar en el puntaje enviado por el cliente.
 
+## Contador y privacidad
+
+El contador publico se activa con una autorizacion separada. Cada navegador recibe un identificador aleatorio y cada sesion dura 30 minutos. El servidor conserva un hash irreversible, deduplica recargas y elimina identificadores despues de 12 meses de inactividad. No se usa fingerprinting ni la direccion IP como identidad del explorador.
+
+La web sigue funcionando si se elige `Solo necesarias`. Las preferencias pueden modificarse desde el pie de pagina y las rutas `/privacidad` y `/terminos` explican el tratamiento aplicado.
+
 ```bash
 cd leaderboard-api
 cp .env.example .env

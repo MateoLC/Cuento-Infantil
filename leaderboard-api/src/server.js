@@ -6,7 +6,10 @@ import {
   calculatePoints,
   createChallenge,
   createPlayerToken,
+  hashAnalyticsId,
   hashToken,
+  normalizeAnalyticsId,
+  normalizeAnalyticsVisit,
   normalizeName,
   validateCompletion,
   verifyChallenge,
@@ -167,6 +170,91 @@ async function renamePlayer(request, response) {
   }
 }
 
+async function analyticsSummary(response) {
+  const result = await pool.query(
+    `SELECT counter_value AS explorers
+       FROM analytics_counters
+      WHERE counter_key = 'total_explorers'`,
+  );
+  json(response, 200, { explorers: Number(result.rows[0]?.explorers || 0) });
+}
+
+async function recordAnalyticsVisit(request, response) {
+  rateLimit(request, "analytics-visit", 300, 60 * 60 * 1000);
+  const body = await readBody(request);
+  const { visitorId, sessionId, path } = normalizeAnalyticsVisit(body);
+  const visitorHash = hashAnalyticsId(visitorId, "visitor", TOKEN_SECRET);
+  const sessionHash = hashAnalyticsId(sessionId, "session", TOKEN_SECRET);
+  const viewBucket = Math.floor(Date.now() / 60_000);
+  const client = await pool.connect();
+
+  try {
+    await client.query("BEGIN");
+    const insertedVisitor = await client.query(
+      `INSERT INTO analytics_visitors (visitor_hash)
+       VALUES ($1)
+       ON CONFLICT (visitor_hash) DO NOTHING
+       RETURNING visitor_hash`,
+      [visitorHash],
+    );
+    if (insertedVisitor.rowCount) {
+      await client.query(
+        `UPDATE analytics_counters
+            SET counter_value = counter_value + 1, updated_at = NOW()
+          WHERE counter_key = 'total_explorers'`,
+      );
+    } else {
+      await client.query(
+        "UPDATE analytics_visitors SET last_seen_at = NOW() WHERE visitor_hash = $1",
+        [visitorHash],
+      );
+    }
+
+    const sessionResult = await client.query(
+      `INSERT INTO analytics_sessions (session_hash, visitor_hash)
+       VALUES ($1, $2)
+       ON CONFLICT (session_hash) DO UPDATE
+         SET last_seen_at = NOW()
+       WHERE analytics_sessions.visitor_hash = EXCLUDED.visitor_hash
+       RETURNING session_hash`,
+      [sessionHash, visitorHash],
+    );
+    if (!sessionResult.rowCount) {
+      throw new PublicError(400, "invalid_analytics", "La sesión de medición no es válida.");
+    }
+
+    await client.query(
+      `INSERT INTO analytics_pageviews (session_hash, page_path, view_bucket)
+       VALUES ($1, $2, $3)
+       ON CONFLICT (session_hash, page_path, view_bucket) DO NOTHING`,
+      [sessionHash, path, viewBucket],
+    );
+    const summaryResult = await client.query(
+      `SELECT counter_value AS explorers
+         FROM analytics_counters
+        WHERE counter_key = 'total_explorers'`,
+    );
+    await client.query("COMMIT");
+    json(response, 200, { explorers: Number(summaryResult.rows[0]?.explorers || 0) });
+  } catch (error) {
+    await client.query("ROLLBACK");
+    throw error;
+  } finally {
+    client.release();
+  }
+}
+
+async function forgetAnalyticsVisitor(request, response) {
+  rateLimit(request, "analytics-forget", 30, 60 * 60 * 1000);
+  const body = await readBody(request);
+  const visitorId = normalizeAnalyticsId(body.visitorId);
+  await pool.query(
+    "DELETE FROM analytics_visitors WHERE visitor_hash = $1",
+    [hashAnalyticsId(visitorId, "visitor", TOKEN_SECRET)],
+  );
+  json(response, 200, { forgotten: true });
+}
+
 async function issueChallenge(request, response) {
   rateLimit(request, "challenge", 120, 60 * 60 * 1000);
   const body = await readBody(request);
@@ -279,10 +367,20 @@ async function handle(request, response) {
   if (request.method === "POST" && url.pathname === "/api/challenges") return issueChallenge(request, response);
   if (request.method === "POST" && url.pathname === "/api/scores") return submitScore(request, response);
   if (request.method === "GET" && url.pathname === "/api/leaderboard") return listLeaderboard(url, response);
+  if (request.method === "GET" && url.pathname === "/api/analytics/summary") return analyticsSummary(response);
+  if (request.method === "POST" && url.pathname === "/api/analytics/visit") return recordAnalyticsVisit(request, response);
+  if (request.method === "POST" && url.pathname === "/api/analytics/forget") return forgetAnalyticsVisitor(request, response);
   throw new PublicError(404, "not_found", "Ruta no encontrada.");
 }
 
+async function cleanupAnalytics() {
+  await pool.query("DELETE FROM analytics_sessions WHERE last_seen_at < NOW() - INTERVAL '12 months'");
+  await pool.query("DELETE FROM analytics_visitors WHERE last_seen_at < NOW() - INTERVAL '12 months'");
+}
+
 await pool.query(SCHEMA_SQL);
+await cleanupAnalytics();
+setInterval(() => cleanupAnalytics().catch((error) => console.error("Analytics cleanup failed", error)), 24 * 60 * 60 * 1000).unref();
 
 const server = http.createServer((request, response) => {
   handle(request, response).catch((error) => {

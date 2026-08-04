@@ -78,6 +78,36 @@ export function normalizeName(value) {
   return { displayName, normalizedName };
 }
 
+const ANALYTICS_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+export function normalizeAnalyticsId(value) {
+  if (typeof value !== "string" || !ANALYTICS_ID_PATTERN.test(value)) {
+    throw new PublicError(400, "invalid_analytics", "El identificador de medición no es válido.");
+  }
+  return value.toLowerCase();
+}
+
+export function normalizeAnalyticsVisit(input) {
+  if (!input || typeof input !== "object" || Array.isArray(input)) {
+    throw new PublicError(400, "invalid_analytics", "Los datos de medición no son válidos.");
+  }
+  const visitorId = normalizeAnalyticsId(input.visitorId);
+  const sessionId = normalizeAnalyticsId(input.sessionId);
+  const path = typeof input.path === "string" ? input.path.trim().split(/[?#]/, 1)[0] : "";
+  if (!path || path.length > 160 || !/^\/[A-Za-z0-9/_-]*$/.test(path)) {
+    throw new PublicError(400, "invalid_analytics", "La ruta de medición no es válida.");
+  }
+  return { visitorId, sessionId, path };
+}
+
+export function hashAnalyticsId(value, kind, secret) {
+  const id = normalizeAnalyticsId(value);
+  if (!new Set(["visitor", "session"]).has(kind) || typeof secret !== "string" || secret.length < 32) {
+    throw new Error("Analytics hashing configuration is invalid");
+  }
+  return createHmac("sha256", secret).update(`${kind}:${id}`).digest("hex");
+}
+
 export function createPlayerToken() {
   return randomBytes(32).toString("base64url");
 }

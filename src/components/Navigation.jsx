@@ -9,9 +9,11 @@ import {
   Compass,
   ShoppingBag,
   Image as ImageIcon,
-  Trophy
+  Trophy,
+  UsersRound
 } from 'lucide-react';
 import { useExplorer } from '../leaderboard/useExplorer';
+import { usePrivacy } from '../privacy/usePrivacy';
 
 const menuItems = [
   {
@@ -68,6 +70,7 @@ const menuItems = [
 const Navigation = () => {
   const location = useLocation();
   const { player, openProfile } = useExplorer();
+  const { explorerCount } = usePrivacy();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [expandedMobileCategory, setExpandedMobileCategory] = useState(null);
@@ -76,6 +79,10 @@ const Navigation = () => {
     if (itemPath === '/') return location.pathname === '/';
     return location.pathname.startsWith(itemPath);
   };
+
+  const formattedExplorerCount = explorerCount === null
+    ? '—'
+    : new Intl.NumberFormat('es-CO', { notation: 'compact', maximumFractionDigits: 1 }).format(explorerCount);
 
   return (
     <nav className="w-full bg-[#e6f2d6] sticky top-0 z-50 border-b border-[#c8e0a8] shadow-sm">
@@ -174,6 +181,14 @@ const Navigation = () => {
 
         {/* Right CTA */}
         <div className="hidden md:flex items-center gap-3">
+          <div
+            className="hidden h-10 min-w-[68px] items-center justify-center gap-2 rounded-md border border-[#9db585] bg-white/35 px-2.5 text-[#1A311C] min-[1180px]:flex"
+            aria-label={`${explorerCount ?? 0} exploradores han visitado el sitio`}
+            title={`${explorerCount ?? 0} exploradores`}
+          >
+            <UsersRound size={18} aria-hidden="true" />
+            <strong className="text-xs tabular-nums">{formattedExplorerCount}</strong>
+          </div>
           <button
             type="button"
             onClick={openProfile}
@@ -264,6 +279,10 @@ const Navigation = () => {
           })}
           
           <div className="pt-2">
+            <div className="mb-2 flex w-full items-center justify-center gap-2 rounded-md border border-[#8daa75] bg-white/45 py-3 text-xs font-bold text-[#1A311C]">
+              <UsersRound size={17} aria-hidden="true" />
+              <span>{formattedExplorerCount} exploradores</span>
+            </div>
             <button
               type="button"
               onClick={() => { setMobileMenuOpen(false); openProfile(); }}

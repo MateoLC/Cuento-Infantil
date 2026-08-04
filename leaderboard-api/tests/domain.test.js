@@ -4,6 +4,8 @@ import {
   PublicError,
   calculatePoints,
   createChallenge,
+  hashAnalyticsId,
+  normalizeAnalyticsVisit,
   normalizeName,
   validateCompletion,
   verifyChallenge,
@@ -24,6 +26,23 @@ test("normaliza nombres públicos", () => {
   });
   assert.throws(() => normalizeName("ad"), PublicError);
   assert.throws(() => normalizeName("Administrador"), PublicError);
+});
+
+test("valida identificadores anónimos y rutas de medición", () => {
+  const visit = normalizeAnalyticsVisit({
+    visitorId: "2ed4fba1-e9cb-4efd-8197-753b15e68be5",
+    sessionId: "26632a6c-b671-48c5-8196-cae83d2874f5",
+    path: "/diviertete-aprendiendo?origen=inicio",
+  });
+  assert.equal(visit.path, "/diviertete-aprendiendo");
+  assert.throws(() => normalizeAnalyticsVisit({ ...visit, visitorId: "visitor-1" }), PublicError);
+  assert.throws(() => normalizeAnalyticsVisit({ ...visit, path: "https://otro-sitio.example" }), PublicError);
+});
+
+test("separa los hashes de visitantes y sesiones", () => {
+  const id = "2ed4fba1-e9cb-4efd-8197-753b15e68be5";
+  const secret = "0123456789abcdef0123456789abcdef";
+  assert.notEqual(hashAnalyticsId(id, "visitor", secret), hashAnalyticsId(id, "session", secret));
 });
 
 test("firma y verifica un reto", () => {

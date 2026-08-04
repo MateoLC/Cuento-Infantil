@@ -114,7 +114,7 @@ const HomePage = () => {
               </div>
               <h3 className="text-xl font-bold text-[#1A311C] mb-2 font-serif">Diviértete Aprendiendo</h3>
               <p className="text-xs text-gray-600 leading-relaxed font-sans mb-4">
-                Explora las 5 actividades interactivas sobre la biodiversidad de Colombia y colecciona insignias.
+                Explora las 6 actividades interactivas sobre la biodiversidad de Colombia y colecciona insignias.
               </p>
             </div>
             <div className="flex items-center gap-2 text-xs font-bold text-pink-600 group-hover:translate-x-1 transition-transform">
